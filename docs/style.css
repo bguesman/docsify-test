@@ -1,0 +1,25 @@
+div.img-block {
+	text-align: center;
+}
+
+div.img-row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+div.img-col {
+    flex: 1%; /* Basically just make it fit as many images as we need it to. */
+	padding: 0 4px;	
+}
+
+.img-row img {
+	width: 100%;
+    margin-top: 8px;
+    vertical-align: middle;
+}
+
+.img-block p {
+	padding-top:10px;
+	font-size: 0.9em;
+}
