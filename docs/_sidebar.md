@@ -4,6 +4,7 @@
     - [Editor Overview](editor/overview.md)
     - [Sky And Fog Volume](editor/volume.md)
     - [Blocks](editor/blocks/blocks.md)
+        - [Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md)
         - [Celestial Body Block](editor/blocks/celestial_body_block.md)
         - [Planet Block](editor/blocks/planet_block.md)
         - [Quality Settings Block](editor/blocks/quality_settings_block.md)
