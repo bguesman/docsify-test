@@ -33,7 +33,7 @@ These parameters describe the material appearance of the planet.
 The ground albedo, specied as a cubemap. The ground is modeled as a Lambertian (completely diffuse) reflector. If no texture is specified, the color of the ground will just be the ground tint.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/planet/earth_day.png"/></div>
+        <div class="img-col"><img src="../../img/planet/earth_day.jpg"/></div>
     </div>
     <p>An example of a ground albedo texture, in this case, Earth's.</p>
 </div>
@@ -47,7 +47,7 @@ A color tint to the ground texture. Perfect grey, `(127, 127, 127)`, specifies n
 The ground emission as a cubemap texture. Useful for modeling things like city lights. Has no effect on the sky. See \"Light Pollution\" for a way of modeling an emissive ground's effect on the atmosphere.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/planet/earth_night.png"/></div>
+        <div class="img-col"><img src="../../img/planet/earth_night.jpg"/></div>
     </div>
     <p>Using a combination of a ground albedo texture and a ground emission texture can create some pretty cool effects!</p>
 </div>

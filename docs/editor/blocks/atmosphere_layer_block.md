@@ -16,18 +16,18 @@ The density of the participating media. This together with the scattering/extinc
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_0.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_1.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_10.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_0.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_10.jpg"/></div>
     </div>
     <p>Left to right: aerosol densities of 0, 1, and 10. All of these represent plausible Earth atmospheres, since the aerosol density varies greatly across Earth biomes. In the middle of a densely populated city, it can be very high. On a sunny day in a grassland, it might be close to zero.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_0.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_1.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_10.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_0.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_density_10.jpg"/></div>
     </div>
     <p>Left to right: rayleigh densities of 0, 1, and 10. The density of Earth's rayleigh scattering layer is pretty much constant across the planet, so only the middle image represents a plausible Earth environment. With a density of 0, we're pretty much in empty space, so the sky is black! With a density of 10, the absorptive characteristics of the media take over, and the sky appears a reddish orange, like the sunset. It really is a beautiful coincidence that Earth's atmosphere is just dense enough to display a wide range of colors throughout the day/night cycle.</p>
 </div>
@@ -57,8 +57,8 @@ How far out into space the atmosphere layer extends.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/just_rayleigh.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/just_rayleigh.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.jpg"/></div>
     </div>
     <p>Left: one exponential layer, setup to mimic Earth's nitrogen/oxygen/carbon dioxide atmosphere. Right: the same setup as left, but with an additional exponential layer that models aerosols like smoke and smog, creating the characteristic air glow around the sun disc.</p>
 </div>
@@ -80,8 +80,8 @@ How far away from the center height band the layer extends.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_aerosols_and_tent_ozone.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_aerosols_and_tent_ozone.jpg"/></div>
     </div>
     <p>Left: atmosphere with just exponential rayleigh and mie layers. Right: with the ozone added in. Notice how it better approximates the purple twilight we are all familiar with.</p>
 </div>
@@ -105,9 +105,9 @@ The radius around the camera where the density is non-zero. To minimize the data
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_1.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/uniform_rain_fog_density_300.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/uniform_rain_fog_density_3000.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/aerosol_density_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/uniform_rain_fog_density_300.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/uniform_rain_fog_density_3000.jpg"/></div>
     </div>
     <p>Screenspace uniform "rain fog" at varying densities. Left to right: 0, 300, 3000.</p>
 </div>
@@ -129,17 +129,17 @@ How far out into space the atmosphere layer extends.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_0.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_300.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_1500.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_0.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_300.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/height_fog_density_1500.jpg"/></div>
     </div>
     <p>Screenspace height fog at varied densities. Left to right: zero, 300, 1500.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/screenspace_height_fog_aerosols.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh_and_exponential_aerosols.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/screenspace_height_fog_aerosols.jpg"/></div>
     </div>
     <p>Left: atmosphere set up with a regular exponential aerosol layer. Right: atmosphere set up with a screenspace height fog aerosol layer, with the density cranked up to make the volumetric shadowing effect visible.</p>
 </div>
@@ -160,9 +160,9 @@ Volumetric coefficients can be challenging to understand if you are unfamiliar w
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/blue_scattering.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/teal_scattering.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/magenta_scattering.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/blue_scattering.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/teal_scattering.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/magenta_scattering.jpg"/></div>
     </div>
     <p>Different scattering coefficient values. Left to right: earth's familiar blue scattering, a cool teal, and an intense fuschia. Extinction coefficients are blue in all cases.</p>
 </div>
@@ -171,18 +171,18 @@ Volumetric coefficients can be challenging to understand if you are unfamiliar w
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/blue_extinction.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/red_extinction.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/magenta_extinction.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/blue_extinction.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/red_extinction.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/magenta_extinction.jpg"/></div>
     </div>
     <p>Varying the extinction coefficients while keeping the scattering coefficients at a constant blue. Notice how in the right two images, where the scattering and extinction coefficients differ from each other, the result looks pretty funky. Left to right: earth's coefficients (so, blue), red (resulting in a blue sunset), magenta (resulting in a green sunset).</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/blue_extinction.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/yellow_scattering_extinction.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/magenta_scattering_extinction.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/blue_extinction.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/yellow_scattering_extinction.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/magenta_scattering_extinction.jpg"/></div>
     </div>
     <p>Varying the scattering and extinction coefficients in parallel. Notice how the resulting skies, while alien, look more physically plausible, or at the very least more interesting, than the previous examples where the scattering and extinction coefficients differ from each other. Left to right: earth's coefficients, yellow (resulting in a deep indigo sunset), and magenta (resulting in a lime green sunset).</p>
 </div>
@@ -214,8 +214,8 @@ The isotropic phase function scatters light evenly in all directions. This is go
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/without_isotropic_fog.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/with_isotropic_fog.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/without_isotropic_fog.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/with_isotropic_fog.jpg"/></div>
     </div>
     <p>Left: scene without isotropic rain fog. Right: with an isotropic rain fog layer. Really adds a lot of mood!</p>
 </div>
@@ -226,8 +226,8 @@ The Rayleigh phase function models scattering where the participating media part
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/isotropic.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/rayleigh.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/isotropic.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/rayleigh.jpg"/></div>
     </div>
     <p>Comparison between using an isotropic phase function to model Earth's main atmosphere (left) and using the correct Rayleigh phase function (right). Notice the sky in the right image is brighter around the sun disc, a result of subtle forward scattering.</p>
 </div>
@@ -248,9 +248,9 @@ Aerosols due to pollution on Earth typically have an anisotropy of around `0.76`
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.2.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.76.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.99.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.2.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.76.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/anisotropy_0.99.jpg"/></div>
     </div>
     <p>Varied anisotropy values for a layer modeling Earth aerosols. Left to right: 0.2, 0.76, 0.99. The density has been increased beyond reasonable Earth values to make the effect of the anisotropy very obvious.</p>
 </div>
@@ -261,9 +261,9 @@ Tint to the layer's color. Perfect grey, `(127, 127, 127)`, specifies no tint. *
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/no_tint.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/tint.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/tint_via_coefficients.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/no_tint.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/tint.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/tint_via_coefficients.jpg"/></div>
     </div>
     <p>Comparison of tint versus adjusting the scattering and extinction coefficients. Left: no tint. Middle: using the tint parameter to adjust the sky color to look more "tropical". Right: using the scattering/extinction coefficients to achieve the same effect. The point of this comparison isn't necessarily to gawk at how much better it looks using the coefficients, but to prove that it's possible to get the result in a way that respects physical accuracy.</p>
 </div>
@@ -274,9 +274,9 @@ Expanse computes multiple scattering for non-screenspace layers. This parameter 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/no_ms.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/ms_1x.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/ms_5x.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/no_ms.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/ms_1x.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/ms_5x.jpg"/></div>
     </div>
     <p>Different values for the multiple scattering multiplier. Left to right: no multiple scattering, 1x multiple scattering (physical), 5x multiple scattering. Cranking this parameter can create some pretty dreamy effects!</p>
 </div>
@@ -305,9 +305,9 @@ The maximum amount that scene geometry or clouds can attenuate scattering. A val
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/atmosphere/occlusion_0.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/occlusion_0.5.png"/></div>
-        <div class="img-col"><img src="../../img/atmosphere/occlusion_1.png"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/occlusion_0.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/occlusion_0.5.jpg"/></div>
+        <div class="img-col"><img src="../../img/atmosphere/occlusion_1.jpg"/></div>
     </div>
     <p>Comparison of different max occlusion values. Left: value of 0---effectively turning volumetric shadows off. Middle: value of 0.5. Right: value of 1. Notice how the volumetric shadows are darker and more pronounced in the right-most image, where geometry has maximum occluding power.</p>
 </div>

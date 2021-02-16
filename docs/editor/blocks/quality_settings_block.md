@@ -20,8 +20,8 @@ Whether or not to use dithering to reduce color banding. Since expanse computes 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/quality_settings/no_dither.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/dither.png"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/no_dither.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/dither.jpg"/></div>
     </div>
     <p>Left: without dithering. Right: with dithering. The effect is challenging to see in these images, but fairly obvious in-engine.</p>
 </div>
@@ -42,8 +42,8 @@ This parameter can be particularly useful for 4K support, where you may want to 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/quality_settings/cloud_full_res.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/cloud_sixteenth_res.png"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/cloud_full_res.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/cloud_sixteenth_res.jpg"/></div>
     </div>
     <p>Left: clouds rendered in full res. Right: clouds rendered at 1/16th res (so a quarter of the screen height and width). It can be hard to tell the difference here, since the images may appear small in the browser, but the right image is blurrier.</p>
 </div>
@@ -60,8 +60,8 @@ Quality of atmosphere lookup textures. Lower quality settings will improve perfo
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/quality_settings/potato_quality.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/ripping_through_the_metaverse_quality.png"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/potato_quality.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/ripping_through_the_metaverse_quality.jpg"/></div>
     </div>
     <p>Left: "Potato"(lowest) quality. Right: "Ripping Through the Metaverse" (highest) quality. Even the lowest quality setting holds up pretty well. Only in special more extreme cases are the higher quality settings necessary.</p>
 </div>
@@ -95,9 +95,9 @@ The number of samples to use when computing the occlusion estimate for screenspa
 Whether or not to use importance sampling for all atmosphere calculations except aerial perspective. Importance sampling is a sample distribution strategy that increases fidelity given a limited budget of samples. It is recommended to turn it on, as it doesn't decrease fidelity, but does allow for fewer samples to be taken, boosting performance. However, for outer-space perspectives, it can sometimes introduce inaccuracies, so it can be useful to increase sample counts and turn off importance sampling in those cases.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/quality_settings/no_importance.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/importance.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/high_sample_reference.png"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/no_importance.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/importance.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/high_sample_reference.jpg"/></div>
     </div>
     <p>Left: fewer than 4 samples taken per category, with no importance sampling. Middle: fewer than 4 samples taken per category, but this time, with importance sampling. Right: "ground truth" reference with 64 samples taken per category. Importance sampling is able to get startlingly close to the ground truth, with very few samples.</p>
 </div>
@@ -115,8 +115,8 @@ Skews precomputed aerial perspective samples to be further from the camera (if l
 Downscale factor for depth buffer used for occlusion in screenspace atmosphere layers. If this factor is lower, performance is worse but the volumetric shadows are sharper. If it's higher, performance is better, but the shadows are blurrier. This can be used to an artistic end. Sometimes the sharp shadows you get when using the full resolution depth buffer are too sharp.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/quality_settings/screenspace_downscale_1.png"/></div>
-        <div class="img-col"><img src="../../img/quality_settings/screenspace_downscale_3.png"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/screenspace_downscale_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/quality_settings/screenspace_downscale_3.jpg"/></div>
     </div>
     <p>Left: no downscaling applied to depth buffer. Right: downscale factor of 3 applied to depth buffer. Notice how the crepuscular rays aren't quite as streaky.</p>
 </div>
