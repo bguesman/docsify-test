@@ -2,6 +2,12 @@
 
 > Implemented as class `Expanse.AtmosphereLayerBlock` in `blocks/AtmosphereLayerBlock.cs`
 
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="../../img/atmosphere/atmosphere_splash.png"/></div>
+    </div>
+</div>
+
 Atmosphere layers...
 
 <!---------------------------------------------------------------------------------------->
@@ -323,5 +329,5 @@ These parameters are metadata or references to components/objects that the block
 The name for this layer used in debug and error printouts.
 
 #### Volume
-**C# member variable:** `m_volume` \
+**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
 The Sky and Fog Volume that backs this atmosphere layer block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple atmosphere layer blocks (one for each volume), or programmatically change this parameter.
