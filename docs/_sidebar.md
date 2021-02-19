@@ -10,7 +10,9 @@
         - [Night Sky Block](editor/blocks/night_sky_block.md)
         - [Planet Block](editor/blocks/planet_block.md)
         - [Procedural Stars Block](editor/blocks/procedural_stars_block.md)
+        - [Procedural Nebulae Block](editor/blocks/procedural_nebulae_block.md)
         - [Quality Settings Block](editor/blocks/quality_settings_block.md)
+        - [Texture Cloud Plane Block](editor/blocks/texture_cloud_plane_block.md)
         - [Texture Nebulae Block](editor/blocks/texture_nebulae_block.md)
         - [Texture Stars Block](editor/blocks/texture_stars_block.md)
 - C# API

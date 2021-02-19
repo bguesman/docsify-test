@@ -230,7 +230,7 @@ Adjustable limb-darkening effect that darkens the edges of the celestial body in
 These parameters are metadata or references to components/objects that the block uses.
 
 #### Name
-**C# member variable:** `m_name` \
+**C# member variable:** `string m_name` \
 The name that this celestial body is assigned for debug and error printouts.
 
 #### Volume

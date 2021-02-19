@@ -325,7 +325,7 @@ The maximum amount that scene geometry or clouds can attenuate scattering. A val
 These parameters are metadata or references to components/objects that the block uses.
 
 #### Name
-**C# member variable:** `m_name` \
+**C# member variable:** `string m_name` \
 The name for this layer used in debug and error printouts.
 
 #### Volume
