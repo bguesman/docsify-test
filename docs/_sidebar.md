@@ -9,6 +9,7 @@
         - [Celestial Body Block](editor/blocks/celestial_body_block.md)
         - [Night Sky Block](editor/blocks/night_sky_block.md)
         - [Planet Block](editor/blocks/planet_block.md)
+        - [Procedural Cloud Plane Block](editor/blocks/procedural_cloud_plane_block.md)
         - [Procedural Stars Block](editor/blocks/procedural_stars_block.md)
         - [Procedural Nebulae Block](editor/blocks/procedural_nebulae_block.md)
         - [Quality Settings Block](editor/blocks/quality_settings_block.md)
