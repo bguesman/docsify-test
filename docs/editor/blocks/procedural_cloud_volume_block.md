@@ -4,25 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/pretty_boys.jpg"/></div>
-    </div>
-</div>
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/high_ball.jpg"/></div>
-    </div>
-</div>
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/poofy_guys.jpg"/></div>
-    </div>
-</div>
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/poofy_guys_evening.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/banner.png"/></div>
     </div>
 </div>
 
