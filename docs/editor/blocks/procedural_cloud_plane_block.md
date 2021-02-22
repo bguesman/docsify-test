@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Texture cloud plane...
+Procedural cloud plane...
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
@@ -155,7 +155,7 @@ Whether to use procedural noise or a texture for this noise layer.
 
 #### Texture
 **C# member variable:** `Cubemap texture` in `Expanse.ProceduralCloudPlaneBlock.LayerSettings` \
-Noise texture that defines the distribution for this layer. Only used if procedural is set to [false](/editor/blocks/procedural_cloud_plane_block?id=procedural).
+Noise texture that defines the distribution for this layer. Only used if [procedural is set to false](/editor/blocks/procedural_cloud_plane_block?id=procedural).
 
 #### Noise Type
 **C# member variable:** `Expanse.Datatypes.NoiseType noiseType` in `Expanse.ProceduralCloudPlaneBlock.LayerSettings` \
@@ -408,7 +408,7 @@ Velocity of the clouds. Setting this to a non-zero number automatically moves th
 
 #### Sampling Offset
 **C# member variable:** `Vector2 m_samplingOffset` \
-Sampling offset of the clouds. Can be animated as an alternative to the [velocity](/editor/blocks/procedural_cloud_plane_block?id=sampling-offset) parameter.
+Sampling offset of the clouds. Can be animated as an alternative to the [velocity](/editor/blocks/procedural_cloud_plane_block?id=velocity) parameter.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- QUALITY ---------------------------------------->
@@ -441,4 +441,4 @@ The name for this layer used in debug and error printouts.
 
 #### Volume
 **C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this texture cloud block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple cloud blocks (one for each volume), or programmatically change this parameter.
+The Sky and Fog Volume that backs this procedural cloud block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple cloud blocks (one for each volume), or programmatically change this parameter.
