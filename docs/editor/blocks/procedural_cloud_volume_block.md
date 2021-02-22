@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="docsify-test/img/procedural_cloud_volume/banner.png"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/banner.png"/></div>
     </div>
 </div>
 
