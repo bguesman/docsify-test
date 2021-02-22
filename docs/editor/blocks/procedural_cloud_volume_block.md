@@ -55,11 +55,12 @@ Quality of procedural noise textures for this layer. If no procedural noises are
 Amount of cloud coverage.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_0.3.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_0.75.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_1_rain_fog.jpg"/></div>
     </div>
-    <p>Different coverage amounts. Left: 0. 0 coverage does not necessarily mean no clouds. To fade out the clouds, it's best to bring the coverage down to zero while simultaneously fading out the density. Middle: 0.5. Right: 1.</p>
+    <p>Different coverage amounts. Left: 0.3. Middle-Left: 0.75. Middle-Right: 1. Right: 1, but with some rain fog added.</p>
 </div>
 
 #### Structure Intensity
@@ -135,7 +136,15 @@ Range over which density ramps up to full. Useful as a sort of soft near clippin
 
 #### Rounding
 **C# member variable:** `float m_rounding` \
-How much to round off the tops of the clouds.
+How much to round off the tops of the clouds. This is a pretty important parameter to tweak to get realistic-looking cloud shapes. Many cloud systems lack this sort of capability, and, without it, their clouds look very blocky.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_round.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/round_3.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/round_5.5.jpg"/></div>
+    </div>
+    <p>Comparison of different rounding amounts. Rounding shape is set to 2.5 for each example. Left: rounding 1, so no rounding. Doesn't necessarily look bad, but the clouds are kind of boxy. Middle: rounding 3. Right: rounding 5.5.</p>
+</div>
 
 #### Rounding Shape
 **C# member variable:** `float m_roundingShape` \
@@ -144,10 +153,26 @@ The curve of the rounding.
 #### Height Gradient
 **C# member variable:** `Vector2 m_heightGradientBottom` and `m_heightGradientTop` \
 The height gradient of the clouds. The bottom height gradient determines the ramp-up of the cloud density along the height of the cloud volume. The top height gradient determines the ramp-down of the density at the tops of the clouds. Adjusting these parameters can help mitigate the blockiness of the clouds.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/hg_full.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/hg_0_0.15_0.9_1.jpg"/></div>
+    </div>
+    <p>Left: height gradient of (0, 0)/(1, 1), so effectively no ramp up and no ramp down---the entire cloud volume is visible. This exposes weird artifacts in the vertical in-scatter probability (the dark cloud bottoms), and additionally makes the clouds look kind of boxy. Right: height gradient of (0, 0.15)/(0.9, 1). Adjusting the height gradient to soften the ramp up and ramp down fixes these problems.</p>
+</div>
+
 
 #### Wind Skew
 **C# member variable:** `Vector2 m_windSkew` \
 Skew over height of the clouds due to wind, in the x and z directions respectively.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_wind.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/wind_1.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/wind_2.jpg"/></div>
+    </div>
+    <p>Comparison of different amounts of wind skew. Left: none. Middle: 1 in the x direction. Right: 2 in the x direction.</p>
+</div>
 
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------- NOISE LAYERS ------------------------------------->
@@ -162,23 +187,22 @@ Expanse models clouds using six layers of noise, authored as "noise layers". The
 * **Base Warp:** distorts the base noise, giving the appearance of fluid motion.
 * **Detail Warp:** distorts the detail noise, giving the appearance of fluid motion.
 
-It's easiest to understand what these noises do by seeing them in action. Consider the following example, where we build up a cloud layer by enabling these noises successively. This example won't necessarily look the best, since each step is set up to be very obvious so that it can be more instructive.
+It's easiest to understand what these noises do by seeing them in action. Consider the following example, where we build up a cloud layer by enabling these noises successively. This example won't necessarily look the best, since each step is set up to be very obvious so that it can be more instructive. **The clouds are viewed from above here to make it easier to see the difference between each step.**
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_only.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_coverage.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/base.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage.jpg"/></div>
     </div>
     <p>Left: just the base noise. This is great, but covers the whole sky. Right: with the coverage map applied---clouds now have shapes, but they've also got some detail and variation, due to the base noise.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/structure.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/detail.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/structure.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/detail.jpg"/></div>
     </div>
     <p>Left: now, applying some structure erosion. This gives the clouds some more form. Right: applying some detail erosion on top of that. This creates some small-scale features that give the clouds a sense of scale. This is likely way too much detail erosion, but it's instructive to make sure it's very visible in this much example.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_warp.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/detail_warp.jpg"/></div>
+        <div class="img-col"><img src="../../img/procedural_cloud_volume/done.jpg"/></div>
     </div>
-    <p>Left: warping the base noise to create some fluid-looking features. Right: finally, warping the detail noise, to create some fluid-looking tendrils in the fine-grained cloud structure. A subtle effect, but, when viewed up close, an important one.</p>
+    <p>The final result, viewed from the ground!</p>
 </div>
 
 Each layer provides a number of authoring controls to maximize expressivity.
@@ -202,7 +226,7 @@ Type of procedurally generated noise used for this layer. There are seven types 
 * `PerlinWorley`: A combination of `Perlin` and `InverseWorley` noise---so kind of like a softer version of vanilla `Worley` noise. Probably the best for cloud base noise.
 * `Curl`: if you use this one for anything other than warp layers, it will look *weird*.
 
-The following figure will give you a sense of what the different noises are like, but the best things you can do are play around with them yourself and watch the tutorial videos on modeling clouds.
+The following figure will give you a sense of what the different noises are like, but the best things you can do are play around with them yourself and watch the tutorial videos on modeling clouds. **Displayed here are 2D versions of the noises, since it's easier to see the difference this way.**
 
 <div class="img-block">
     <div class="img-row">
@@ -235,7 +259,7 @@ Number of octaves of noise to layer together. As a rule of thumb, the more octav
         <div class="img-col"><img src="../../img/procedural_cloud_plane/3_octaves.jpg"/></div>
         <div class="img-col"><img src="../../img/procedural_cloud_plane/8_octaves.jpg"/></div>
     </div>
-    <p>Comparison of different octave counts. Structure and detail are not applied, to make it easier to visualize. Left: 1 octave. Middle: 3 octaves. Right: 8 octaves.</p>
+    <p>Comparison of different octave counts. Structure and detail are not applied, and a 2D layer is used, to make it easier to visualize. Left: 1 octave. Middle: 3 octaves. Right: 8 octaves.</p>
 </div>
 
 #### Octave Scale
