@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/nebulae_banner.png"/></div>
+        <div class="img-col"><img src="img/nebulae/nebulae_banner.png"/></div>
     </div>
 </div>
 
@@ -38,9 +38,9 @@ Range of transmittance values the nebula can have. If the range is set to `(1, 1
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/transmittance_1_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/transmittance_0_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/transmittance_0_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/transmittance_1_1.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/transmittance_0_1.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/transmittance_0_0.5.jpg"/></div>
     </div>
     <p>Different transmittance ranges. Left: range of (1, 1), so fully opaque. This clearly lacks depth and also obscures all the stars. Middle: Full range of (0, 1). Some parts are fully transparent, and some parts are fully opaque. This imbues the nebula with a sense of depth and reveals some stars. Right: range of (0, 0.5), so no part of the nebula is fully opaque.</p>
 </div>
@@ -63,9 +63,9 @@ Global definition control for the whole nebula texture. This increases saturatio
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/overall_definition_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/overall_definition_4.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/overall_definition_8.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/overall_definition_1.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/overall_definition_4.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/overall_definition_8.jpg"/></div>
     </div>
     <p>Different overall definition values. Overall intensity is adjusted to compensate. Left to right: 1, 4, 8. Setting definition to higher values is pretty important to achieve the bright, saturated look of the nebulae photos we are all familiar with.</p>
 </div>
@@ -100,19 +100,19 @@ Type of noise to use for this layer. Expanse provides 7 noise distributions, spe
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/constant.jpg"/><div>Constant</div></div>
-        <div class="img-col"><img src="../../img/nebulae/value.jpg"/><div>Value</div></div>
+        <div class="img-col"><img src="img/nebulae/constant.jpg"/><div>Constant</div></div>
+        <div class="img-col"><img src="img/nebulae/value.jpg"/><div>Value</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/perlin.jpg"/><div>Perlin</div></div>
-        <div class="img-col"><img src="../../img/nebulae/worley.jpg"/><div>Worley</div></div>
+        <div class="img-col"><img src="img/nebulae/perlin.jpg"/><div>Perlin</div></div>
+        <div class="img-col"><img src="img/nebulae/worley.jpg"/><div>Worley</div></div>
     </div> 
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/inverse_worley.jpg"/><div>Inverse Worley</div></div>
-        <div class="img-col"><img src="../../img/nebulae/perlin_worley.jpg"/><div>Perlin Worley</div></div>
+        <div class="img-col"><img src="img/nebulae/inverse_worley.jpg"/><div>Inverse Worley</div></div>
+        <div class="img-col"><img src="img/nebulae/perlin_worley.jpg"/><div>Perlin Worley</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="../../img/nebulae/curl.jpg"/><div>Curl. Funky, but maybe someone will do something cool with it!</div></div>
+        <div class="img-col"><img style="width:50%" src="img/nebulae/curl.jpg"/><div>Curl. Funky, but maybe someone will do something cool with it!</div></div>
     </div>
 </div>
 
@@ -122,9 +122,9 @@ Scale of base octave of noise. Smaller values give bigger more global features, 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/scale_4.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/scale_8.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/scale_16.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/scale_4.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/scale_8.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/scale_16.jpg"/></div>
     </div>
     <p>One octave of worley noise at differing scales. Left to right: 4, 8, 16.</p>
 </div>
@@ -135,9 +135,9 @@ Number of noise octaves. Increasing the number of octaves can dim the overall no
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/scale_8.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/3_octaves.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/6_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/scale_8.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/3_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/6_octaves.jpg"/></div>
     </div>
     <p>Differing octaves of worley noise. Left to right: 1 octave, 3 octaves, 6 octaves. Layering octaves of noise this way, known as "fractal brownian motion" or "fbm" for short, is key to developing complex structures.</p>
 </div>
@@ -156,9 +156,9 @@ How much the coverage map effects this layer. A higher value will result in more
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/coverage_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/coverage_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/coverage_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/coverage_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/coverage_1.jpg"/></div>
     </div>
     <p>Different coverage values. Left to right: 0.25, 0.5. 1. </p>
 </div>
@@ -173,9 +173,9 @@ Bias of zero value. This can be used as an alternative to coverage, if you want 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/bias_negative_0.45.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/bias_negative_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/bias_negative_0.45.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/bias_negative_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/coverage_1.jpg"/></div>
     </div>
     <p>Different biases. Intensity is adjusted to compensate Left to right: -0.45, 0.25, 0. </p>
 </div>
@@ -194,9 +194,9 @@ Intensity of warping effect. Nebulae are big bodies of interstellar gas, and so 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/no_warp.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/warp_0.15.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/warp_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/no_warp.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/warp_0.15.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/warp_0.3.jpg"/></div>
     </div>
     <p>Different warp intensities. Warp scale is 8 for all examples. Left to right: no warp, warp intensity of 0.15, warp intensity 0.3. </p>
 </div>
@@ -207,9 +207,9 @@ Scale of the noise used to warp this layer. A higher value gives smaller vortice
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/nebulae/warp_scale_3.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/warp_0.3.jpg"/></div>
-        <div class="img-col"><img src="../../img/nebulae/warp_scale_12.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/warp_scale_3.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/warp_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/nebulae/warp_scale_12.jpg"/></div>
     </div>
     <p>Different warp scales. Left to right: 3, 8, 12. </p>
 </div>

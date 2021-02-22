@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/stars/star_splash.png"/></div>
+        <div class="img-col"><img src="img/stars/star_splash.png"/></div>
     </div>
 </div>
 
@@ -60,13 +60,13 @@ Density of star field.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/stars/density_0.02.jpg"/></div>
+        <div class="img-col"><img src="img/stars/density_0.02.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/stars/density_0.2.jpg"/></div>
+        <div class="img-col"><img src="img/stars/density_0.2.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/stars/density_1.jpg"/></div>
+        <div class="img-col"><img src="img/stars/density_1.jpg"/></div>
     </div>
     <p>Comparison of different star densities. Top: 0.02. Middle 0.2. Bottom: 1.</p>
 </div>

@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/celestial_body_splash.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/celestial_body_splash.jpg"/></div>
     </div>
 </div>
 
@@ -27,9 +27,9 @@ Expanse does not currently support a date-time system for sun and moon phases (t
 The size of the celestial body in the sky, specified as an angular radius in degrees. The angular radius of the sun and moon are both about `0.5` degrees, but this can often appear too small, for a number of reasons related to the psychology of visual perception.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/angular_radius_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/angular_radius_2.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/angular_radius_8.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/angular_radius_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/angular_radius_2.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/angular_radius_8.jpg"/></div>
     </div>
     <p>Left: angular radius of 0.5. Middle: angular radius of 2. Right: angular radius of 8.</p>
 </div>
@@ -39,9 +39,9 @@ The size of the celestial body in the sky, specified as an angular radius in deg
 Multiplier on the angular radius used to compute the celestial body's penumbra. Good for smoothing out the sky shadow for smaller bodies, or for reducing artifacts for very large bodies. 1 is a "physical" value, though the way Expanse computes sun disc illumination is an approximation anyway.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/penumbra_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/penumbra_5.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/penumbra_11.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/penumbra_1.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/penumbra_5.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/penumbra_11.jpg"/></div>
     </div>
     <p>Left: penumbra multiplier of 1, so "physically accurate". Middle: penumbra multiplier of 5, which is a bit more visually pleasing. Right: penumbra multiplier of 11, which is perhaps too extreme.</p>
 </div>
@@ -71,9 +71,9 @@ A typical value for the sun is `150000`, and a typical value for the moon is bet
 Color of the celestial body's light.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/light_color_white.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/light_color_green.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/light_color_red.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_color_white.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_color_green.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_color_red.jpg"/></div>
     </div>
     <p>Left to right: light colors of white, green, and red. Notice how the light color affects the color of the sky. Also, notice that using a pure white light doesn't quite give the right result for modeling sunlight. It's better to use temperature mode, with a value of 5778K.</p>
 </div>
@@ -87,9 +87,9 @@ Allows light color to be specified by temperature in Kelvin, via an approximatio
 Temperature of the celestial body, used to calculate its light color when operating in [temperature mode](/editor/blocks/celestial_body_block?id=temperature-mode). The temperature is converted to a color using an approximation to the physical phenomenon of blackbody radiation. The sun's temperature is 5778K.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/light_temperature_5778.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/light_temperature_2000.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/light_temperature_20000.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_temperature_5778.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_temperature_2000.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/light_temperature_20000.jpg"/></div>
     </div>
     <p>Left: temperature of the sun, 5778K. Middle: temperature of 2000K, a value you might expect for a red giant. Right: temperature of 20000K, a value you might expect for a white dwarf, or a particularly hot main sequence star.</p>
 </div>
@@ -127,9 +127,9 @@ Rotation of celestial body's albedo texture, specified as euler angles.
 Tint to celestial body's albedo texture, or just celestial body's diffuse color if no texture is specified. Perfect grey `(127, 127, 127)` specifies no tint. Values above perfect grey may be not be energy-conserving, depending on the brightness of the albedo texture.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_no_tint.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_accurate_tint.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_lavender_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_no_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_accurate_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_lavender_tint.jpg"/></div>
     </div>
     <p>Left: no tint to moon albedo. Middle: a slight reddish tint. Right: an exaggerated purple tint, resulting in a lavender color.</p>
 </div>
@@ -139,8 +139,8 @@ Tint to celestial body's albedo texture, or just celestial body's diffuse color 
 Instead of using a Lambertian (diffuse) BRDF, uses a retrodirective "Luna BRDF" specifically tailored for modeling Earth's moon, Luna. This is absolutely crucial for getting the flat disc look of the moon in the night sky.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_diffuse_material.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_accurate_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_diffuse_material.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_accurate_tint.jpg"/></div>
     </div>
     <p>Left: without moon mode enabled. Notice that it looks... well, it looks wrong! The edges are darkened and the moon looks noticeably round. Right: with moon mode enabled. The moon now has the correct "flat disc" look.</p>
 </div>
@@ -150,8 +150,8 @@ Instead of using a Lambertian (diffuse) BRDF, uses a retrodirective "Luna BRDF" 
 Retrodirection of Luna BRDF. A good value for the moon is `0.6`. Only applicable when [moon mode](/editor/blocks/celestial_body_block?id=moon-mode) is enabled.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/retrodirection_0.001.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_accurate_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/retrodirection_0.001.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_accurate_tint.jpg"/></div>
     </div>
     <p>Left: retrodirection of 0.001, the minimum value. Right: retrodirection of 0.6, the recommended value for the moon.</p>
 </div>
@@ -161,9 +161,9 @@ Retrodirection of Luna BRDF. A good value for the moon is `0.6`. Only applicable
 Anisotropy of Luna BRDF. A good value for the moon is `0.1`. Only applicable when [moon mode](/editor/blocks/celestial_body_block?id=moon-mode) is enabled.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/anisotropy_negative_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/moon_accurate_tint.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/anisotropy_1.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/anisotropy_negative_1.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/moon_accurate_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/anisotropy_1.jpg"/></div>
     </div>
     <p>Left: anisotropy of -1, the minimum value. This results in full back-scattering, so the moon appears dimmer when fully illuminated. Middle: 0.1 the recommended value for the moon. Right: 1, the maximum value. This results in full forward-scattering, so the moon appears brighter.</p>
 </div>
@@ -185,8 +185,8 @@ Whether or not the surface of this celestial body is emissive. If this is unsele
 Celestial body's emission texture, specified as a cubemap to avoid stretching at the poles. Multiplied by the body's light intensity to get the final color. If no texture is given, the celestial body's emission will be its [emission tint](/editor/blocks/celestial_body_block?id=emission-tint).
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/emissive_texture.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/emissive_and_diffuse.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/emissive_texture.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/emissive_and_diffuse.jpg"/></div>
     </div>
     <p>Left: example of an emissive texture for a star. Right: it's possible to use both an emissive and diffuse texture to create some interesting effects.</p>
 </div>
@@ -200,9 +200,9 @@ Rotation of celestial body's emission texture, specified as euler angles.
 Tint to celestial body's emission texture, or just celestial body's emissive color if no texture is specified. Perfect white `(255, 255, 255)` specifies no tint.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/emissive_texture.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/sun_green_tint.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/sun_magenta_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/emissive_texture.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/sun_green_tint.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/sun_magenta_tint.jpg"/></div>
     </div>
     <p>Left to right: no tint, green tint, magenta tint. Notice that tinting doesn't always look all that appealing. It's better to achieve the look you desire in the texture authoring process, and use the tint value only for animations and slight tweaks.</p>
 </div>
@@ -216,9 +216,9 @@ Multiplier on emissive color/texture. Often, emission textures will be too blown
 Adjustable limb-darkening effect that darkens the edges of the celestial body in accordance with the reduced light flux through its sides. A physically-accurate value is `1`, but higher values are often needed for the effect to be noticeable. This is however crucial for modeling the appearance of the sun disc accurately.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/celestial_bodies/limb_darkening_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/limb_darkening_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/celestial_bodies/limb_darkening_4.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/limb_darkening_0.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/limb_darkening_1.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/limb_darkening_4.jpg"/></div>
     </div>
     <p>Left to right: no limb darkening, physically accurate limb darkening (value of 1), exaggerated limb darkening (value of 4). When physically accurate, it is a subtle effect, but it makes all the difference.</p>
 </div>

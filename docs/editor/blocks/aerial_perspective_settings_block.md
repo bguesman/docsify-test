@@ -10,13 +10,13 @@ Provides a way of offsetting the attenuation of aerial perspective as a conseque
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_ground_truth.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_1.jpg"/></div>
         <p></p>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_bias_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_bias_0.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.jpg"/></div>
         <p>Comparison of different directional occlusion biases. In all cases, occlusion spread is set to 1. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion bias of 1, so aerial perspective is not attenuated at all around the sun disc. Bottom Left: occlusion bias of 0.25, so aerial perspective is attenuated by some amount around the sun disc. This approximates the ground truth reasonably, though not perfectly. Bottom Right: occlusion bias of 0, so aerial perspective is fully attenuated around the sun disc.</p>
     </div>
 </div>
@@ -27,13 +27,13 @@ How aggressively aerial perspective due to Mie ("directional") layers is attenua
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_ground_truth.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_spread_0.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.jpg"/></div>
         <p></p>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_spread_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/directional_occlusion_spread_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_1.jpg"/></div>
         <p>Comparison of different directional occlusion spreads. In all cases, occlusion bias is set to 0.5 to make the effect as noticeable as possible. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion spread of 0, so maximum spread. Bottom Left: occlusion spread of 0.25, so some the spread is tighter. Bottom Right: occlusion spread of 1, so aerial perspective is minimally spread.</p>
     </div>
 </div>
@@ -44,8 +44,8 @@ Provides a way of offsetting the attenuation of aerial perspective as a conseque
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/uniform_occlusion_bias_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/uniform_occlusion_bias_0.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/uniform_occlusion_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/uniform_occlusion_bias_0.jpg"/></div>
     </div>
     <p>Comparison of different uniform occlusion biases. In both cases, occlusion spread is set to 0.5. Left: uniform occlusion bias 1. right: uniform occlusion bias 0. The effect is almost unnoticable.</p>
 </div>
@@ -56,8 +56,8 @@ How aggressively aerial perspective due to Rayleigh and Isotropic ("uniform") la
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/uniform_occlusion_spread_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/uniform_occlusion_spread_0.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/uniform_occlusion_spread_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/uniform_occlusion_spread_0.jpg"/></div>
     </div>
     <p>Comparison of different uniform occlusion spreads. In both cases, occlusion bias is set to 0.5. Left: uniform occlusion spread 1. right: uniform occlusion spread 0. The effect is almost unnoticable.</p>
 </div>
@@ -68,9 +68,9 @@ The night scattering effect can sometimes be either too intense or not intense e
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/aerial_perspective/night_scatter_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/night_scatter_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/aerial_perspective/night_scatter_100.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/night_scatter_0.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/night_scatter_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/night_scatter_100.jpg"/></div>
     </div>
     <p>Comparison of different night scattering multipliers. Left: zero. Middle: 1, so physical. Right: 100, so very exaggerated.</p>
 </div>

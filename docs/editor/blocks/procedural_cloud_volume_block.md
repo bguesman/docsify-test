@@ -25,9 +25,9 @@ The six different noise layers that, combined together, define the cloud layer's
 Quality of procedural noise textures for this layer. If no procedural noises are enabled, this parameter does not change anything.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/low_qual.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/high_qual.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/rtm_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/low_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/high_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/rtm_qual.jpg"/></div>
     </div>
     <p>Different quality levels. Left: low quality. Middle: high quality. Right: "ripping through metaverse" quality.</p>
 </div>
@@ -37,10 +37,10 @@ Quality of procedural noise textures for this layer. If no procedural noises are
 Amount of cloud coverage.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_0.3.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_0.75.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage_1_rain_fog.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage_0.75.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage_1_rain_fog.jpg"/></div>
     </div>
     <p>Different coverage amounts. Left: 0.3. Middle-Left: 0.75. Middle-Right: 1. Right: 1, but with some rain fog added.</p>
 </div>
@@ -74,8 +74,8 @@ Origin of this layer's cloud geometry---the center of the cloud volume.
 Whether or not the cloud layer is curved with the surface of the planet. This is a crucial setting to enable if you have a visible horizon line. It does not incur too much of a performance impact.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/curved.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/not_curved.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/curved.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/not_curved.jpg"/></div>
     </div>
     <p>Curved (left) vs. not curved (right). Notice how the clouds go over the horizon in the left image, with curved turned on.</p>
 </div>
@@ -85,9 +85,9 @@ Whether or not the cloud layer is curved with the surface of the planet. This is
 Distance over which density is attenuated.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_100k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_200k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_100k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_200k.jpg"/></div>
     </div>
     <p>Comparison of different attenuation distances. Attenuation bias was set to 35000 for all examples. Left: 50000. Middle: 100000. Right: 200000.</p>
 </div>
@@ -97,9 +97,9 @@ Distance over which density is attenuated.
 Distance before density attenuation kicks in.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_bias_75k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_bias_150k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_bias_75k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_bias_150k.jpg"/></div>
     </div>
     <p>Comparison of different attenuation biases. Attenuation distance was set to 50000 for all examples. Left: 35000. Middle: 75000. Right: 150000. Notice how the bias pushes the density out further, but, without adjusting the attenuation distance, fades out the clouds much quicker at the edge of the bias ring.</p>
 </div>
@@ -109,9 +109,9 @@ Distance before density attenuation kicks in.
 Range over which density ramps up to full. Useful as a sort of soft near clipping plane for the clouds---it seems a common use case to have a minimum distance from the camera before clouds are drawn.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_ramp_up.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ramp_40_60.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ramp_100_150.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_ramp_up.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ramp_40_60.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ramp_100_150.jpg"/></div>
     </div>
     <p>Comparison of different ramp up ranges. Attenuation distance and bias are both set to 100000. Left: (0, 0), so no ramp up. Middle: (40000, 60000). The clouds directly overhead are gone. Right: (100000, 150000). Only the clouds far away remain.</p>
 </div>
@@ -121,9 +121,9 @@ Range over which density ramps up to full. Useful as a sort of soft near clippin
 How much to round off the tops of the clouds. This is a pretty important parameter to tweak to get realistic-looking cloud shapes. Many cloud systems lack this sort of capability, and, without it, their clouds look very blocky.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_round.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/round_3.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/round_5.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_round.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/round_3.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/round_5.5.jpg"/></div>
     </div>
     <p>Comparison of different rounding amounts. Rounding shape is set to 2.5 for each example. Left: rounding 1, so no rounding. Doesn't necessarily look bad, but the clouds are kind of boxy. Middle: rounding 3. Right: rounding 5.5.</p>
 </div>
@@ -137,8 +137,8 @@ The curve of the rounding.
 The height gradient of the clouds. The bottom height gradient determines the ramp-up of the cloud density along the height of the cloud volume. The top height gradient determines the ramp-down of the density at the tops of the clouds. Adjusting these parameters can help mitigate the blockiness of the clouds.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/hg_full.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/hg_0_0.15_0.9_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/hg_full.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/hg_0_0.15_0.9_1.jpg"/></div>
     </div>
     <p>Left: height gradient of (0, 0)/(1, 1), so effectively no ramp up and no ramp down---the entire cloud volume is visible. This exposes weird artifacts in the vertical in-scatter probability (the dark cloud bottoms), and additionally makes the clouds look kind of boxy. Right: height gradient of (0, 0.15)/(0.9, 1). Adjusting the height gradient to soften the ramp up and ramp down fixes these problems.</p>
 </div>
@@ -149,9 +149,9 @@ The height gradient of the clouds. The bottom height gradient determines the ram
 Skew over height of the clouds due to wind, in the x and z directions respectively.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_wind.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/wind_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/wind_2.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_wind.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/wind_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/wind_2.jpg"/></div>
     </div>
     <p>Comparison of different amounts of wind skew. Left: none. Middle: 1 in the x direction. Right: 2 in the x direction.</p>
 </div>
@@ -172,17 +172,17 @@ Expanse models clouds using six layers of noise, authored as "noise layers". The
 It's easiest to understand what these noises do by seeing them in action. Consider the following example, where we build up a cloud layer by enabling these noises successively. This example won't necessarily look the best, since each step is set up to be very obvious so that it can be more instructive. **The clouds are viewed from above here to make it easier to see the difference between each step.**
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/base.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/coverage.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/base.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage.jpg"/></div>
     </div>
     <p>Left: just the base noise. This is great, but covers the whole sky. Right: with the coverage map applied---clouds now have shapes, but they've also got some detail and variation, due to the base noise.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/structure.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/detail.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/structure.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/detail.jpg"/></div>
     </div>
     <p>Left: now, applying some structure erosion. This gives the clouds some more form. Right: applying some detail erosion on top of that. This creates some small-scale features that give the clouds a sense of scale. This is likely way too much detail erosion, but it's instructive to make sure it's very visible in this much example.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/done.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/done.jpg"/></div>
     </div>
     <p>The final result, viewed from the ground!</p>
 </div>
@@ -212,19 +212,19 @@ The following figure will give you a sense of what the different noises are like
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/constant.jpg"/><div>Constant</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/value.jpg"/><div>Value</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/constant.jpg"/><div>Constant</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/value.jpg"/><div>Value</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/perlin.jpg"/><div>Perlin</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/worley.jpg"/><div>Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/perlin.jpg"/><div>Perlin</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/worley.jpg"/><div>Worley</div></div>
     </div> 
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/inverse_worley.jpg"/><div>Inverse Worley</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/perlin_worley.jpg"/><div>Perlin Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/inverse_worley.jpg"/><div>Inverse Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/perlin_worley.jpg"/><div>Perlin Worley</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="../../img/procedural_cloud_plane/curl_warp.jpg"/><div>Curl used as base warp, with Perlin Worley used as base.</div></div>
+        <div class="img-col"><img style="width:50%" src="img/procedural_cloud_plane/curl_warp.jpg"/><div>Curl used as base warp, with Perlin Worley used as base.</div></div>
     </div>
 </div>
 
@@ -237,9 +237,9 @@ Scale of 0th octave of noise.
 Number of octaves of noise to layer together. As a rule of thumb, the more octaves you use, the more detail the layer will have. At some point though, you can reach past what the resolution of the texture is able to express.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/one_octave.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/3_octaves.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/8_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/one_octave.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/3_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/8_octaves.jpg"/></div>
     </div>
     <p>Comparison of different octave counts. Structure and detail are not applied, and a 2D layer is used, to make it easier to visualize. Left: 1 octave. Middle: 3 octaves. Right: 8 octaves.</p>
 </div>
@@ -268,9 +268,9 @@ These parameters describe the illumination characteristics of the cloud layer.
 Density of this cloud layer.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/density_800.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/density_5000.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/poofy_guys.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density_800.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density_5000.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div>
     </div>
     <p>Comparison of different densities. Since it's pretty challenging to compare density with all other things being equal, we use three different examples. Left: density 800. Middle: density 5000. Right: density 50000.</p>
 </div>
@@ -287,18 +287,18 @@ To keep your clouds physically realistic, follow these rules:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/scatter_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/scatter_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/scatter_4.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_4.jpg"/></div>
     </div>
     <p>Comparison of different scattering coefficient values. I chose an example---these sort of streaky jet trails---that looks good with each setting. That means the differences are more subtle though. Extinction coefficients are set to (4e-6, 4e-6, 4e-6) in all images. Left: (0, 0, 0). This results in no scattering, so the clouds only blot out light---that is why they appear so dark here. Middle: (1e-6, 1e-6, 1e-6). The scattering coefficients here are only 1/4th the magnitude of the extinction coefficients, so the clouds are noticeably dark. This is a good tactic to use for rain clouds. Right: (4e-6, 4e-6, 4e-6). The scattering coefficient here is the same as the extinction coefficient.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/too_dark.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/scatter_correction.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_correction.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/too_dark.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_correction.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_correction.jpg"/></div>
     </div>
     <p>If the clouds you're working on look too dark, your first inclination might be to adjust your scattering coefficients to be brighter than your extinction coefficients. This is non-physical! If you find this is the case, you should first try to use the multiple scattering parameters to fix the issue. Left: clouds that are too dark. Middle: correcting the issue by upping the scattering coefficients to 4x the extinction coefficients. This looks ok but is non-physical. Right: correcting the issue by upping the multiple scattering amount. This looks a lot better and is physical! At the end of the day, it's your choice, and different style goals may call for different strategies. That said, it's a principle of mine to always know where your model deviates from physical reality, and make sure it's intentional.</p>
 </div>
@@ -311,18 +311,18 @@ The FOV in the following images is very high to make the effect of different ani
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.3.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.6.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.6.jpg"/></div>
     </div>
     <p>Various anisotropy values. The effect is most visible around the sun disc. Left: 0. Middle: 0.3. Right: 0.6, a reasonable "physical" value.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0_back.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.3_back.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.6_back.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0_back.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.3_back.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.6_back.jpg"/></div>
     </div>
     <p>It's important to consider the effect of anisotropy on the clouds opposite the side of the sky from the sun. Left: anisotropy of 0. The clouds look pretty bright. Middle: anisotropy of 0.3. The clouds are dimmer and greyer. Right: anisotropy of 0.6. The clouds are very grey. Note that using a value of zero for clouds this dense might not necessarily be non-physical, since higher orders of multiple scattering are increasingly more isotropic. So, if you like the way anisotropy 0 looks, and you add some silver lining with the silver intensity parameter, you can probably still call your clouds "physically-based".</p>
 </div>
@@ -333,9 +333,9 @@ Intensity of the characteristic silver lining around clouds close to the sun. Th
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/anisotropy_0.3.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/silver_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/silver_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/silver_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/silver_1.jpg"/></div>
     </div>
     <p>Various silver intensities. Silver spread is set to 0.3 for all examples, and anisotropy is set to 0.3. The effect is most visible around the sun disc. Left: no silver. Middle: intensity 0.5. Right: intensity 1.</p>
 </div>
@@ -346,9 +346,9 @@ Spread of silver lining around clouds close to the sun. Higher values will distr
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/silver_spread_0.05.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/silver_spread_0.15.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/silver_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/silver_spread_0.05.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/silver_spread_0.15.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/silver_1.jpg"/></div>
     </div>
     <p>Various silver spread values. Silver intensity is set to 1 for all examples so the effect is visible, and anisotropy is set to 0.3. Left: 0.05. Middle: 0.15. Right: 0.3.</p>
 </div>
@@ -362,9 +362,9 @@ Height range of ambient lighting the clouds receive from the sky. The bottom of 
 Strength range of ambient lighting the clouds receive from the sky, applied over the specified height range. So, at the lower height, the ambient intensity is the lower strength, and at the higher height, the ambient intensity is the higher strength.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ambient_strength_0_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ambient_strength_0.5_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ambient_strength_1_2.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ambient_strength_0_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ambient_strength_0.5_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ambient_strength_1_2.jpg"/></div>
     </div>
     <p>Comparison of different ambient strength ranges. Ambient height range is set to (0, 1) for all examples. Left: (0, 0), so no ambient. Looks pretty rough! Middle: (0.5, 1). This looks pretty decent. Right: (1, 2). This also looks pretty good.</p>
 </div>
@@ -378,9 +378,9 @@ Unit height range to apply vertical in-scattering probability to.
 Strength of vertical in-scattering probablity.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/vertical_prob_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/vertical_prob_0.8.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/vertical_prob_1.6.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_0.8.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_1.6.jpg"/></div>
     </div>
     <p>Comparison of different vertical probability strengths. Vertical probability height range is set to (0.05, 0.45) for all examples. Left: 0, so no vertical probability. The bottom of the clouds is clearly too bright. Middle: 0.8. The bottom of the clouds looks correctly darkened now. Right: 1.6. This may be a bit too strong of an effect, but who knows, could be right for a given situation. Perhaps for darker rain clouds.</p>
 </div>
@@ -400,9 +400,9 @@ Pre-multiplier on density for depth in-scattering probability. Can be useful for
 Generally, values between `2` and `4` are good.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_dens_mult_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_dens_mult_6.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_dens_mult_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_dens_mult_6.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
     </div>
     <p>Comparison of depth probability density multipliers. The height range is set to (0.08, 0.5), the the strength range is set to (0.1, 1.5), and the bias is set to 0.1. Left: multiplier of 1. This causes too much in-scatter attenuation---it's too dark! Middle: multiplier of 6. This is too bright---no depth probability effect is visible! Right: multiplier of 3. This turns out to be just right for this example.</p>
 </div>
@@ -412,9 +412,9 @@ Generally, values between `2` and `4` are good.
 Bias applied to depth probability effect. Can help to soften the effect and reign in the extremes.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_prob_bias_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/depth_prob_bias_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.jpg"/></div>
     </div>
     <p>Comparison of different depth probability biases. The height range is set to (0.08, 0.5), the the strength range is set to (0.1, 1.5), and the density multiplier is set to 3. Left: bias of 1, so no depth probability effect is visible. The clouds don't have a lot of visible internal structure. Middle: bias of 0.1. This gives a reasonable powdered sugar effect, where the cloud edges are darkened. Right: bias of 0.</p>
 </div>
@@ -426,17 +426,17 @@ Whether or not the clouds cast shadows on themselves.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/self_shadow.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_self_shadow.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/fake_shadow.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/self_shadow.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_self_shadow.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/fake_shadow.jpg"/></div>
     </div>
     <p>Self-shadowing vs. no self-shadowing, for a dense layer. In this case, the effect is very noticeable. Left: self-shadowing enabled. Looks good! Middle: no self-shadowing. As you can see, self-shadowing is pretty damned important! Right: you can try to approximate the self-shadowing effect using the vertical proability parameters. However this doesn't really look right, or very good.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/self_shadow_low_density.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_self_shadow_low_density.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/self_shadow_low_density.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_self_shadow_low_density.jpg"/></div>
     </div>
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. It's still pretty important, though more subtle than with the dense layer. Left: self-shadowing enabled. Right: no self-shadowing.</p>
 </div>
@@ -447,12 +447,12 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_ms.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_ms.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.25.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_0.75.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.75.jpg"/></div>
     </div>
     <p>Different amounts of multiple scattering. Multiple scattering bias is set to 0.15 for all three examples. Top Left: none. This looks pretty wrong! Top Right: 0.25. This is a bit better, maybe for rainclouds. Bottom Left: 0.5. This looks pretty good. Bottom Right: 0.75. This might be a bit too much, depending on the look you're going for.</p>
 </div>
@@ -464,9 +464,9 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
 As a rule of thumb, lower values here are good for very dense, puffy clouds, since these exhibit a lot of multiple scattering deep in the cloud. Higher values are good for wispier clouds, since there's not much multiple scattering in that case.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_bias_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/ms_bias_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_bias_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms_bias_0.25.jpg"/></div>
     </div>
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.5 for all three examples. Left: 0. This means self-shadowing is effectively turned off. Makes it clear just how important it is! Middle: 0.15. This looks good to my eyes. Right: 0.25. This is a bit too extreme.</p>
 </div>
@@ -481,9 +481,9 @@ Whether to use cel/"toon" shading on the clouds. This is sort of a fun, experime
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/cel_shade_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/cel_shade_1.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/cel_shade_2.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_2.jpg"/></div>
     </div>
     <p>A few examples of cel-shaded volumetric clouds.</p>
 </div>
@@ -531,8 +531,8 @@ Of particular note here are the raymarching parameters---the step ranges, and th
 Here's an example of what it looks like when you don't use enough samples.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/sample_bad.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/sample_good.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/sample_bad.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/sample_good.jpg"/></div>
     </div>
     <p>Comparison of sampling strategies. Left: using far to few samples. This reveals the blue noise sample offset pattern used to de-band the rendering result. It looks bad! Right: using a sufficient amount of samples. This looks right!</p>
 </div>
@@ -544,9 +544,9 @@ Number of history frames to use for reprojection. Increasing can improve perform
 Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry when using reprojection.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/no_reproj.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/4x_reproj.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_volume/4x_reproj_taa.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_reproj.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj_taa.jpg"/></div>
     </div>
     <p>Comparison of reprojection settings. Left: no reprojection. Middle: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable. Right: also maximum reprojection, but with TAA enabled. The clouds appear blurrier.</p>
 </div>

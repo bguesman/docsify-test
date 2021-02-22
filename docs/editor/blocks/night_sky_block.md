@@ -26,9 +26,9 @@ Color of light pollution coming from the planet.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/night_sky/no_lp.jpg"/></div>
-        <div class="img-col"><img src="../../img/night_sky/lp_orange_30.jpg"/></div>
-        <div class="img-col"><img src="../../img/night_sky/lp_blue_30.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/no_lp.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/lp_orange_30.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/lp_blue_30.jpg"/></div>
         <p></p>
     </div>
     <p>Various light pollution settings. Left: no light pollution. Middle: orange light pollution at an intensity of 30 Lux, similar to what you might find in a dense suburb. Right: blue light pollution at an intensity of 30 Lux. Maybe what it could look like on a planet whose oceans are swimming with bioluminescent algae!</p>
@@ -42,9 +42,9 @@ To emulate reality, it's probably best to keep this value very low. Stars are ve
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/night_sky/no_night_scatter.jpg"/></div>
-        <div class="img-col"><img src="../../img/night_sky/scatter_0.3.jpg"/></div>
-        <div class="img-col"><img src="../../img/night_sky/scatter_1.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/no_night_scatter.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/scatter_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/scatter_1.jpg"/></div>
         <p></p>
     </div>
     <p>Various scatter intensities. Left: scatter intensity 0. Middle: scatter intensity 0.3. Right: scatter intensity 1.</p>

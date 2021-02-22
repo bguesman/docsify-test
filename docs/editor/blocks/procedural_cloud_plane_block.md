@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/splash.png"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/splash.png"/></div>
     </div>
 </div>
 
@@ -25,9 +25,9 @@ The six different noise layers that, combined together, define the cloud layer's
 Quality of procedural noise textures for this layer. If no procedural noises are enabled, this parameter does not change anything.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/low_qual.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/high_qual.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/rtm_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/low_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/high_qual.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/rtm_qual.jpg"/></div>
     </div>
     <p>Different quality levels. Left: low quality. Middle: high quality. Right: "ripping through metaverse" quality.</p>
 </div>
@@ -37,9 +37,9 @@ Quality of procedural noise textures for this layer. If no procedural noises are
 Amount of cloud coverage.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/coverage_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/coverage_0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/coverage_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/coverage_1.jpg"/></div>
     </div>
     <p>Different coverage amounts. Left: 0. 0 coverage does not necessarily mean no clouds. To fade out the clouds, it's best to bring the coverage down to zero while simultaneously fading out the density. Middle: 0.5. Right: 1.</p>
 </div>
@@ -73,8 +73,8 @@ Height of this cloud plane. Typically, cirrus clouds form 12000 or so meters abo
 Whether or not the cloud layer is curved with the surface of the planet. This is a crucial setting to enable if you have a visible horizon line. It does not incur too much of a performance impact.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/curved.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/not_curved.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/curved.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/not_curved.jpg"/></div>
     </div>
     <p>Curved (left) vs. not curved (right). Notice how the clouds go over the horizon in the left image, with curved turned on.</p>
 </div>
@@ -84,9 +84,9 @@ Whether or not the cloud layer is curved with the surface of the planet. This is
 Distance over which density is attenuated.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_100k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_200k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_100k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_200k.jpg"/></div>
     </div>
     <p>Comparison of different attenuation distances. Attenuation bias was set to 35000 for all examples. Left: 50000. Middle: 100000. Right: 200000.</p>
 </div>
@@ -96,9 +96,9 @@ Distance over which density is attenuated.
 Distance before density attenuation kicks in.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_bias_75k.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/atten_bias_150k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_dist_50k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_bias_75k.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/atten_bias_150k.jpg"/></div>
     </div>
     <p>Comparison of different attenuation biases. Attenuation distance was set to 50000 for all examples. Left: 35000. Middle: 75000. Right: 150000. Notice how the bias pushes the density out further, but, without adjusting the attenuation distance, fades out the clouds much quicker at the edge of the bias ring.</p>
 </div>
@@ -108,9 +108,9 @@ Distance before density attenuation kicks in.
 Range over which density ramps up to full. Useful as a sort of soft near clipping plane for the clouds---it seems a common use case to have a minimum distance from the camera before clouds are drawn.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_ramp_up.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ramp_40_60.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ramp_100_150.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_ramp_up.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ramp_40_60.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ramp_100_150.jpg"/></div>
     </div>
     <p>Comparison of different ramp up ranges. Attenuation distance and bias are both set to 100000. Left: (0, 0), so no ramp up. Middle: (40000, 60000). The clouds directly overhead are gone. Right: (100000, 150000). Only the clouds far away remain.</p>
 </div>
@@ -131,18 +131,18 @@ Expanse models clouds using six layers of noise, authored as "noise layers". The
 It's easiest to understand what these noises do by seeing them in action. Consider the following example, where we build up a cloud layer by enabling these noises successively. This example won't necessarily look the best, since each step is set up to be very obvious so that it can be more instructive.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_only.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_coverage.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/base_only.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/base_coverage.jpg"/></div>
     </div>
     <p>Left: just the base noise. This is great, but covers the whole sky. Right: with the coverage map applied---clouds now have shapes, but they've also got some detail and variation, due to the base noise.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/structure.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/detail.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/structure.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/detail.jpg"/></div>
     </div>
     <p>Left: now, applying some structure erosion. This gives the clouds some more form. Right: applying some detail erosion on top of that. This creates some small-scale features that give the clouds a sense of scale. This is likely way too much detail erosion, but it's instructive to make sure it's very visible in this much example.</p>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/base_warp.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/detail_warp.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/base_warp.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/detail_warp.jpg"/></div>
     </div>
     <p>Left: warping the base noise to create some fluid-looking features. Right: finally, warping the detail noise, to create some fluid-looking tendrils in the fine-grained cloud structure. A subtle effect, but, when viewed up close, an important one.</p>
 </div>
@@ -172,19 +172,19 @@ The following figure will give you a sense of what the different noises are like
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/constant.jpg"/><div>Constant</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/value.jpg"/><div>Value</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/constant.jpg"/><div>Constant</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/value.jpg"/><div>Value</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/perlin.jpg"/><div>Perlin</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/worley.jpg"/><div>Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/perlin.jpg"/><div>Perlin</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/worley.jpg"/><div>Worley</div></div>
     </div> 
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/inverse_worley.jpg"/><div>Inverse Worley</div></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/perlin_worley.jpg"/><div>Perlin Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/inverse_worley.jpg"/><div>Inverse Worley</div></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/perlin_worley.jpg"/><div>Perlin Worley</div></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="../../img/procedural_cloud_plane/curl_warp.jpg"/><div>Curl used as base warp, with Perlin Worley used as base.</div></div>
+        <div class="img-col"><img style="width:50%" src="img/procedural_cloud_plane/curl_warp.jpg"/><div>Curl used as base warp, with Perlin Worley used as base.</div></div>
     </div>
 </div>
 
@@ -197,9 +197,9 @@ Scale of 0th octave of noise.
 Number of octaves of noise to layer together. As a rule of thumb, the more octaves you use, the more detail the layer will have. At some point though, you can reach past what the resolution of the texture is able to express.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/one_octave.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/3_octaves.jpg"/></div>
-        <div class="img-col"><img src="../../img/procedural_cloud_plane/8_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/one_octave.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/3_octaves.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_plane/8_octaves.jpg"/></div>
     </div>
     <p>Comparison of different octave counts. Structure and detail are not applied, to make it easier to visualize. Left: 1 octave. Middle: 3 octaves. Right: 8 octaves.</p>
 </div>
@@ -228,9 +228,9 @@ These parameters describe the illumination characteristics of the cloud layer. A
 Density of this cloud layer.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/density_100.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/density_500.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/density_1500.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/density_100.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/density_500.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/density_1500.jpg"/></div>
     </div>
     <p>Comparison of different densities. Apparent thickness is set to 1500 for all examples. Left: 100. Middle: 500. Right: 1500. No multiple scattering is applied, which is why the right-most image looks far too self-shadowed.</p>
 </div>
@@ -240,9 +240,9 @@ Density of this cloud layer.
 Apparent thickness of this 2D cloud layer. Pushing this value too high can give strange results.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/app_thick_250.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/app_thick_750.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/app_thick_1500.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/app_thick_250.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/app_thick_750.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/app_thick_1500.jpg"/></div>
     </div>
     <p>Comparison of different apparent thicknesses. Density is set to 1000 for all examples. Left: 250. Middle: 750. Right: 1500. No multiple scattering is applied, which is why the right-most image looks far too self-shadowed.</p>
 </div>
@@ -259,19 +259,19 @@ To keep your clouds physically realistic, follow these rules:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/scatter_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/scatter_1e-6.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/scatter_4e-6.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/scatter_0.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/scatter_1e-6.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/scatter_4e-6.jpg"/></div>
     </div>
     <p>Comparison of different scattering coefficient values. Extinction coefficients are set to (4e-6, 4e-6, 4e-6) in all images. Left: (0, 0, 0). This results in no scattering, so the clouds only blot out light---that is why they appear so dark here. The blue light you see is actually the result of atmospheric scattering rendered in front of the clouds, "aerial perspective". Middle: (1e-6, 1e-6, 1e-6). The scattering coefficients here are only 1/4th the magnitude of the extinction coefficients, so the clouds are noticeably dark. This is a good tactic to use for rain clouds. Right: (4e-6, 4e-6, 4e-6). The scattering coefficient here is the same as the extinction coefficient. In theory, this is the "correct" value, but it looks a little too bright to my eyes.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/neutral.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/purple.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/blood.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/blood_physical.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/neutral.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/purple.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/blood.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/blood_physical.jpg"/></div>
     </div>
     <p>Some fun stylized results from playing around with the scattering coefficient hue and saturation. Left: neutral, grey scattering coefficients---so, physically correct. Middle: Purple scattering coefficients. Middle Right: red scattering coefficients. Note that it's possible to achieve the red look with physically correct coefficients by putting the sun further over the horizon (pictured right).</p>
 </div>
@@ -282,9 +282,9 @@ Anisotropy of cloud scattering. Higher values will give more forward scattering.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/anisotropy_0.2.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/anisotropy_0.6.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/anisotropy_0.8.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/anisotropy_0.2.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/anisotropy_0.6.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/anisotropy_0.8.jpg"/></div>
     </div>
     <p>Various anisotropy values. Left: 0.2. Middle: 0.6, a reasonable "physical" value. Right: 0.8.</p>
 </div>
@@ -295,9 +295,9 @@ Intensity of the characteristic silver lining around clouds close to the sun. Th
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_silver.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/silver_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/silver_1.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_silver.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/silver_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/silver_1.jpg"/></div>
     </div>
     <p>Various silver intensities. Silver spread is set to 0.2 for all examples. Left: no silver. Middle: intensity 0.5. Right: intensity 1.</p>
 </div>
@@ -308,9 +308,9 @@ Spread of silver lining around clouds close to the sun. Higher values will distr
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/silver_spread_0.05.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/silver_spread_0.15.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/silver_spread_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/silver_spread_0.05.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/silver_spread_0.15.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/silver_spread_0.3.jpg"/></div>
     </div>
     <p>Various silver spread values. Silver intensity is set to 1 for all examples so the effect is visible. Left: 0.05. Middle: 0.15. Right: 0.3.</p>
 </div>
@@ -322,9 +322,9 @@ Amount of ambient lighting the clouds receive from the sky. Expanse doesn't comp
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ambient_0.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ambient_0.75.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ambient_1.5.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ambient_0.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ambient_0.75.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ambient_1.5.jpg"/></div>
     </div>
     <p>Various ambient light values. Left: no ambient light. These clouds are clearly too dark. Middle: 0.75. This seems about right. Right: 1.5. Too much ambient light can hide the details of self-shadowing.</p>
 </div>
@@ -335,16 +335,16 @@ Whether or not the clouds cast shadows on themselves.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_ms.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_1.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_ms.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_1.jpg"/></div>
     </div>
     <p>Self-shadowing vs. no self-shadowing, for a dense layer. In this case, the effect is very noticeable. Left: self-shadowing. Right: no self-shadowing.</p>
 </div>
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/shadow.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_shadow.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/shadow.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_shadow.jpg"/></div>
     </div>
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. In this case, the effect is pretty much unnoticeable. Left: self-shadowing. Right: no self-shadowing.</p>
 </div>
@@ -355,9 +355,9 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_ms.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_1.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_ms.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_1.jpg"/></div>
     </div>
     <p>Different amounts of multiple scattering. Multiple scattering bias is set to 0.25 for all three examples. Left: none. Middle: 0.25. Right: 1.</p>
 </div>
@@ -368,9 +368,9 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_bias_0.25.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_bias_0.5.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/ms_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_0.5.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_1.jpg"/></div>
     </div>
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.25 for all three examples. Left: 0.25. Middle: 0.5. Right: 1.</p>
 </div>
@@ -423,8 +423,8 @@ Number of history frames to use for reprojection. Increasing can improve perform
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="../../img/texture_cloud_plane/no_reprojection.jpg"/></div>
-        <div class="img-col"><img src="../../img/texture_cloud_plane/4x_reprojection.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/no_reprojection.jpg"/></div>
+        <div class="img-col"><img src="img/texture_cloud_plane/4x_reprojection.jpg"/></div>
     </div>
     <p>Comparison of reprojection settings. Left: no reprojection. Right: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable.</p>
 </div>
