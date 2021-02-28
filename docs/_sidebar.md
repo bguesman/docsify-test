@@ -1,5 +1,8 @@
 - Getting started
     - [Quick Start](quickstart/quickstart.md)
+    - [Modeling The Earth's Atmosphere](quickstart/earth-atmo.md)
+    - [Using Volumetric Fog](quickstart/fog.md)
+    - [Creating Expressive Cloudscapes](quickstart/clouds.md)
 - Editor Components
     - [Editor Overview](editor/overview.md)
     - [Sky And Fog Volume](editor/volume.md)

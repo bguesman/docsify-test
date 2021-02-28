@@ -23,3 +23,14 @@ div.img-col {
 	padding-top:10px;
 	font-size: 0.9em;
 }
+
+/* Less white background on cover page. */
+section.cover.has-mask .mask {
+    opacity: .33;
+}
+
+.inline-video video {
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+}
