@@ -128,7 +128,7 @@ Now, we can update our table, with all the info we need about the air to model i
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Phase Func. |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------------ |
-| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.802e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | Rayleigh |
+| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.8e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | Rayleigh |
 
 
 ### Modeling The Ozone
@@ -145,7 +145,7 @@ With all that info down, let's add it as an entry to our table!
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |
-| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.802e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh |
+| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.8e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh |
 | Ozone  | `(0.65e-6, 1.88e-6, 0.085e-6)` | `(0, 0, 0)` | Tent | 0-1 | 30000 | 25000 | Rayleigh |
 
 The effect of the ozone is particularly visible during the sunset, where it shifts the sky color towards purple.
@@ -190,7 +190,7 @@ So, with that, our table is complete! We have all the information we need to con
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. | Anisotropy |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |
-| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.802e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
+| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.8e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
 | Ozone  | `(0.65e-6, 1.88e-6, 0.085e-6)` | `(0, 0, 0)` | Tent | 0-1 | 30000 | 25000 | Rayleigh | - - - |
 | Aerosols  | `(4.4-6, 4.4e-6, 4.4e-6)` | `(4e-6, 4e-6, 4e-6)` | Exponential | 0-10 | 1200 | - - - | Mie | 0.76 |
 
@@ -209,7 +209,7 @@ So, in theory, we've got all the info we need about Earth's atmosphere to render
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. | Anisotropy |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |
-| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.802e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
+| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.8e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
 | Ozone  | `(0.65e-6, 1.88e-6, 0.085e-6)` | `(0, 0, 0)` | Tent | 0-1 | 30000 | 25000 | Rayleigh | - - - |
 | Aerosols  | `(4.4-6, 4.4e-6, 4.4e-6)` | `(4e-6, 4e-6, 4e-6)` | Exponential | 0-10 | 1200 | - - - | Mie | 0.76 |
 
@@ -279,7 +279,7 @@ Now, you should see the sky! If you look closely at the settings, you'll see tha
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. | Anisotropy |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |
-| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.802e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
+| Air  | `(5.8e-6, 13.6e-6, 33.1e-6)` | `(5.8e-6, 13.6e-6, 33.1e-6)` | Exponential | 1 | 8000 | - - - | Rayleigh | - - - |
 
 <div class="img-block">
     <div class="img-row">

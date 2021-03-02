@@ -16,7 +16,7 @@ As such, Expanse exposes two different density distributions that are optimized 
 
 ## Setup
 
-We'll assume that you've already imported Expanse into your project, and that you know how to use a fully sky prefab. For more info on how to do this, and how to render your first sky with Expanse, check out the [quickstart guide](/quickstart/quickstart).
+We'll assume that you've already imported Expanse into your project, and that you know how to use a full sky prefab. For more info on how to do this, and how to render your first sky with Expanse, check out the [quickstart guide](/quickstart/quickstart).
 
 The first thing we'll do is drag in one of the full sky prefabs to minimize the amount of boilerplate setup we need to do. In particular, we'll drag the prefab `Assets/Expanse/prefabs/Full Skies/Expanse Cloudless Sky.prefab` into our scene. We'll also fully unpack the prefab by right-clicking it in the hierarchy and selecting `Prefab->Unpack Completely`.
 
@@ -83,7 +83,7 @@ If you play around with these parameters, you'll notice that you can get quite a
         <div class="img-col"><img src="img/quickstart/fog/uniform_density_2.jpg"/></div>
         <div class="img-col"><img src="img/quickstart/fog/uniform_density_12.jpg"/></div>
     </div>
-    <p>Some different density values for the fog we've just authored, with radius set at 5000 for all examples. Left: density zero, so no fog. Middle: density 2. Right: density 12. With this simple setup, we can model everything from light haze to thick smog!</p>
+    <p>Some different density values for the fog we've just authored, with radius set at 10000 for all examples. Left: density zero, so no fog. Middle: density 2. Right: density 12. With this simple setup, we can model everything from light haze to thick smog!</p>
 </div>
 
 You may have also noticed two other checkboxes pop up when you changed the density distribution: `Geometry Shadows` and `Cloud Shadows`. These allow, respectively, the scene geometry and the clouds to cast approximate volumetric shadows on the fog.
@@ -200,7 +200,7 @@ The ideal solution here would be to use an actual volumetric cloud layer, very l
     <p>Some far away fog, rendered using a volumetric cloud layer. This looks pretty nice.</p>
 </div>
 
-However, once inside the cloud layer, the reprojection strategy that Expanse uses starts to break down, and artifacts at the edges of the scene geometry are visible. You can solve this problem by turning off reprojection, but this will cause a significant performance hit.
+However, once inside the cloud layer, the reprojection strategy that Expanse uses starts to break down, and artifacts at the edges of the scene geometry are visible. You can solve this problem by turning off reprojection, but this can cause a performance hit.
 
 <div class="img-block">
     <div class="img-row">
@@ -209,7 +209,7 @@ However, once inside the cloud layer, the reprojection strategy that Expanse use
     <p>Artifacts introduced by reprojection, visible at the edges of objects.</p>
 </div>
 
-This is an active area of improvement that we are working on. For now, though, we'll have to use a different strategy for modeling rain fog. We'll use this image of London on a really foggy day to base our solution on.
+This is an active area of improvement that we are working on. At the moment it can be mitigated by rendering clouds at [half or quarter resolution](/editor/blocks/quality_settings_block?id=cloud-subresolution), and also by [disabling cloud self-shadowing](/editor/blocks/procedural_cloud_volume_block?id=self-shadowing). All of this is to say that, while this is possible with Expanse, it can take some effort to get it to work right and be performant. So instead, we'll explore a simpler strategy for modeling rain fog. We'll use this image of London on a really foggy day to base our solution on.
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2"/></div>

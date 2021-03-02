@@ -28,7 +28,7 @@ These are the Expanse Docs---any questions you have about how to use Expanse and
 
 I also highly recommend checking out the [video tutorials I've posted for Expanse. TODO LINK HERE!]() These docs are largely meant to be a reference for you once you have a general understanding of how Expanse works. If you try to dive right into the [blocks documentation](/editor/blocks/blocks), you might find yourself a little confused.
 
-You can also check out the [quick start section](/editor/quickstart) for a crash course.
+You can also check out the [quick start section](/quickstart/quickstart) for a crash course.
 
 ## Feature List
 

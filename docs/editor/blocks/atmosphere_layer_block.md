@@ -305,6 +305,14 @@ Whether or not scene geometry should cast volumetric shadows for this layer.
 **C# member variable:** `bool m_cloudShadows` \
 Whether or not clouds should cast volumetric shadows for this layer.
 
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/atmosphere/no_cloud_shadows.jpg"/></div>
+        <div class="img-col"><img src="img/atmosphere/cloud_shadows_darker.jpg"/></div>
+    </div>
+    <p>Left: no cloud shadows. Right: with cloud shadows. This produces the "god rays" effect.</p>
+</div>
+
 #### Max Occlusion
 **C# member variable:** `float m_maxOcclusion` \
 The maximum amount that scene geometry or clouds can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as geometry and clouds will have no occluding power.
