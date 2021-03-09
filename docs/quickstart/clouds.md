@@ -1,5 +1,12 @@
 # Tutorial: Creating Expressive Cloudscapes
 
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/reference_match_2.jpg"/></div>
+    </div>
+    <p>The clouds we'll create in this tutorial.</p>
+</div>
+
 I have to admit, the first things that got me interested in working on realtime clouds weren't real clouds at all---they were clouds in games. This is a little bit silly. What could be so inspiring about digital reconstructions of clouds, compared to their towering, real-life counterparts?
 
 Well, certainly one thing is that we're a lot more likely to be constantly evaluating the beauty of a new digital experience than we are of something we are confronted with every day. When a game does a great job modeling clouds, we notice, because (whether on a subconscious or conscious level) we're continually analyzing how the game world differs from our own. For games taking a swing at photorealism, the question is necessarily, *how well does this measure up to the real world?*
@@ -301,32 +308,408 @@ And here's what it should look like. If you don't love the look, don't worry---w
 
 #### Structure and Detail
 
-TODO
-* set up structure and introduce
-* set up detail and introduce
-* set up detail warp and introduce
+We'll now move on to setting up our structure and detail noises. Our base noise looks alright on its own, but it's lacking some of the small-scale features that really imbue the clouds with a sense of scale.
+
+Open up the `Modeling` tab and set the `Structure Intensity` parameter to `0.17`, so that the changes we make are visible. Then, open up the `Noise Editor` tab, and set `Layer Select` to `Structure`. Set the following parameters:
+
+* `Noise Type`: `Worley`. Worley noise is good for creating the "cauliflower bulb" look that's present in our reference.
+* `Scale`: `(8, 8)`.
+* `Octaves`: `6`.
+* `Tile`: `64`.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/structure_settings.jpg"/></div>
+    </div>
+    <p>The final settings for the structure layer.</p>
+</div>
+
+This is how the clouds should look now. Some nice, bulbous shapes!
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_structure.jpg"/></div>
+    </div>
+    <p>How our clouds look with the final structure noise applied.</p>
+</div>
+
+Alright, let's add in the detail noise. In the `Modeling` tab, set the `Detail Intensity` parameter to `0.42`, again to ensure our changes are visible. Open up the `Noise Editor` tab and set `Layer Select` to `Detail`. Set the following parameters:
+
+* `Noise Type`: `Inverse Worley`. Inverse Worley noise is nice for creating wispiness---it's perfect for modeling the swirly tendrils in our reference.
+* `Scale`: `(8, 8)`.
+* `Octaves`: `6`.
+* `Octave Multiplier`: `0.65`. We crank this up a little from the usual `0.5` so that we don't lose too much detail in the higher octaves.
+* `Tile`: `72`.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/detail_settings.jpg"/></div>
+    </div>
+    <p>The final settings for the detail layer.</p>
+</div>
+
+And here's what the clouds should look like. This makes a pretty big difference! You'll notice that the lighting is starting to look pretty off---we'll fix this in the next section.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_detail.jpg"/></div>
+    </div>
+    <p>How our clouds look with the final detail noise applied.</p>
+</div>
+
+Finally, we'll warp the detail noise a bit, to create some fluid-like features. In the `Modeling` tab, set the `Detail Warp Intensity` parameter to `0.1`. Open up the `Noise Editor` tab and set `Layer Select` to `Detail Warp`. Set the following parameters:
+
+* `Noise Type`: `Curl`. Curl noise is built to mimick the warping of a density field according to the laws of fluid dynamics.
+* `Scale`: `(8, 8)`.
+* `Octaves`: `4`.
+* `Octave Multiplier`: `0.25`. We pull this down from the usual `0.5` so that the high-frequency warping doesn't dominate the behavior.
+* `Tile`: `64`.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/detail_warp_settings.jpg"/></div>
+    </div>
+    <p>The final settings for the detail warp layer.</p>
+</div>
+
+And here's what the clouds should look like. This is a subtle difference but will be more visible from the ground.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_detail_warp.jpg"/></div>
+    </div>
+    <p>How our clouds look with the final detail warping applied.</p>
+</div>
+
+And there you have it! That's all of our noises. When you design your own noises, the process will probably be much more chaotic---but that's part of the fun, right?
 
 ### Balancing and Shaping
 
+The final step in the modeling stage is to adjust the global modeling parameters that shape the clouds independent of the noises. These parameters---things like the height gradient and rounding values---will sculpt the overall shape of the clouds. Adjusting these is crucial for getting your clouds to look pleasing.
+
+For this step, move the camera down below the clouds again. It'll make it easier to see the changes. Here's what our clouds look like now:
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/before_shaping.jpg"/></div>
+    </div>
+    <p>How our clouds look without any additional shaping work.</p>
+</div>
+
+They look ok (minus the lighting, of course), but they look a bit boxy. We can fix this by adjusting some of the shaping parameters. In particular, open up the `Modeling` foldout and set,
+* `Rounding` to `7.5`. This controls how much the clouds are rounded off at the top.
+* `Rounding Shape` to `1.5`. This controls how sharp the round-off effect is.
+
+This helps reign in the boxiness a bit. I encourage you to play around with these parameters, and with the `Height Gradient` parameters, to get the look you desire.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/after_shaping.jpg"/></div>
+    </div>
+    <p>How our clouds look with the rounding effect applied.</p>
+</div>
+
 ## Lighting
 
-TODO
-* "lighting model is attenuative"
-* Turn off depth probability, ambient, MS, and vertical probability
-* Determine density value.
-* Add back multiple scattering.
-* Add back ambient.
-* Add back vertical.
-* Add back depth.
-* Tweak phase function and silver lining.
-* Check different illumination conditions and adjust!
+Now that we've got our clouds shaped how we want, we can move on to tweaking their illumination characteristics.
+
+Before we start, a note: typically, you'd go back and forth tweaking the lighting, and then the modeling parameters, and then back to the lighting, etc. However, we're blasting through it all sequentially so that it's easier to digest. Just know that if you're adjusting the lighting parameters and something doesn't look quite right, you might have to go back to the modeling stage and change some things around!
+
+Ok, down to business.
+
+### The Attenuative Lighting Model
+
+Expanse computes cloud illumination using a modified version of the [Nubis lighting model](http://advances.realtimerendering.com/s2017/Nubis%20-%20Authoring%20Realtime%20Volumetric%20Cloudscapes%20with%20the%20Decima%20Engine%20-%20Final%20.pdf), developed by Andrew Schneider, the engineer/artist behind Horizon Zero Dawn's volumetric cloudscapes. The genius observation underlying the model is that, in a physically-based system, **light can only be attenuated by participating media.** Since this is the case, we can model the color of the clouds by applying different sorts of attenuation strategies to the raw intensity of the sunlight.
+
+Put another way, the strategy for shading a cloud pixel is,
+1. Illuminate the pixel using the typical ray-marching scattering/transmittance calculation (described in the [Modeling The Earth's Atmosphere tutorial](/quickstart/earth-atmo)). **This will look far too bright.**
+2. Apply successive "dimmer switches" (some physical and some approximate) to this value to **darken the areas of the clouds that are too bright.**
+
+You'll get a sense for how this works as we progress through the different parameters.
+
+### Baseline Lighting Parameters
+
+To give ourselves a "clean slate", so to speak, we'll turn off all the dimmer switches. This will show us the clouds at their brightest possible color. 
+
+Also, since we're making very dense, thick clouds, we'll also set the density parameter very high. For thinner clouds, you might go as low as `250`. We'll use a value of `50000`.
+
+Open up the `Lighting` tab and set the following parameters:
+* `Density`: `50000`
+* `Anisotropy`: `0`
+* `Silver Intensity`: `0`
+* `Ambient Strength Range`: `(0, 0)`
+* `Vertical Probability Strength`: `0`
+* `Depth Probability Bias`: `1`
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/no_atten.jpg"/></div>
+    </div>
+    <p>Set up the cloud lighting to turn off all attenuation.</p>
+</div>
+
+Here's how it should look---pretty terrible!
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/no_atten_vis.jpg"/></div>
+    </div>
+    <p>How the clouds look with all attenuation off. Pretty horrible if you ask me!</p>
+</div>
+
+Let's fix this.
+
+### Shadowing
+The first and most important kind of attenuation is known as "self-shadowing". As light scatters into a cloud, it gets attenuated, since some of the photons scatter away before they can bounce out of the cloud and get into your eye. This result in dense clouds casting volumetric shadows onto themselves, darkening certain areas.
+
+To enable self-shadowing, check the `Self Shadowing` box.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/self_shadow_box.jpg"/></div>
+    </div>
+    <p>Enable self shadowing by checking the "Self Shadow" box.</p>
+</div>
+
+Immediately the clouds have much more form! Some areas are dark and in shadow. Others are bright.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/self_shadow.jpg"/></div>
+    </div>
+    <p>How the clouds look with self shadowing enabled.</p>
+</div>
+
+However, some areas might not look dark enough, and some might look too dark. To remedy this, Expanse implements a "multiple scattering" approximation that can help dampen the effect of self-shadowing. It's not important to understand exactly what this is or why it works, but if you're curious you can read more in the [Procedural Cloud Volume Docs](/editor/blocks/procedural_cloud_volume_block?id=multiple-scattering-amount).
+
+We'll set the following parameter values, but feel free to play around with them yourself. Set,
+* `Multiple Scattering Amount` to `0.5`.
+* `Multiple Scattering Bias` to `0.15`.
+
+You might think that the result is too dark, but you'll see how we'll fix this in the next section.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/multiple_scattering.jpg"/></div>
+    </div>
+    <p>Set the multiple scattering parameters to adjust the shadows.</p>
+</div>
+
+### Ambient Light
+
+Clouds receive most of their light directly from the sun disc, but they also receive some blue light from the skydome. This is crucial to model to get the clouds looking right---otherwise they will look too dark and dusty.
+
+In the `Lighting` tab, set the following parameters, which govern the way ambient light from the sky interacts with the clouds,
+* `Ambient Height Range`: `(0, 1)`. This defines the vertical range over which ambient light illuminates the clouds. At the minimum value, the ambient light is weakest, at at the maximum, the ambient light is strongest. This model works because the bottoms of clouds receive less ambient light.
+* `Ambient Strength Range`: `(0.5, 1.5)`. These are the actual strength values associated with the height range. So, together, these settings mean "at the bottom of the clouds, ambient strength will be `0.5`, and at the top of the clouds, ambient strength will increase up to `1.5`".
+
+Here's what that looks like. Now the self-shadowing is less pronounced and looks more appropriate.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/ambient.jpg"/></div>
+    </div>
+    <p>Introducing ambient light from the skydome into the cloud lighting model really helps!</p>
+</div>
+
+### Attenuative Approximations
+
+We'll now move onto the rest of the attenuative approximations. The clouds look pretty decent as-is, but there are still some things we can improve upon.
+
+For one, after we introduced the ambient light, the bottoms of the clouds got a bit too bright. We can remedy this by tweaking the `Vertical Probability` parameters. This is an adjustment that darkens the bottoms of the clouds---the idea is that light has a lower probability of scattering into the bottom of the clouds, because they are not facing the sun.
+
+We'll set the following parameters:
+
+* `Vertical Probability Height Range`: `(0.05, 0.25)`. Like the ambient height range, this controls the range over which the attenuation is applied.
+* `Vertical Probability Strength`: `0.4`. This controls how aggressive the attenuation is.
+
+Here's what that looks like. The bottoms of the clouds are now slightly darker, and thus they look more natural.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/vertical_prob.jpg"/></div>
+    </div>
+    <p>Darkening the bottoms of the clouds with the vertical probability parameters can help make them look more natural.</p>
+</div>
+
+Things are really starting to look good! However, if we compare to our reference, there's still some things we're missing.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
+    </div>
+    <p>Our reference photo. Source: <a href="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg">https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg</a>.</p>
+</div>
+
+For one, the clouds in this image appear to be brighter around the edges, at least closer to where the sun is in the sky. They also have kind of a "powered-sugar"-looking effect where their internal edges are brighter.
+
+The corresponding things we have to adjust, and the final remaining lighting parameters, are the **phase function** and the **depth probability**.
+
+Let's start with the **phase function**. The phase function tells us how bright clouds should be if they're close to the sun disc, and how dark they should be if they're far away. This is controlled by the `Anisotropy` parameter. The higher the anisotropy is, the brighter the clouds around the sun, and the darker the clouds away from the sun.
+
+Sometimes this isn't enough to meet every artistic goal, so Expanse also adds optional silver lining parameters to tweak the brightness of the clouds very close to the sun.
+
+Let's turn our camera toward the sun and set the following parameters:
+* `Anisotropy`: `0.3`. This value is a little less than physical.
+* `Silver Intensity`: `0.9`.
+* `Silver Spread`: `0.3`.
+
+This is the result:
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/anisotropy.jpg"/></div>
+    </div>
+    <p>Setting the anisotropy value can help distribute the light more correctly across the cloudscape.</p>
+</div>
+
+Now, we'll address the "powdered-sugar" effect. This is the result of light scattering into denser/less dense places in the cloud. Taking this into account and adding more self-shadowing in these spots is kind of like the volumetric version of ambient occlusion.
+
+Let's set the following parameters:
+* `Depth Probability Height Range`: `(0.25, 0.8)`.
+* `Depth Probability Strength Range`: `(0.5, 2)`.
+* `Depth Probability Density Multiplier`: `2`.
+* `Depth Probability Bias`: `0.1`.
+
+Repositioning our camera again, we get this result: on the left is without depth probability attenuation, and on the right is with it.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/no_depth_prob.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/depth_prob.jpg"/></div>
+    </div>
+    <p>Without depth probability (left) vs. with depth probability (right). The effect is subtle, but is most noticeable on the tops of the clouds.</p>
+</div>
+
+### Final Tweaks
+
+Now, in theory, we've finished lighting our clouds. However, it's important to check how they look under different illumination conditions. Moving the sun around and comparing to our reference, a few problems appear.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/depth_prob.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/evening.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/behind.jpg"/></div>
+    </div>
+    <p>Our clouds under different illumination conditions.</p>
+</div>
+
+For one, to my eyes, it looks like we overdid it on the vertical scattering probability. The clouds are just too dark on the bottom! To remedy this, let's adjust the following parameters:
+* In the `Lighting` tab, set `Vertical Probability Strength` to `0.3`.
+* Also in the `Lighting` tab, set `Vertical Probability Height Range` to `(0.05, 0.2)`.
+
+This looks better! On the left is before the tweak, and on the right is after the tweak.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/no_vertical_adjustment.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/vertical_adjustment.jpg"/></div>
+    </div>
+    <p>Tweaking our vertical probability helps brighten up the bottoms of the clouds. Left: our original values. Right: tweaked.</p>
+</div>
+
+I also think that the edges of the clouds aren't quite bright enough at sunset. To help with this, let's adjust the multiple scattering parameters. In particular,
+* In the `Lighting` tab, set `Multiple Scattering Bias` to `0.17`.
+
+Now we've got a little more light bleeding through our clouds at sunset.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/no_ms_adjustment.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/ms_adjustment.jpg"/></div>
+    </div>
+    <p>Reducing the multiple scattering bias pushes the light a little further into our clouds. Left: our original values. Right: tweaked.</p>
+</div>
+
+Finally, if we open up the `Noise Editor` tab and up the cloud texture quality (we've been working in medium the whole time), and also apply a little post-processing, we can get pretty close to our reference!
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/reference_match_2.jpg"/></div>
+        <div class="img-col"><img style="height:81%" src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
+    </div>
+    <p>Our result with a bit of brightness/saturation postprocessing (left) vs. our reference (right).</p>
+</div>
+
+Now, we were never going to match the reference exactly, but we did a decent job of using it as a guiding light.
 
 ## Movement
 
-TODO
-* Add some base velocity.
+Cloud movement in Expanse is pretty simple---you can either specify a sampling offset to each noise value, which you can animate yourself, or you can directly specify a velocity, and Expanse will animate the offset for you.
 
-## Performance Tweaks
+Let's do this ourselves. Open up the `Movement` tab, and set the following values.
+* `Use Offset`: unchecked. This specifies that we want to specify the cloud movement as a velocity.
+* `Coverage Velocity`: `(0.001, 0.001)`.
+* `Base Velocity`: `(0.00075, 0.00075)`.
+* `Structure Velocity`: `(0.005, 0.005)`.
+* `Detail Velocity`: `(0.01, 0.01)`.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/velocities.jpg"/></div>
+    </div>
+    <p>Set the velocity parameters in the movement tab.</p>
+</div>
 
-TODO
-* Optimize params.
+Hit the play button, and voila! Your clouds should be moving.
+<div class="img-block">
+    <video width="100%" height="100%" class="inline-video" controls>
+    <source src="img/quickstart/clouds/moving.mp4" type="video/mp4">
+    </video>
+    <p>Moving clouds!</p>
+</div>
+
+## Performance Optimization
+
+So you've got your clouds looking how you want, but your GPU fan is whirring like a buzzsaw, you're barely hitting 5 FPS, and the corner of your desk is on fire.
+
+Raymarching and lighting a dense volume is computationally expensive, there's no way around that. That said, Expanse allows you to make a number of different quality tradeoffs and optimizations to get yourself to that smooth 60Hz framerate.
+
+What follows are a set of instructions for optimizing your cloudscape.
+
+### Step 1: Texture Quality
+
+Expanse allows you to select the texture quality of the noises your clouds use. Navigate to the `Noise Editor` dropdown and you'll see the `Texture Quality Field`. Chances are, you will not be able to use `Ultra` or `Ripping Through The Metaverse` quality. Experiment around with the different texture qualities and track your framerate to see which is usable.
+
+On my RTX 2080 Ti, for the clouds we just created, I'm going to select `High`.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/qual_potato.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/qual_high.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/qual_rtm.jpg"/></div>
+    </div>
+    <p>Comparison of quality levels. Left: potato. Middle: high. Right: ripping through the metaverse.</p>
+</div>
+
+### Step 2: Sample Counts
+
+Expanse also allows you to increase or decrease the number of raymarching samples used to render the clouds. In particular, it lets you specify a sample curve for different raymarch distances. Open up the `Quality` foldout and you'll see the following parameters:
+* `Step Distance Range`: the minimum and maximum raymarch distances for the sampling curve.
+* `Detail Step Range`: the step counts detail steps corresponding to the two specified raymarch distances.
+* `Coarse Step Range`: the step counts for coarse "test" steps corresponding to the two specified raymarch distances. These can be lower than the detail steps.
+
+For my setup, I'll set the step distance range to `(125, 15000)`, the coarse step range to `(32, 96)`, and the detail step range to `(96, 168)`.
+
+If you set the step ranges too low, you'll start to notice noisy artifacts, so be careful here. You want them just low enough that there are no artifacts, but no lower.
+
+### Step 3: Thresholds
+
+Expanse lets you decide when density samples transmittance values should be considered zero---setting this threshold high will allow more lighting calculations to be skipped and will improve performance. If you set these values too high, you'll see artifacts.
+
+In my case, I'll set the `Media Zero Threshold` to `0.001`, and the `Transmittance Zero Threshold` to `0.001`. This is on the upper end of values you can choose before you'll see noticeable issues.
+
+Optimizing these values is particularly crucial for cloudscapes that are very dense.
+
+### Step 4: Reprojection Frames
+
+With the settings we've optimized so far, my RTX 2080 Ti renders the clouds in around 7 ms. This is easily enough to hit 60 FPS if we're just rendering clouds, but if we want our game to include all sorts of other expensive effects, we'll need to optimize performance even more.
+
+This is where reprojection comes in---it allows us to render clouds across multiple frames, meaning we can still render clouds at full resolution, but do less work per individual frame.
+
+The `Reprojection Frames` parameter in the `Quality` dropdown controls this. If I use the maximum reprojection amount (`4`, which really actually means 16 frames), the render time decreases to 1 ms. If I decrease the texture quality to "potato", the render time further decreases to 0.8 ms.
+
+Reprojection isn't perfect---when used with TAA, it can make your clouds look blurry. It's also possible to see artifacts if your clouds are moving very fast. The best thing to do is only use as many reprojection frames as you need. If you can get away with 2 and still hit your performance requirements, do it.
+
+### Step 5 (Optional): Resolution
+If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings Block`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result.
+
+Here's a comparison between our optimized clouds and our non-optimized clouds. The left image takes 50 ms to render. The right image takes only 1 ms!
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/qual_high.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/optimized_result.jpg"/></div>
+    </div>
+    <p>Comparison of optimized vs. unoptimized result. Left: unoptimized clouds, rendering at 50 ms per frame. Right: optimized clouds, rendering in just 1 ms!</p>
+</div>
+
+## Wrapup
+
+Well, I hope you've enjoyed learning how to craft volumetric cloudscapes in Expanse. If you ever feel stuck, please feel free to post to the [Expanse forums TODO LINK!!]()!
+
+This is really just the beginning of what it is possible to create with Expanse. For more info on all the parameters you can play around with, check out the docs for the [`Procedural Cloud Volume Block`](/editor/blocks/procedural_cloud_volume_block).
