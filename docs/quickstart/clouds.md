@@ -9,7 +9,7 @@
 
 I have to admit, the first things that got me interested in working on realtime clouds weren't real clouds at all---they were clouds in games. This is a little bit silly. What could be so inspiring about digital reconstructions of clouds, compared to their towering, real-life counterparts?
 
-Well, certainly one thing is that we're a lot more likely to be constantly evaluating the beauty of a new digital experience than we are of something we are confronted with every day. When a game does a great job modeling clouds, we notice, because (whether on a subconscious or conscious level) we're continually analyzing how the game world differs from our own. For games taking a swing at photorealism, the question is necessarily, *how well does this measure up to the real world?*
+Well, certainly one thing is that we're a lot more likely to be constantly evaluating the beauty of a new digital experience than something we are confronted with every day. When a game does a great job modeling clouds, we notice, because (whether on a subconscious or conscious level) we're continually analyzing how the game world differs from our own. For games taking a swing at photorealism, the question is necessarily, *how well does this measure up to the real world?*
 
 This isn't really what drew me in though. In fact, the two examples of game clouds that captivated me occur in games that deviate from real life quite a bit: Hyrule's warbley cloudscapes in **Zelda: Breath of the Wild**, and Toussaint's papery cumulus clouds in **The Witcher 3's Blood and Wine** DLC.
 
@@ -713,3 +713,16 @@ Here's a comparison between our optimized clouds and our non-optimized clouds. T
 Well, I hope you've enjoyed learning how to craft volumetric cloudscapes in Expanse. If you ever feel stuck, please feel free to post to the [Expanse forums TODO LINK!!]()!
 
 This is really just the beginning of what it is possible to create with Expanse. For more info on all the parameters you can play around with, check out the docs for the [`Procedural Cloud Volume Block`](/editor/blocks/procedural_cloud_volume_block).
+
+Below are some of the other results you can get with Expanse's clouds---for inspiration!
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/pretty_boys.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_1.jpg"/></div>
+    </div>
+</div>
