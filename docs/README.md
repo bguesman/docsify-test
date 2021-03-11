@@ -53,6 +53,10 @@ If you want to get an idea of what's possible with Expanse, here's a few example
         <div class="img-col"><img src="img/nebulae/banner_2.jpg"/></div>
     </div>
     <div class="img-row">
+        <div class="img-col"><img src="img/stars/texture_stars.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/dense_6_15.jpg"/></div>
+    </div>
+    <div class="img-row">
         <div class="img-col"><img src="img/atmosphere/with_isotropic_fog.jpg"/></div>
         <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
         <!-- <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div> -->
