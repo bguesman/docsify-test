@@ -719,7 +719,7 @@ Below are some of the other results you can get with Expanse's clouds---for insp
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/dense_6_15.jpg"/></div>
     </div>
     <div class="img-row">
         <div class="img-col"><img src="img/procedural_cloud_volume/pretty_boys.jpg"/></div>
