@@ -48,6 +48,10 @@ This parameter can be particularly useful for 4K support, where you may want to 
     <p>Left: clouds rendered in full res. Right: clouds rendered at 1/16th res (so a quarter of the screen height and width). It can be hard to tell the difference here, since the images may appear small in the browser, but the right image is blurrier.</p>
 </div>
 
+#### Composite Clouds By Height
+**C# member variable:** `bool m_compositeCloudsByHeight` \
+Uses an alternative algorithm for cloud compositing that assumes the camera is below the clouds. Does not make much of a difference for three or fewer cloud layers, but for scenes with three layers or more it can improve performance dramatically.
+
 <!---------------------------------------------------------------------------------------->
 <!-------------------------------------- ATMOSPHERE -------------------------------------->
 <!---------------------------------------------------------------------------------------->
