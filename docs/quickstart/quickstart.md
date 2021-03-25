@@ -10,11 +10,9 @@ The first thing you'll have to do is acquire a license for Expanse.
 
 If you are an **individual creator**, you can purchase an [individual license TODO LINK](). If you are a **studio**, you will need to acquire the more expensive [studio license TODO LINK](). This is standard practice for advanced Unity assets (see [NatureRenderer's Policy](https://assetstore.unity.com/packages/tools/terrain/nature-renderer-personal-license-153552?aid=1011lK8Q&utm_source=&utm_medium=&utm_campaign=&pubref=)).
 
-For more details on licensing, you can see the [FAQ here TODO LINK](). Note that we do offer a discount for students---you just need to send in a picture of your student ID (high school, university, any level), and you'll receive a one-time discount code.
-
 ## Importing
 
-Once you have a license, you can download Expanse from the asset store, and import it into your project. It should import to the folder `Assets/Expanse`.
+Once you have purchased Expanse, you can download it from the asset store, and import it into your project. It should import to the folder `Assets/Expanse`.
 
 **Your project must be using HDRP version 2019.4 or higher.** Expanse may work with older versions of HDRP, but it hasn't been tested with them. **Expanse does not support the Universal or Builtin Render Pipelines.**
 
@@ -62,7 +60,7 @@ If you don't see Expanse's sky load in, you can try the following fixes:
 * **Adjusting your camera's exposure settings.** If you see a black screen, your camera's exposure might not be set correctly. You can adjust it by adding an exposure override to your global post-processing volume. Typically an auto-exposure with `7` as the minimum and `12` as the maximum is a good starting point.
 * **Hitting the play button.** As a last ditch effort, this can sometimes be necessary to build some of Expanse's data structures.
 
-If you try these fixes and still can't see anything, feel free to post in the [Expanse Unity Forum TODO LINK]().
+If you try these fixes and still can't see anything, feel free to post in the [Expanse Unity Forum (link coming soon)]().
 
 ## Adjusting The Camera
 Chances are something looks wrong about your scene---it's too bright! This is because your camera isn't set up to handle the super bright, physical light units that Expanse uses.
@@ -233,4 +231,4 @@ So, what are you waiting for? Click the play button, and watch your clouds smoot
 
 Well, that's it for this setup guide! Continue on to the following sections to learn about [building the Earth's atmosphere from scratch](quickstart/earth-atmo.md), [modeling a convincing volumetric cloudscape](quickstart/clouds.md), and [blanketing your scene with moody volumetric fog](quickstart/fog.md).
 
-As always, if you have any questions, please feel free to post them to the [Expanse Unity Forums TODO LINK]().
+As always, if you have any questions, please feel free to post them to the [Expanse Unity Forums (link coming soon)]().
