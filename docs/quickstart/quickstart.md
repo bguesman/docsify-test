@@ -4,9 +4,7 @@ It's possible to get Expanse into your project in fewer than 15 minutes! Follow 
 
 ## Licensing
 
-**TODO: this section needs to be fleshed out.**
-
-The first thing you'll have to do is acquire a license for Expanse.
+The first thing you'll have to do is acquire a license for Expanse from the asset store.
 
 If you are an **individual creator**, you can purchase an [individual license TODO LINK](). If you are a **studio**, you will need to acquire the more expensive [studio license TODO LINK](). This is standard practice for advanced Unity assets (see [NatureRenderer's Policy](https://assetstore.unity.com/packages/tools/terrain/nature-renderer-personal-license-153552?aid=1011lK8Q&utm_source=&utm_medium=&utm_campaign=&pubref=)).
 
