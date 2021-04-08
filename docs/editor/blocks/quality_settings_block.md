@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.QualitySettingsBlock` in `blocks/QualitySettingsBlock.cs`
 
-Quality...
+This block exposes general global quality settings for the atmosphere, clouds, and overall rendering algorithm. Other non-global quality settings, in particular for volumetric clouds, can be found on block instances.
 
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- GENERAL --------------------------------------->

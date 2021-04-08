@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.NightSkyBlock` in `blocks/NightSkyBlock.cs`
 
-Night Sky Settings...
+This block exposes settings that allow you to tweak the look of the night sky. This includes light pollution, artistic scattering overrides, and global rotation of stars/nebulae.
 
 #### Intensity
 **C# member variable:** `float m_intensity` \

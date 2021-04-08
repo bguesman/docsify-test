@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Texture stars...
+Adding this block to your scene will create a star field that uses a pre-authored texture.
 
 #### Star Texture
 **C# member variable:** `Cubemap m_starTexture` \

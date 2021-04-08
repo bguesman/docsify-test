@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Procedural cloud volume...
+Adding this block to your scene will create a 3D cloud volume whose density field is controlled by a combination of procedural noises and, optionally, static 3D textures.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->

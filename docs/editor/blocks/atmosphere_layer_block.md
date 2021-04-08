@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Atmosphere layers...
+This block allows you to add layers of participating media to Expanse's atmosphere model. It can model everything from air, to aerosols, to height and rain fog, to the ozone layer, etc.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->

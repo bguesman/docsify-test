@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Procedural nebulae...
+This block exposes the settings for Expanse's procedural nebulae authoring system.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->

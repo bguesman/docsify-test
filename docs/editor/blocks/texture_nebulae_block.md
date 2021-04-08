@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.TextureNebulaeBlock` in `blocks/TextureNebulaeBlock.cs`
 
-Texture nebulae...
+Adding this block to your scene will create a nebulae that uses a pre-authored texture.
 
 #### Nebulae Texture
 **C# member variable:** `m_nebulaeTexture` \

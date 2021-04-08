@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Procedural stars...
+This block exposes the settings for Expanse's procedural star field authoring system.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- LIGHTING --------------------------------------->

@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.AerialPerspectiveSettingsBlock` in `blocks/AerialPerspectiveSettingsBlock.cs`
 
-AP Settings...
+This block exposes settings related to aerial perspective, which refers to the phenomenon of atmospheric scattering being composited on top of objects. Games often simulate this with simple blue fog. Expanse takes a more physically-based approach, and uses its atmospheric model to compute aerial perspective.
 
 #### Directional Occlusion Bias
 **C# member variable:** `float m_directionalOcclusionBias` \
