@@ -5,8 +5,7 @@
     - [Creating Expressive Cloudscapes](quickstart/clouds.md)
 - Editor Components
     - [Editor Overview](editor/overview.md)
-    - [Sky And Fog Volume](editor/volume.md)
-    - [Blocks](editor/blocks/blocks.md)
+    - [Block Types](editor/blocks/blocks.md)
         - [Aerial Perspective Settings Block](editor/blocks/aerial_perspective_settings_block.md)
         - [Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md)
         - [Celestial Body Block](editor/blocks/celestial_body_block.md)
