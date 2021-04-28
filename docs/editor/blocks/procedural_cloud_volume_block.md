@@ -441,6 +441,10 @@ Whether or not the clouds cast shadows on themselves.
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. It's still pretty important, though more subtle than with the dense layer. Left: self-shadowing enabled. Right: no self-shadowing.</p>
 </div>
 
+#### Max Self Shadow Distance
+**C# member variable:** `float m_maxSelfShadowDistance` \
+Maximum distance that clouds can cast shadows onto themselves/each other. If this value is set too high, you may lose some detail in your cloud self-shadowing.
+
 #### Multiple Scattering Amount
 **C# member variable:** `float m_multipleScatteringAmount` \
 As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the amount of approximated multiple scattering. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
@@ -574,6 +578,22 @@ Threshold below which cloud transmittance is considered to be zero. It is import
 #### Max Consecutive Zero Samples
 **C# member variable:** `int m_maxConsecutiveZeroSamples` \
 Max number of consecutive zero samples before detail ray marching switches back to coarse ray marching.
+
+#### Use Temporal Denoising
+**C# member variable:** `bool m_useTemporalDenoising` \
+When enabled, Expanse will use TAA-based denoising to allow fewer samples to be taken per frame. Be careful when you use this in combination with reprojection, as things can start to get quite blurry.
+
+#### Denoising History Frames
+**C# member variable:** `int m_denoisingHistoryFrames` \
+Number of history frames to use for temporal denoising. You should probably keep this low if you plan on having rapid cloud movement or cloud flythrough.
+
+#### Optimize For Flythrough
+**C# member variable:** `bool m_optimizeForFlythrough` \
+When enabled, makes some adjustments to reprojection to make it more useable for cloud flythrough. In particular, disables reprojection at the very edges of clouds, to avoid the worst of the reprojection artifacts.
+
+#### Flythrough Threshold
+**C# member variable:** `float m_flythroughThreshold` \
+Available when `m_optimizeForFlythrough` is `true`. Controls the threshold at which reprojection is disabled at cloud edges. A lower value will disable reprojection more liberally. A higher value will only disable reprojection for the very edges of the clouds.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->

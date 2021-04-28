@@ -98,10 +98,34 @@ Temperature of the celestial body, used to calculate its light color when operat
 **C# member variable:** `Color m_lightColor` \
 Filter color applied over the color calculated via temperature, when operating in [temperature mode](/editor/blocks/celestial_body_block?id=temperature-mode). Shares member variable with [light color](/editor/blocks/celestial_body_block?id=light-color).
 
+#### Light Clouds
+**C# member variable:** `bool m_lightClouds` \
+Whether or not the celestial body's light will affect clouds. Disabling this for weak celestial bodies can help improve performance.
+
 #### Cast Cloud Shadows
 **C# member variable:** `bool m_castCloudShadows` \
 Whether or not the celestial body will cast cloud shadows.
 
+#### Shadowmap Volumetric Shadows
+**C# member variable:** `bool m_shadowmapVolumetricShadows` \
+When this is enabled, Expanse uses HDRP's shadowmap to compute geometry shadows when lighting screenspace atmosphere layers with this celestial body.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/celestial_bodies/no-volumetric-shadows.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/celestial_bodies/depth-buffer-volumetric-shadows.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/celestial_bodies/shadowmap-volumetric-shadows.jpg"/></div>
+    </div>
+    <p>Top: no volumetric shadows. Middle: screenspace volumetric shadows, traced using the depth buffer. Bottom: true volumetric shadows, using the shadow map. The depth-buffer shadows get the idea across, but far too much of the geometry is supposedly in shadow. The shadow map shadows are geometrically correct---large swaths of the fog there were unlit using the depth buffer are correctly lit when using the shadow map.</p>
+</div>
+
+#### Max Volumetric Shadowmap Distance
+**C# member variable:** `bool m_maxVolumetricShadowmapDistance` \
+The maximum distance that Expanse will search when rendering volumetric shadows. If you set this too high, you can lose detail in your close-up shadows and have to increase your sample count.
 
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- ALBEDO ---------------------------------------->
