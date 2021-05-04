@@ -710,7 +710,7 @@ Here's a comparison between our optimized clouds and our non-optimized clouds. T
 
 ## Wrapup
 
-Well, I hope you've enjoyed learning how to craft volumetric cloudscapes in Expanse. If you ever feel stuck, please feel free to post to the [Expanse forums (link coming soon)]()!
+Well, I hope you've enjoyed learning how to craft volumetric cloudscapes in Expanse. If you ever feel stuck, please feel free to post to the [Expanse Discord](https://discord.gg/F3VQ2vJy9p)!
 
 This is really just the beginning of what it is possible to create with Expanse. For more info on all the parameters you can play around with, check out the docs for the [`Procedural Cloud Volume Block`](/editor/blocks/procedural_cloud_volume_block).
 

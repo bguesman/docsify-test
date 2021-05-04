@@ -25,7 +25,7 @@ There's more to talk about, but those are the highlights.
 
 ## The Purpose of This Site
 
-These are the Expanse Docs---any questions you have about how to use Expanse and how to interact with it programmatically should be answerable here. If something's missing, please, let me know on the [Expanse Unity forum! (Link coming soon)]()
+These are the Expanse Docs---any questions you have about how to use Expanse and how to interact with it programmatically should be answerable here. If something's missing, please, let me know on the [Expanse Discord!](https://discord.gg/F3VQ2vJy9p)
 
 I also highly recommend checking out the [YouTube channel for Expanse](https://www.youtube.com/channel/UCHBzoaGEDkI2P2jsUljq24Q), where video tutorials will be posted regularly. These docs are largely meant to be a reference for you once you have a general understanding of how Expanse works. If you try to dive right into the [blocks documentation](/editor/blocks/blocks), you might find yourself a little confused.
 
