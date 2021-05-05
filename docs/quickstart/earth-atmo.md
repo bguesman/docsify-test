@@ -1,5 +1,7 @@
 # Tutorial: Modeling the Earth's Atmosphere
 
+Hate reading? Check out the [video companion](https://youtu.be/xY0huK6jdMI) for this tutorial!
+
 When you were a kid, at some point you probably asked your parents, "Why is the sky blue?". Sadly, the science of atmospheric scattering isn't going to help you resolve any of your outstanding metaphysical struggles. That said, it will be massively helpful in reducing this physical phenomenon down to something we can model with a computer.
 
 In this tutorial, we'll walk through the basics of reconstructing the atmosphere of the Earth with Expanse. This should give you the foundational knowledge you need to simulate all sorts of different atmospheric conditions---on our planet and beyond!
