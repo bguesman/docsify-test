@@ -14,7 +14,7 @@ If you are an **individual creator**, you can purchase a single license. If you 
 
 Once you have purchased Expanse, you can download it from the asset store, and import it into your project. It should import to the folder `Assets/Expanse`.
 
-**Your project must be using HDRP version 2019.4 or higher.** Expanse may work with older versions of HDRP, but it hasn't been tested with them. **Expanse does not support the Universal or Builtin Render Pipelines.**
+**Your project must be using HDRP version 2020.1.17 or higher.** Expanse may work with older versions of HDRP, but it hasn't been tested with them. **Expanse does not support the Universal or Builtin Render Pipelines.**
 
 ## Preparing Your Project
 
@@ -35,7 +35,7 @@ There's not much to do in this department---in fact, there's really only two thi
 
 The easiest way to start using Expanse is to drag and drop in one of the prefabs. These are prebuilt `GameObjects` that lay out all the components necessary for a basic sky, with a sun, moon, and clouds.
 
-As a note: we'll be using the default HDRP project from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2019.4 or higher**, should work.
+As a note: we'll be using the default HDRP project from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.1.17 or higher**, should work.
 
 To begin, drag a prefab from the folder `Expanse/prefabs/Full Skies` into your scene. The prefabs are named by the clouds they use, since this is the biggest consideration for performance. In this guide, we'll be using the `Expanse Volumetric Cloud Sky` prefab, but you could easily follow along with any of the other prefabs.
 
