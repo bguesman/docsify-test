@@ -81,13 +81,13 @@ To fix this, go to your post-processing volume, and add an Exposure override (if
     <p>Adjust the exposure settings, and voila, you've got a visible sky!</p>
 </div>
 
-Another issue you will encounter is that Expanse computes aerial perspective only up until the camera's far clipping plane. You will want to adjust your camera's far clip plane to something like 30000 so that aerial perspective is computed correctly for clouds.
+Another issue you will encounter is that Expanse computes aerial perspective only up until the camera's far clipping plane. You will want to adjust your camera's far clip plane to something like 100000 (100k) so that aerial perspective is computed correctly for clouds. This will also make sure cloud depth is written correctly, so that the clouds interact properly with Unity's stock fog implementation.
 
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img style="width:40%" src="img/quickstart/camera.jpg"/></div>
     </div>
-    <p>Adjust your camera's far clip plane to be 30000 or higher, so that clouds have atmospheric scattering in front of them.</p>
+    <p>Adjust your camera's far clip plane to be 100000 or higher, so that clouds have atmospheric scattering in front of them.</p>
 </div>
 
 ## Moving the Sun and Moon
