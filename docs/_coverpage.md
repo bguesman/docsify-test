@@ -2,9 +2,9 @@
 
 <!-- TODO (LOGO): ![logo](_media/icon.svg) -->
 
-# Expanse Docs<small>1.0</small>
+# Expanse Docs<small>1.1.0</small>
 
-> Beautiful Volumetric Skies in Unity's HDRP.
+> Beautiful Volumetric Skies in Unity's HDRP
 
 - Physically Based
 - Modular and Expressive
