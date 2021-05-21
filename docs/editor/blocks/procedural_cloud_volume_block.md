@@ -491,6 +491,10 @@ Dimmer to the effect of light pollution on clouds. When it's zero, the clouds re
 **C# member variable:** `bool m_castShadows` \
 Whether or not this layer casts shadows on the ground and geometry. Enabling can incur a small performance cost.
 
+#### Max Shadow Intensity
+**C# member variable:** `float m_maxShadowIntensity` \
+How dark the shadows that the clouds cast onto the ground are.
+
 #### Cel Shade
 **C# member variable:** `bool m_celShade` \
 Whether to use cel/"toon" shading on the clouds. This is sort of a fun, experimental feature, so take it with a grain of salt.
