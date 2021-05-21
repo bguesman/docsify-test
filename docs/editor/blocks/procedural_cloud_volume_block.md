@@ -475,6 +475,18 @@ As a rule of thumb, lower values here are good for very dense, puffy clouds, sin
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.5 for all three examples. Left: 0. This means self-shadowing is effectively turned off. Makes it clear just how important it is! Middle: 0.15. This looks good to my eyes. Right: 0.25. This is a bit too extreme.</p>
 </div>
 
+#### Light Pollution Dimmer
+**C# member variable:** `float m_lightPollutionDimmer` \
+Dimmer to the effect of light pollution on clouds. When it's zero, the clouds receive no light pollution. When it's one, they receive full light pollution. This is a useful parameter for when you're using light pollution as more of an artistic effect to recolor the night sky.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/full-lp.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/dimmed-lp.jpg"/></div>
+    </div>
+    <p>Left: no light pollution dimming. Notice how the clouds are very blue. Right: full light pollution dimming.</p>
+</div>
+
 #### Cast Shadows
 **C# member variable:** `bool m_castShadows` \
 Whether or not this layer casts shadows on the ground and geometry. Enabling can incur a small performance cost.

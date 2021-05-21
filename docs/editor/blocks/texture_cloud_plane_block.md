@@ -240,6 +240,18 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.25 for all three examples. Left: 0.25. Middle: 0.5. Right: 1.</p>
 </div>
 
+#### Light Pollution Dimmer
+**C# member variable:** `float m_lightPollutionDimmer` \
+Dimmer to the effect of light pollution on clouds. When it's zero, the clouds receive no light pollution. When it's one, they receive full light pollution. This is a useful parameter for when you're using light pollution as more of an artistic effect to recolor the night sky.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/full-lp.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/dimmed-lp.jpg"/></div>
+    </div>
+    <p>Left: no light pollution dimming. Notice how the clouds are very blue. Right: full light pollution dimming.</p>
+</div>
+
 #### Cast Shadows
 **C# member variable:** `bool m_castShadows` \
 Whether or not this layer casts shadows on the ground and geometry. Enabling can incur a small performance cost.
