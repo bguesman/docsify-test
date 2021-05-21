@@ -583,6 +583,16 @@ Step number range for detail ray marching. The lower and upper limits are applie
 **C# member variable:** `Vector2 m_stepDistanceRange` \
 Distance range over which to apply the step number ranges.
 
+#### Flythrough Step Range
+**C# member variable:** `Vector2 m_flythroughStepRange` \
+Step distance range for flythrough ray marching. The lower and upper limits are applied at the lower and upper [distance range](/editor/blocks/procedural_cloud_volume_block?id=flythrough-step-distance-range) values. This lets you use fewer samples for smaller march distances.
+
+This parameter is different from the non-flythrough step ranges---it specifies step distance, not in step count. A reasonable value for this might be something like `(16, 512)`, which will take 16 meter steps up close, and 512 meter steps far away.
+
+#### Flythrough Step Distance Range
+**C# member variable:** `Vector2 m_flythroughStepDistanceRange` \
+Distance range over which to apply the flythrough step range.
+
 #### Media Zero Threshold
 **C# member variable:** `float m_mediaZeroThreshold` \
 Threshold below which normalized cloud density is considered to be zero. It is important to set this to something above zero, like `1e-4` or `1e-5`, as it determines an important early out for the algorithm.
@@ -602,14 +612,6 @@ When enabled, Expanse will use TAA-based denoising to allow fewer samples to be 
 #### Denoising History Frames
 **C# member variable:** `int m_denoisingHistoryFrames` \
 Number of history frames to use for temporal denoising. You should probably keep this low if you plan on having rapid cloud movement or cloud flythrough.
-
-#### Optimize For Flythrough
-**C# member variable:** `bool m_optimizeForFlythrough` \
-When enabled, makes some adjustments to reprojection to make it more useable for cloud flythrough. In particular, disables reprojection at the very edges of clouds, to avoid the worst of the reprojection artifacts.
-
-#### Flythrough Threshold
-**C# member variable:** `float m_flythroughThreshold` \
-Available when `m_optimizeForFlythrough` is `true`. Controls the threshold at which reprojection is disabled at cloud edges. A lower value will disable reprojection more liberally. A higher value will only disable reprojection for the very edges of the clouds.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->
