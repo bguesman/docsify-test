@@ -115,10 +115,10 @@ There should only be two, which you can easily find with `Ctrl-F` in your favori
 Open `ShaderPassTransparentForward.hlsl`, and find the first `#endif`, near the top of the file. This should typically be on line 3. **Right on the next line**, paste the following:
 
 ```
-#include "../../../code/source/atmosphere/AtmosphereGlobalTextures.hlsl"
+#include "../transparency.hlsl"
 ```
 
-This gives us access to the code that lets us sample Expanse's fog in this file.
+This gives us access to the code that lets us sample Expanse's fog and clouds in this file.
 
 Now, find the following two lines:
 
@@ -132,17 +132,26 @@ This is where Unity applies its fog ("EvaluateAtmosphericScattering") to transpa
 ```
 outColor = ApplyBlendMode(diffuseLighting, specularLighting, builtinData.opacity);
             
-// [EXPANSE]: Begin modification. perform atmospheric scattering lookup/composite.
-float4 expanseFog = float4(0.0, 0.0, 0.0, 1.0);
-SampleExpanseFog_float(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, expanseFog);
-outColor.xyz *= expanseFog.w;
-outColor.xyz += GetCurrentExposureMultiplier() * expanseFog.xyz;
+// [EXPANSE]: perform atmospheric scattering lookup/composite.
+outColor = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, outColor, GetCurrentExposureMultiplier());
 // [EXPANSE]: End modifications.
 
 outColor = EvaluateAtmosphericScattering(posInput, V, outColor);
 ```
 
-This samples Expanse's fog and applies it before applying Unity's fog.
+This samples Expanse's fog and clouds and applies them before applying Unity's fog.
+
+If you don't care about clouds, and only need fog compatibility, you can use this snippet
+
+```
+outColor = ApplyBlendMode(diffuseLighting, specularLighting, builtinData.opacity);
+            
+// [EXPANSE]: perform atmospheric scattering lookup/composite.
+outColor = EvaluateExpanseFog(Linear01Depth(posInput.deviceDepth, _ZBufferParams, posInput.positionNDC, outColor, GetCurrentExposureMultiplier());
+// [EXPANSE]: End modifications.
+
+outColor = EvaluateAtmosphericScattering(posInput, V, outColor);
+```
 
 ### Step 5: Go back to step 1!
 
