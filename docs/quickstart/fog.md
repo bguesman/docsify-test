@@ -46,6 +46,9 @@ We'll start by adding a new `Atmosphere Layer Block` component to our `Earth Atm
 </div>
 
 Recall that, in order for it to work, you have to drag the Sky and Fog Volume onto the `volume` slot.
+
+> Starting in v1.1.4, dragging the volume over is no longer necessary.
+
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img style="width:75%" src="img/quickstart/modeling_atmo/drag.jpg"/></div>

@@ -268,6 +268,8 @@ For now, just stick to one layer. Looking at the controls in the component, you'
 
 Before we touch any of those parameters, we have to drag the Sky and Fog Volume that backs Expanse into its slot in the layer block component.
 
+> Starting in v1.1.4, dragging the volume over is no longer necessary.
+
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img style="width:75%" src="img/quickstart/modeling_atmo/drag.jpg"/></div>
@@ -293,6 +295,8 @@ Now, you should see the sky! If you look closely at the settings, you'll see tha
 ### Ozone Block
 
 Now, let's add another `Atmosphere Layer Block` for the ozone. This time, we'll input the information ourselves. First, like we did for the air layer block, we'll drag the sky and fog volume onto the volume slot, and change the layer's name to `Ozone`.
+
+> Again, starting in v1.1.4, dragging the volume over is no longer necessary.
 
 <div class="img-block">
     <div class="img-row">
@@ -352,6 +356,8 @@ Let's now move on to creating our aerosol layer. Once again, this is mostly just
 | Aerosols  | `(4.4-6, 4.4e-6, 4.4e-6)` | `(4e-6, 4e-6, 4e-6)` | Exponential | 0-10 | 1200 | - - - | Mie | 0.76 |
 
 Add a third `Atmosphere Layer Block`. Drag the sky and fog volume onto the volume slot, and change the layer's name to `Aerosols`.
+
+> For a thrd time, starting in v1.1.4, dragging the volume over is no longer necessary.
 
 Set the density distribution to `Exponential` (should already be selected), the density to `1`, and the height to `1200`.
 

@@ -57,6 +57,8 @@ We'll then add the `Procedural Cloud Volume Block` as a component on this empty.
 
 To fix the warning spew you'll inevitably get, drag the game object named "Expanse Sky And Fog Volume" onto the volume slot in the cloud volume component we just added.
 
+> Starting in v1.1.4, dragging the volume over is no longer necessary.
+
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="img/quickstart/clouds/drag_volume.jpg"/></div>

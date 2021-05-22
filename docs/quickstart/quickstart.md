@@ -182,6 +182,8 @@ Open up the prefab foldout and select the `GameObject` called `Volumetric Clouds
 
 Click the preset button---the little sliders in the upper right hand corner of the component---and select any of the presets you are interested in. You'll notice a null reference error that pops up. This is because you have to re-drag the sky and fog volume onto the component when you select a new preset, like so.
 
+> Starting in v1.1.4, dragging the volume over on preset selection is no longer necessary.
+
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="img/quickstart/drag_volume.jpg"/></div>
