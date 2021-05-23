@@ -52,6 +52,14 @@ This parameter can be particularly useful for 4K support, where you may want to 
 **C# member variable:** `bool m_compositeCloudsByHeight` \
 Uses an alternative algorithm for cloud compositing that assumes the camera is below the clouds. Does not make much of a difference for three or fewer cloud layers, but for scenes with three layers or more it can improve performance dramatically.
 
+#### Cloud Shadow Map Film Plane Scale
+**C# member variable:** `float m_cloudShadowMapFilmPlaneScale` \
+How big the cloud shadow map is. This will limit how far away from the origin the cloud shadows are accurate. Beyond this distance, the shadowmap will tile, so results will still be somewhat representative of the general amount of coverage, but won't be specifically correct.
+
+#### Cloud Shadow Map Quality
+**C# member variable:** `Expanse.Datatypes.Quality m_cloudShadowMapQuality` \
+Texture quality of the shadow map. Make sure to increase the size of the HDRP cookie atlas accordingly. This can be done in the HDRP settings asset. Unity will print errors to indicate that you need to increase the atlas size.
+
 <!---------------------------------------------------------------------------------------->
 <!-------------------------------------- ATMOSPHERE -------------------------------------->
 <!---------------------------------------------------------------------------------------->
@@ -90,10 +98,6 @@ The number of samples to use when computing the initial isotropic estimate of mu
 **C# member variable:** `int m_multipleScatteringAccumulationSamples` \
 The number of samples to use when computing the actual accumulated estimate of multiple scattering from the isotropic estimate. The number of samples to use when computing the initial isotropic estimate of multiple scattering. With importance sample, 8 samples gives a near-perfect result. However, multiple scattering is a fairly subtle effect, so as low as 3 samples gives a decent result. Without importance sampling, a value of 32 or higher is necessary for near perfect results, but a value of 4 is sufficient for most needs.
 
-#### Screenspace Occlusion Samples
-**C# member variable:** `int m_screenspaceOcclusionSamples` \
-The number of samples to use when computing the occlusion estimate for screenspace layers.
-
 #### Importance Sample Atmosphere
 **C# member variable:** `bool m_importanceSampleAtmosphere` \
 Whether or not to use importance sampling for all atmosphere calculations except aerial perspective. Importance sampling is a sample distribution strategy that increases fidelity given a limited budget of samples. It is recommended to turn it on, as it doesn't decrease fidelity, but does allow for fewer samples to be taken, boosting performance. However, for outer-space perspectives, it can sometimes introduce inaccuracies, so it can be useful to increase sample counts and turn off importance sampling in those cases.
@@ -112,7 +116,25 @@ Whether or not to use importance sampling for aerial perspective. Importance sam
 
 #### Aerial Perspective Depth Skew
 **C# member variable:** `float m_aerialPerspectiveDepthSkew` \
-Skews precomputed aerial perspective samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). This is useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
+Skews precomputed aerial perspective samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
+
+<!---------------------------------------------------------------------------------------->
+<!------------------------------------------ FOG ----------------------------------------->
+<!---------------------------------------------------------------------------------------->
+### Fog
+These parameters pertain to global fog quality---so, screenspace atmosphere layers.
+
+#### Screenspace Fog Quality
+**C# member variable:** `Expanse.Datatypes.Quality m_screenspaceFogQuality` \
+Quality of fog lookup texture. Lower quality settings will improve performance, at the cost of visual fidelity. The primary cost here is in the fidelity of the volumetric shadows. If you aren't using volumetric shadows, you may as well set this very low.
+
+#### Screenspace Occlusion Samples
+**C# member variable:** `int m_screenspaceOcclusionSamples` \
+The number of samples to use when computing the occlusion estimate for screenspace layers.
+
+#### Screenspace Fog Depth Skew
+**C# member variable:** `float m_screenspaceFogDepthSkew` \
+Skews precomputed screenspace fog samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
 
 #### Screenspace Depth Downscale
 **C# member variable:** `int m_screenspaceDepthDownscale` \
