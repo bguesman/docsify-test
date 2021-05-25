@@ -58,7 +58,6 @@ The overall intensity of the nebulae.
 
 #### Overall Definition
 **C# member variable:** `float m_overallDefinition` \
-The overall intensity of the nebulae.
 Global definition control for the whole nebula texture. This increases saturation and contrast. It's useful to use in tandem with the global intensity control.
 
 <div class="img-block">
@@ -69,6 +68,10 @@ Global definition control for the whole nebula texture. This increases saturatio
     </div>
     <p>Different overall definition values. Overall intensity is adjusted to compensate. Left to right: 1, 4, 8. Setting definition to higher values is pretty important to achieve the bright, saturated look of the nebulae photos we are all familiar with.</p>
 </div>
+
+#### Overall Tint
+**C# member variable:** `Color m_overallTint` \
+Global tint control for the whole nebula texture.
 
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------- NOISE LAYERS ------------------------------------->
