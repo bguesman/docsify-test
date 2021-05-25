@@ -17,13 +17,13 @@ Once you've done that, simply open up the `.shader` file `/Assets/Crest/Crest/Sh
 with 
 
 ```
-#include "../../../Expanse/transparency/shaders/<UNITY VERSION OF MODIFIED LIT SHADER>/ShaderPassTransparentForward.hlsl"
+#include "Assets/expanse-transparent-shaders/<UNITY VERSION OF MODIFIED LIT SHADER>/ShaderPassTransparentForward.hlsl"
 ```
 
 So, if you're using the modified lit shader `Expanse/2020.1.17f1/Expanse Transparent Lit` for your transparent materials, you would use the line:
 
 ```
-#include "../../../Expanse/transparency/shaders/2020.1.17f1/ShaderPassTransparentForward.hlsl"
+#include "Assets/expanse-transparent-shaders/2020.1.17f1/ShaderPassTransparentForward.hlsl"
 ```
 
 There should only be one occurence, near the bottom of the file.

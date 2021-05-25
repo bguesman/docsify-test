@@ -34,7 +34,15 @@ For convenience, Expanse ships with modified copies of the lit shaders for the f
 
 You ought to try out each of these and see if they work with your version of Unity. The way to do this is pretty straightforward.
 
-First, create a new material, and call it "Transparent Test". Then, in the inspector, click where it says "Shader".
+First, navigate to `Assets/Expanse/transparency/shaders`. You should see a few packages labeled with the above Unity versions. Unpack the one you want to try. When you unpack it, there may be errors---this probably indicates that the shader is incompatible with your version of Unity. Still, continue reading to verify that this is the case.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/transparency/unpack.jpg"/></div>
+    </div>
+</div>
+
+Next, create a new material, and call it "Transparent Test". Then, in the inspector, click where it says "Shader".
 
 <div class="img-block">
     <div class="img-row">
@@ -76,7 +84,7 @@ If you're unsure if it's receiving fog, you can compare it to a transparent obje
 
 So the preset shaders don't work. Fear not! You can tweak the shaders for your Unity version to work with Expanse.
 
-Create the folder `/Assets/Expanse/transparency/shaders/<your unity version>`. So, if you were using 2021.1.7, this would be `/Assets/Expanse/transparency/shaders/2021.1.7`.
+Create the folder `/Assets/expanse-transparent-shaders/<your unity version>`. So, if you were using 2021.1.7, this would be `/Assets/expanse-transparent-shaders/2021.1.7`.
 
 Now, copy the following two files into this folder (you can copy simply by dragging them into the folder):
 * `/Packages/High Definition RP/Runtime/Material/Lit/Lit.shader`. This is the rainbow-colored file.
@@ -115,7 +123,7 @@ There should only be two, which you can easily find with `Ctrl-F` in your favori
 Open `ShaderPassTransparentForward.hlsl`, and find the first `#endif`, near the top of the file. This should typically be on line 3. **Right on the next line**, paste the following:
 
 ```
-#include "../transparency.hlsl"
+#include "Assets/Expanse/transparency/shaders/transparency.hlsl"
 ```
 
 This gives us access to the code that lets us sample Expanse's fog and clouds in this file.
@@ -155,7 +163,7 @@ outColor = EvaluateAtmosphericScattering(posInput, V, outColor);
 
 ### Step 5: Go back to step 1!
 
-You should now have a working modified copy of Unity's Lit shader that you can test. Follow along with step 1, making sure to select the shader you just wrote.
+You should now have a working modified copy of Unity's Lit shader that you can test. Follow along with step 1 (skipping the unpacking portion), making sure to select the shader you just wrote.
 
 That's it! If you have any trouble, come ask for help on [Discord](https://discord.gg/F3VQ2vJy9p).
 
