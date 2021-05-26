@@ -22,6 +22,10 @@ The total thickness of the planet's atmosphere, in world units. This places an u
 **C# member variable:** `Vector3 m_originOffset` \
 The planet origin, in world units, but specified as an offset from the position (0, -radius, 0), since that origin is much more convenient. Useful for implementing a floating origin.
 
+#### Clip Fade
+**C# member variable:** `float m_clipFade` \
+How quickly to fade from geometry to sky as geometry approaches the far clip plane. Useful to tweak for flight sims, but otherwise, the default value of 0.35 is pretty good.
+
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MATERIAL --------------------------------------->
 <!---------------------------------------------------------------------------------------->
