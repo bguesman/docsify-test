@@ -20,13 +20,13 @@ then I suggest you just stick with Unity's default volumetric fog, which looks d
 We may not be able to modify Unity's source code, but we can make a duplicate copy of the lit shader that properly receives Expanse's fog. This strategy is the best one I've been able to come up with so far, because it will produce fully correct results for any configuration of transparent objects, no matter their material parameters.
 
 Things you have to be willing to do to use this workaround:
-* Copy paste a little bit of shader code.
 * Use this tweaked Lit Shader for all transparents you want to receive fog from Expanse.
+* Possibly copy-paste a little bit of shader code.
 
 Follow these steps to implement this workaround.
 
 ### Step 1: Try the existing tweaked shaders.
-For convenience, Expanse ships with modified copies of the lit shaders for the following Unity versions:
+For convenience, I've created modified copies of the lit shaders for the following Unity versions:
 
 * 2020.1.17f1
 * 2020.3.7f1
@@ -34,13 +34,7 @@ For convenience, Expanse ships with modified copies of the lit shaders for the f
 
 You ought to try out each of these and see if they work with your version of Unity. The way to do this is pretty straightforward.
 
-First, navigate to `Assets/Expanse/transparency/shaders`. You should see a few packages labeled with the above Unity versions. Unpack the one you want to try. When you unpack it, there may be errors---this probably indicates that the shader is incompatible with your version of Unity. Still, continue reading to verify that this is the case.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/transparency/unpack.jpg"/></div>
-    </div>
-</div>
+Download or clone [this Github repository](https://github.com/bguesman/expanse-transparent-shaders). In the folder "packages", You should see a few packages labeled with the above Unity versions. Import the one you want to try into Unity by dragging over the file into Unity's file browser window. When you import it, there may be errors---this probably indicates that the shader is incompatible with your version of Unity. Still, continue reading to verify that this is the case.
 
 Next, create a new material, and call it "Transparent Test". Then, in the inspector, click where it says "Shader".
 
