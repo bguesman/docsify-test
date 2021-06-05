@@ -158,7 +158,7 @@ void MyFunCoolDensityProbe() {
 }
 ```
 
-This is all well and good, but it has one fatal flaw: reading data back from the GPU is **SUPER SLOW**. For reference: no matter how much data you're reading back, it will take a least 1ms, for reasons I won't go into here. We simply can't afford that kind of slowdown if we're targeting to 60FPS for our realtime experience.
+This is all well and good, but it has one fatal flaw: reading data back from the GPU is **SUPER SLOW**. For reference: no matter how much data you're reading back, it will take a least 1ms, for reasons I won't go into here. We simply can't afford that kind of slowdown if we're targeting 60FPS for our realtime experience.
 
 Lucky for us, there's a light at the end of the tunnel. If we perform the readback to the CPU **on another thread**, we can do it without stalling our game's main thread, and read everything back with virtually no performance impact. In other words, we will have to make our query interface **asynchronous**.
 
