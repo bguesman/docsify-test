@@ -10,7 +10,13 @@ Enter Expanse's gameplay query interface.
 
 ## Overview
 
-To use the gameplay query interface to learn things about the state of the clouds, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace.
+Expanse lets you perform two kinds of queries on the cloud state: **density queries** and **visibility queries**.
+
+**Density queries** take as input a point, and output the density of the clouds at that point. Pretty simple.
+
+**Visibility queries** take as input two points---a start point and an end point---and tell you how visible the end point is from the start point, on a scale from 0 (not at all visible) to 1 (fully visible).
+
+To use the gameplay query interface to query density and visibility, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace.
 
 ```
 public static void Dispatch(QueryInfo query, Action<QueryInfo> callback);
@@ -31,9 +37,9 @@ It takes as arguments a `QueryInfo` struct, that specifies the nature of the que
 
 and a callback function that will be called when the query is executed, which supplies the fulfilled `QueryInfo` result as a function argument.
 
-There is only one kind of query, and it performs both a density and visibility test. This is because there's virtually no added performance cost to doing both at the same time, and under the hood it's much more concise to implement it this way. 
+Something that might strike you as odd: **there is only one kind of query, and it performs both a density and visibility test.** This is because there's virtually no added performance cost to doing both at the same time, and under the hood it's much more concise to implement it this way. 
 
-For instance, if you only want to query the density, you can just ignore the `visibility` result and pass in whatever garbage value you like for the `endWS` parameter---though simply using the same value as `startWS` is a good best practice, to avoid unnecessary ray marching. Frankly it doesn't really matter though, because the actual query fulfillment on the GPU is so blazing fast that you'd be hard pressed to notice a difference.
+You can feel free to ignore any struct members you don't care about. For instance, if you only want to query the density, you can just ignore the `visibility` result and pass in whatever garbage value you like for the `endWS` parameter---though simply using the same value as `startWS` is a good best practice, to avoid unnecessary ray marching. Frankly it doesn't really matter though, because the actual query fulfillment on the GPU is so blazing fast that you'd be hard pressed to notice a difference.
 
 ## Example
 
