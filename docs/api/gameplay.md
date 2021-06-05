@@ -16,7 +16,7 @@ Expanse lets you perform two kinds of queries on the cloud state: **density quer
 
 **Visibility queries** take as input two points---a start point and an end point---and tell you how visible the end point is from the start point, on a scale from 0 (not at all visible) to 1 (fully visible).
 
-To use the gameplay query interface to query density and visibility, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace.
+To use the gameplay query interface to query density and visibility, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace (the file is `code/source/main/GameplayQueries.cs`, if you want to take a look at it).
 
 ```
 public static void Dispatch(QueryInfo query, Action<QueryInfo> callback);
