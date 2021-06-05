@@ -29,6 +29,7 @@
         - [Creative Sun](editor/creative/creative_sun.md)
 - C# API
     - [API Overview](api/overview.md)
+    - [Gameplay Query Interface](api/gameplay.md)
 - Integrations
     - [Transparency](integrations/transparency.md)
     - [Crest](integrations/crest.md)
