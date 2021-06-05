@@ -10,7 +10,7 @@ Enter Expanse's gameplay query interface.
 
 ## Overview
 
-To query the gameplay interface, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace.
+To use the gameplay query interface to learn things about the state of the clouds, all you have to do is call the following function, implemented in the static class `GameplayQueries` in the `Expanse` namespace.
 
 ```
 public static void Dispatch(QueryInfo query, Action<QueryInfo> callback);
