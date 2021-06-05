@@ -166,6 +166,7 @@ Type of procedurally generated noise used for this layer. There are seven types 
 * `Worley`: Looks kind of like honeycomb. Good as detail noise---can create a good feathery effect.
 * `InverseWorley`: the inverse of `Worley`---a billowy cell noise, good for modeling puffy clouds.
 * `PerlinWorley`: A combination of `Perlin` and `InverseWorley` noise---so kind of like a softer version of vanilla `Worley` noise. Probably the best for cloud base noise.
+* `PerlinWorley2`: An alternate combination of `Worley` and `Perlin` noise. Another great option for cloud base noise.
 * `Curl`: if you use this one for anything other than warp layers, it will look *weird*.
 
 The following figure will give you a sense of what the different noises are like, but the best things you can do are play around with them yourself and watch the tutorial videos on modeling clouds.

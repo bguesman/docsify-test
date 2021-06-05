@@ -132,6 +132,10 @@ Quality of fog lookup texture. Lower quality settings will improve performance, 
 **C# member variable:** `int m_screenspaceOcclusionSamples` \
 The number of samples to use when computing the occlusion estimate for screenspace layers.
 
+#### Screenspace Scattering Samples
+**C# member variable:** `int m_screenspaceScatteringSamples` \
+The number of samples to use when computing the scattering for screenspace layers. Only affects layers that are physically lit.
+
 #### Screenspace Fog Depth Skew
 **C# member variable:** `float m_screenspaceFogDepthSkew` \
 Skews precomputed screenspace fog samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
@@ -146,6 +150,16 @@ Downscale factor for depth buffer used for occlusion in screenspace atmosphere l
     </div>
     <p>Left: no downscaling applied to depth buffer. Right: downscale factor of 3 applied to depth buffer. Notice how the crepuscular rays aren't quite as streaky.</p>
 </div>
+
+#### Fog Use Temporal Denoising
+**C# member variable:** `bool m_fogUseTemporalDenoising` \
+Whether or not to use temporal denoising for the fog to help remove stochastic sampling noise.
+
+#### Fog Denoising History Frames
+**C# member variable:** `int m_fogDenoisingHistoryFrames` \
+How many history frames to use when denoising screenspace layers. The higher this value is, the better the denoising will be. However, if you set it too high, you'll start to get noticeable ghosting.
+
+For something like an FPS, where the player moves relatively slow compared to volumetric shadow casters, you can probably set this pretty high. For a flight sim, you might have to set this lower to avoid ghosting.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->

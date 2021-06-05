@@ -287,6 +287,18 @@ Expanse computes multiple scattering for non-screenspace layers. This parameter 
     <p>Different values for the multiple scattering multiplier. Left to right: no multiple scattering, 1x multiple scattering (physical), 5x multiple scattering. Cranking this parameter can create some pretty dreamy effects!</p>
 </div>
 
+#### Physical Lighting
+**C# member variables:** `bool m_physicalLighting` \
+Normally, Expanse uses a cheap approximation to compute screenspace scattering. However, enabling this will instead raymarch the scattering properly, and correctly compute self shadowing. You could actually refer to this a layer with this checked as "path traced fog", since the ray marching is stochastic in nature.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/atmosphere/non-physical.png"/></div>
+        <div class="img-col"><img src="img/atmosphere/physical.png"/></div>
+    </div>
+    <p>Left: non-physical lighting. Right: physical lighting.</p>
+</div>
+
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- SHADOWS ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
@@ -313,9 +325,9 @@ Whether or not clouds should cast volumetric shadows for this layer.
     <p>Left: no cloud shadows. Right: with cloud shadows. This produces the "god rays" effect.</p>
 </div>
 
-#### Max Occlusion
-**C# member variable:** `float m_maxOcclusion` \
-The maximum amount that scene geometry or clouds can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as geometry and clouds will have no occluding power.
+#### Max Geometry Occlusion
+**C# member variable:** `float m_maxGeometryOcclusion` \
+The maximum amount that scene geometry can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as geometry will have no occluding power.
 
 <div class="img-block">
     <div class="img-row">
@@ -325,6 +337,10 @@ The maximum amount that scene geometry or clouds can attenuate scattering. A val
     </div>
     <p>Comparison of different max occlusion values. Left: value of 0---effectively turning volumetric shadows off. Middle: value of 0.5. Right: value of 1. Notice how the volumetric shadows are darker and more pronounced in the right-most image, where geometry has maximum occluding power.</p>
 </div>
+
+#### Max Cloud Occlusion
+**C# member variable:** `float m_maxCloudOcclusion` \
+The maximum amount that clouds can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as clouds will have no occluding power.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->
