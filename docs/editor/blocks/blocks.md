@@ -29,4 +29,5 @@ As a note: blocks are designed to be modular, but **there are some blocks which 
 * The [Quality Settings Block](editor/blocks/quality_settings_block.md)
 * The [Aerial Perspective Settings Block](editor/blocks/aerial_perspective_settings_block.md)
 * The [Night Sky Block](editor/blocks/night_sky_block.md)
+
 They are included in all sky prefabs, and the editor will print an error telling you to add one if its missing from your scene.
