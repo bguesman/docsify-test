@@ -2,7 +2,7 @@
 
 <!-- TODO (LOGO): ![logo](_media/icon.svg) -->
 
-# Expanse Docs<small>1.2.2</small>
+# Expanse Docs<small>1.3.0</small>
 
 > Beautiful Volumetric Skies in Unity's HDRP
 

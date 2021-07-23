@@ -11,6 +11,27 @@
 Adding this block to your scene will create a cloud plane whose density field is controlled by a combination of procedural noises and, optionally, static textures.
 
 <!---------------------------------------------------------------------------------------->
+<!---------------------------------------- PRESETS --------------------------------------->
+<!---------------------------------------------------------------------------------------->
+### Preset Management
+
+The preferred way to author, save, and load presets for cloud layers is via the Save/Load preset buttons, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
+
+Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized to a JSON file on save.
+
+What this means for you is that, to save a preset from editor, you can just click the "Save Preset" button, and a file dialogue will pop up for you to specify the path to save the preset file to. To then load that preset, you can click the "Load Preset" button, and select the saved JSON preset file in the file picker that pops up.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:50%" src="img/procedural_cloud_volume/save_load.jpg"/></div>
+    </div>
+    <p>Save and load buttons.</p>
+</div>
+
+To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayerBlock.cs`, which all cloud layer blocks derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
+
+You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this JSON-based preset system exists is to get around this unfortunate limitation of Unity presets.
+
+<!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 ### Modeling
