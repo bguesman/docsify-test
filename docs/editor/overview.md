@@ -31,13 +31,4 @@ Also, for those who are reading this and enjoy scripting, all of the code for im
 
 ## Under The Hood: Sky and Fog Volume
 
-Because Expanse is written in HDRP, it uses the Sky and Fog Volume component to actually get itself into the rendering pipeline. This means that every scene that uses Expanse needs to have a Sky and Fog Volume, with a visual environment override set to "Expanse". If you don't know what this means, don't worry about it---all the prefabs have this set up. If you're curious, read on.
-
-All of the settings for Expanse are actually a part of a `SkySettings` object that conforms to the HDRP specification. This means that, in theory, you can interface with Expanse entirely by setting parameters in its Sky and Fog Volume UI. However, this UI is clunky and has a lot of nesting, and is generally unapproachable, so I wrote the blocks UI as a layer on top that allows you to:
-- Organize the different settings into a neat `Game Object` hierarchy.
-- Easily animate parameters using the animation timeline (Sky and Fog Volume overrides currently cannot be animated in this way).
-- Interact with the sky parameters via scripting using the usual Object-Component style access pattern. The Volume pattern is unintuitive, so the blocks abstract it away, making it much simpler to create scriptable systems that model things like weather and time of day.
-
-This means that Expanse's modularity is more or less a UI-level construct. For instance, under the hood, Expanse has fixed limits on how many cloud layers you can use (eight, to be specific). That said, this doesn't make Expanse any less efficient---it still disables any systems you aren't using. It's just that those systems are not strictly modular at the root API level.
-
-Perhaps in the future I'll re-architect Expanse to be fully modular, and use custom render passes so that the Sky and Fog Volume can be ignored. That said, this would mean losing a lot of the nice integration features that come with writing a sky that conforms to HDRP's specification.
+Because Expanse is written in HDRP, it uses the Sky and Fog Volume component to actually get itself into the rendering pipeline. This means that every scene that uses Expanse needs to have a Sky and Fog Volume, with a visual environment override set to "Expanse".

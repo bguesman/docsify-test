@@ -23,3 +23,10 @@ What about dynamic 3D clouds? Drag in a [Procedural Cloud Volume Block](editor/b
 Of course, it's not quite this simple---for more details on how to build your first sky in Expanse, check out [quick start guide](quickstart/quickstart.md) and other tutorials under the Getting Started tab.
 
 Under this heading, you'll find detailed descriptions of each block's parameters, with visual examples of what these parameters do. These pages are best used as a reference, when you find yourself asking something like *"What the f\**** *is Media Zero Threshold?"*
+
+As a note: blocks are designed to be modular, but **there are some blocks which are required for Expanse to function**. These are:
+* The [Planet Block](editor/blocks/planet_block.md)
+* The [Quality Settings Block](editor/blocks/quality_settings_block.md)
+* The [Aerial Perspective Settings Block](editor/blocks/aerial_perspective_settings_block.md)
+* The [Night Sky Block](editor/blocks/night_sky_block.md)
+They are included in all sky prefabs, and the editor will print an error telling you to add one if its missing from your scene.
