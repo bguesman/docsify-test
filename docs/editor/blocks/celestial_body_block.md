@@ -257,10 +257,6 @@ These parameters are metadata or references to components/objects that the block
 **C# member variable:** `string m_name` \
 The name that this celestial body is assigned for debug and error printouts.
 
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that this backs this celestial body. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple celestial bodies (one for each volume), or programmatically change this parameter.
-
 #### Directional Light
 **C# member variable:** `m_directionalLight` \
 The name that this celestial body is assigned for debug and error printouts.

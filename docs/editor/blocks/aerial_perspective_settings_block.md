@@ -74,7 +74,3 @@ The night scattering effect can sometimes be either too intense or not intense e
     </div>
     <p>Comparison of different night scattering multipliers. Left: zero. Middle: 1, so physical. Right: 100, so very exaggerated.</p>
 </div>
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this aerial perspective settings object. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create aerial perspective settings blocks (one for each volume), or programmatically change this parameter.

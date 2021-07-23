@@ -160,13 +160,3 @@ Whether or not to use temporal denoising for the fog to help remove stochastic s
 How many history frames to use when denoising screenspace layers. The higher this value is, the better the denoising will be. However, if you set it too high, you'll start to get noticeable ghosting.
 
 For something like an FPS, where the player moves relatively slow compared to volumetric shadow casters, you can probably set this pretty high. For a flight sim, you might have to set this lower to avoid ghosting.
-
-<!---------------------------------------------------------------------------------------->
-<!--------------------------------------- METADATA --------------------------------------->
-<!---------------------------------------------------------------------------------------->
-### Metadata
-These parameters are metadata or references to components/objects that the block uses.
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this quality settings object. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create quality settings blocks (one for each volume), or programmatically change this parameter.

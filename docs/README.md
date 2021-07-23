@@ -1,6 +1,6 @@
 # Expanse Documentation
 
-> Welcome to the docs for the unity volumetric clouds plugin, Expanse!
+> Welcome to the docs for the Unity volumetric clouds plugin, Expanse!
 
 If you've arrived at this page, chances are you're looking for a robust, realistic, performant sky and clouds system for your game, visualization tool, or other immersive digital experience. Expanse might be the Unity asset for you.
 

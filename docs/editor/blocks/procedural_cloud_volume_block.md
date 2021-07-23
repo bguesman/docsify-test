@@ -420,6 +420,16 @@ Bias applied to depth probability effect. Can help to soften the effect and reig
     <p>Comparison of different depth probability biases. The height range is set to (0.08, 0.5), the the strength range is set to (0.1, 1.5), and the density multiplier is set to 3. Left: bias of 1, so no depth probability effect is visible. The clouds don't have a lot of visible internal structure. Middle: bias of 0.1. This gives a reasonable powdered sugar effect, where the cloud edges are darkened. Right: bias of 0.</p>
 </div>
 
+#### Depth Probability High Detail
+**C# member variable:** `bool m_depthProbabilityHighDetail` \
+Whether or not to use high detail mode for depth probability. Enabling this will create more detailed internal cloud edges. There's no additional performance cost, this is a purely stylistic parameter.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth-prob-low-detail.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/depth-prob-high-detail.jpg"/></div>
+    </div>
+    <p>Comparison of different depth probability detail levels. Left: low detail. Right: high detail. Notice that there are more dark "creases" in the clouds.</p>
+</div>
 
 #### Self Shadowing
 **C# member variable:** `bool m_selfShadowing` \
@@ -475,6 +485,14 @@ As a rule of thumb, lower values here are good for very dense, puffy clouds, sin
     </div>
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.5 for all three examples. Left: 0. This means self-shadowing is effectively turned off. Makes it clear just how important it is! Middle: 0.15. This looks good to my eyes. Right: 0.25. This is a bit too extreme.</p>
 </div>
+
+#### Multiple Scattering Rampdown
+**C# member variable:** `float m_multipleScatteringRampdown` \
+How much to ramp down the multiple scattering approximation as the view direction approaches the light direction. This can be useful for making sure that clouds block out enough of the sun close to the sun disc.
+
+#### Multiple Scattering Rampdown Shape
+**C# member variable:** `float m_multipleScatteringRampdownShape` \
+Shape of the multiple scattering ramp down effect. Lower values will spread the ramp down further away from the light. Higher values will contain the rampdown to the area directly around the light.
 
 #### Light Pollution Dimmer
 **C# member variable:** `float m_lightPollutionDimmer` \
@@ -623,7 +641,3 @@ These parameters are metadata or references to components/objects that the block
 #### Name
 **C# member variable:** `string m_name` \
 The name for this layer used in debug and error printouts.
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this procedural cloud block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple cloud blocks (one for each volume), or programmatically change this parameter.

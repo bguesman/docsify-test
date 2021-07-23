@@ -116,14 +116,3 @@ Intensity of smoother twinkle effect.
 #### Twinkle Chaotic Amplitude
 **C# member variable:** `float m_twinkleChaoticAmplitude` \
 Intensity of more chaotic twinkle effect.
-
-
-<!---------------------------------------------------------------------------------------->
-<!--------------------------------------- METADATA --------------------------------------->
-<!---------------------------------------------------------------------------------------->
-
-### Metadata
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this texture stars object. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create texture stars blocks (one for each volume), or programmatically change this parameter.

@@ -376,6 +376,14 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
     <p>Different multiple scattering biases. Multiple scattering amount is set to 0.25 for all three examples. Left: 0.25. Middle: 0.5. Right: 1.</p>
 </div>
 
+#### Multiple Scattering Rampdown
+**C# member variable:** `float m_multipleScatteringRampdown` \
+How much to ramp down the multiple scattering approximation as the view direction approaches the light direction. This can be useful for making sure that clouds block out enough of the sun close to the sun disc.
+
+#### Multiple Scattering Rampdown Shape
+**C# member variable:** `float m_multipleScatteringRampdownShape` \
+Shape of the multiple scattering ramp down effect. Lower values will spread the ramp down further away from the light. Higher values will contain the rampdown to the area directly around the light.
+
 #### Light Pollution Dimmer
 **C# member variable:** `float m_lightPollutionDimmer` \
 Dimmer to the effect of light pollution on clouds. When it's zero, the clouds receive no light pollution. When it's one, they receive full light pollution. This is a useful parameter for when you're using light pollution as more of an artistic effect to recolor the night sky.
@@ -455,7 +463,3 @@ These parameters are metadata or references to components/objects that the block
 #### Name
 **C# member variable:** `string m_name` \
 The name for this layer used in debug and error printouts.
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this procedural cloud block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple cloud blocks (one for each volume), or programmatically change this parameter.

@@ -69,7 +69,3 @@ The rotation of the planet textures as euler angles. This won't do anything to l
 <!---------------------------------------------------------------------------------------->
 ### Metadata
 These parameters are metadata or references to components/objects that the block uses.
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this planet block. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create multiple planet blocks (one for each volume), or programmatically change this parameter.

@@ -53,7 +53,3 @@ To emulate reality, it's probably best to keep this value very low. Stars are ve
 #### Scatter Tint
 **C# member variable:** `Color m_scatterTint` \
 An additional tint applied on top of the night sky tint, but only to the scattering. This is useful as an artistsic override for if the average color of your sky texture doesn't quite get you the scattering behavior you want. For instance, you may want the scattering to be bluer.
-
-#### Volume
-**C# member variable:** `UnityEngine.Rendering.Volume m_volume` \
-The Sky and Fog Volume that backs this night sky object. In all likelihood, this should be a single global volume you set up at the start of your project. More complex workflows may have multiple local volumes, in which case you will need to create night sky settings blocks (one for each volume), or programmatically change this parameter.
