@@ -1,10 +1,12 @@
 - Getting started
     - [Quick Start](quickstart/quickstart.md)
+    - [FAQ](quickstart/faq.md)
     - [Modeling The Earth's Atmosphere](quickstart/earth-atmo.md)
     - [Using Volumetric Fog](quickstart/fog.md)
     - [Creating Expressive Cloudscapes](quickstart/clouds.md)
 - Editor Components
     - [Editor Overview](editor/overview.md)
+    - [Lighting](editor/lighting.md)
     - [Block Types](editor/blocks/blocks.md)
         - [Aerial Perspective Settings Block](editor/blocks/aerial_perspective_settings_block.md)
         - [Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md)
@@ -30,6 +32,7 @@
 - C# API
     - [API Overview](api/overview.md)
     - [Gameplay Query Interface](api/gameplay.md)
+    - [Universal Cloud Layers](api/universal_clouds.md)
 - Integrations
     - [Transparency](integrations/transparency.md)
     - [Crest](integrations/crest.md)
