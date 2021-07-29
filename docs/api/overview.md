@@ -1,19 +1,21 @@
 # Overview
 
-Expanse's code structure can be broken up into 3 layers: the **Control Blocks**, **Settings**, and **Renderer**. In the following diagram, data flows from left to right along the arrows from the user and the user's scripts all the way to the renderer, which spits out Expanse's image.
+Expanse's code structure can be broken up into 3 layers: the **Control Blocks**, **Render Settings**, and **Renderer**. In the following diagram, data flows from left to right along the arrows from the user and the user's scripts all the way to the renderer, which spits out Expanse's image.
 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/api/Arch Diagram.png"/></div>
+        <div class="img-col"><img src="img/api/Arch Diagram.jpg"/></div>
     </div>
 </div>
 
-**Control Blocks** are C# scripts that are essentially wrappers around Expanse's internal settings. These are the things that you interact with when you're working with Expanse in the Unity Editor. If you want to write scripts to control Expanse programmatically, in all likelihood you want to interface with control blocks.
+**Control Blocks** are C# scripts that are essentially modular containers for Expanse's settings. These are the things that you interact with when you're working with Expanse in the Unity Editor. If you want to write scripts to control Expanse programmatically, in all likelihood you want to interface with control blocks.
 
-**Settings** refers to Expanse's internal state, specified by the class `ExpanseSettings`. While, from a UI perspective, Expanse is modular, internally its state actually has a completely fixed representation. It's set up this way so that it conforms to [HDRP's custom sky interface](https://docs.unity3d.com/Packages/com.unity.render-pipelines.high-definition@7.2/manual/Creating-a-Custom-Sky.html). Chances are you will not want to work with `ExpanseSettings`---it's much more obtuse to set parameters and you're better off using a control block.
+**Render Settings** refers to the portion of Expanse that's responsible for pulling data from Control Blocks and mirroring it on the GPU, for the various renderers to access when creating the final images. For instance, every `AtmosphereLayerBlock` registers itself with the `AtmosphereRenderSettings.cs` class, which translates all layers that are registered into GPU-mirrorable structs that are bound globally for shaders to access.
 
-**Renderer** refers to the rest of the Expanse codebase, which is responsible for using the internal state to produce a visual result. This is code that you will likely never need to touch, unless you're rolling a custom solution or fixing a bug.
+These classes typically take the form `<some name>RenderSettings.cs`---i.e. `LightingRenderSettings.cs`---and they have auto-generated `.hlsl` counterparts (the GPU-mirrored representations of the structs they define). Chances are you will not ever have to work with these classes, unless perhaps you're doing something extremely custom.
+
+**Renderer** refers to the rest of the Expanse codebase, which is responsible for using the GPU-mirrored state to produce a visual result. This is also code that you will likely never need to touch, unless you're rolling a custom solution or fixing a bug.
 
 ## Simple Example
 
@@ -55,6 +57,6 @@ The solution in this case is to either switch to adjusting one of the meta-param
 
 ## Further Examples
 
-For more examples, check out the source for the Creative UI---it's more or less a collection of scripts that interface with the control blocks. You can also take a look at `DateTimeBlock.cs`, which similarly interfaces with control blocks and not the internal `ExpanseSettings` object.
+For more examples, check out the source for the Creative UI---it's more or less a collection of scripts that interface with the control blocks. You can also take a look at `DateTimeBlock.cs`, which similarly interfaces with control blocks.
 
-**Do not** reference the Control Blocks directly. They interact with the `ExpanseSettings` object directly and thus are not good references for writing your own scripts.
+**Do not** reference the Control Blocks directly. They are special objects that are ultimately mirrored on the GPU in one form or another and thus are not good references for writing your own scripts.
