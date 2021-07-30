@@ -18,4 +18,8 @@ Here's a collection of questions folks have asked one or more times---this is a 
 * You have [reprojection frames](/editor/blocks/procedural_cloud_volume_block?id=reprojection-frames) set to more than 1, and you have Unity's TAA enabled. This will cause blurriness---either decrease the number of reprojection frames or disable TAA.
 * You have [denoising history frames](/editor/blocks/procedural_cloud_volume_block?id=denoising-history-frames) set very high. Try lowering it and seeing if you can tolerate the amount of noise; you can also increase the sample counts to compensate for it (the [detail step range](/editor/blocks/procedural_cloud_volume_block?id=detail-step-range)).
 
+**Q: The sky/clouds are bleeding through my geometry!**
+
+**A:** Chances are you need to increase the [clip fade](/editor/blocks/planet_block?id=clip-fade) in the planet block.
+
 This section will be continually updated with more questions and answers!

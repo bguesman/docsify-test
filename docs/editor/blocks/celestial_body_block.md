@@ -106,6 +106,10 @@ Whether or not the celestial body's light will affect clouds. Disabling this for
 **C# member variable:** `bool m_castCloudShadows` \
 Whether or not the celestial body will cast cloud shadows.
 
+#### Volumetric Geometry Shadows
+**C# member variable:** `bool m_volumetricGeometryShadows` \
+When this is enabled, this celestial body casts volumetric shadows on fog from geometry.
+
 #### Shadowmap Volumetric Shadows
 **C# member variable:** `bool m_shadowmapVolumetricShadows` \
 When this is enabled, Expanse uses HDRP's shadowmap to compute geometry shadows when lighting screenspace atmosphere layers with this celestial body.
@@ -126,6 +130,23 @@ When this is enabled, Expanse uses HDRP's shadowmap to compute geometry shadows 
 #### Max Volumetric Shadowmap Distance
 **C# member variable:** `bool m_maxVolumetricShadowmapDistance` \
 The maximum distance that Expanse will search when rendering volumetric shadows. If you set this too high, you can lose detail in your close-up shadows and have to increase your sample count.
+
+#### Volumetric Cloud Shadows
+**C# member variable:** `bool m_volumetricCloudShadows` \
+When this is enabled, this celestial body casts volumetric shadows on fog from clouds.
+
+#### Transmittance Multiplier
+**C# member variable:** `bool m_transmittanceMultiplier` \
+Artistic override for light transmittance. Good for introducing more direct light in heavily fogged environments.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/celestial_bodies/tmult-0.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/tmult-1.jpg"/></div>
+        <div class="img-col"><img src="img/celestial_bodies/tmult-5.jpg"/></div>
+    </div>
+    <p>Left: transmittance multiplier of zero---effectively turns off the directional light. Middle: transmittance multiplier of 1. This is physically accurate. Right: transmittance multiplier of 4. This isn't physically accurate, but it looks nice!</p>
+</div>
 
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- ALBEDO ---------------------------------------->
