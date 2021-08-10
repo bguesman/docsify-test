@@ -22,4 +22,12 @@ Here's a collection of questions folks have asked one or more times---this is a 
 
 **A:** Chances are you need to increase the [clip fade](/editor/blocks/planet_block?id=clip-fade) in the planet block.
 
+**Q: I'm getting hitching when I move the sun around, and it says there's some jobs about GI preprocessing/light baking happening.**
+
+**A:** This is because, when baked GI is enabled, Unity rebakes some portion of the GI map whenever the light moves/light color changes. To fix this,
+* Go to Window -> Rendering -> Lighting
+* Create a new lighting settings object (if you don't have one already)
+* Disable baked GI
+* Regenerate lighting
+
 This section will be continually updated with more questions and answers!
