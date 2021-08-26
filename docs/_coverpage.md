@@ -2,7 +2,7 @@
 
 <!-- TODO (LOGO): ![logo](_media/icon.svg) -->
 
-# Expanse Docs<small>1.3.1</small>
+# Expanse Docs<small>1.4.0</small>
 
 > Beautiful Volumetric Skies in Unity's HDRP
 
@@ -12,4 +12,4 @@
 
 [Get Started](#expanse-documentation)
 
-![](img/procedural_cloud_volume/silver_1.jpg)
+![](img/1-4-0/beauclair.jpg)

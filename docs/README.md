@@ -38,8 +38,8 @@ Here's a list of all the big features that Expanse supports. There are many thin
 
 * Physically-based atmospheric scattering. This includes Rayleigh, Mie, and isotropic scattering, capable of modeling everything from the blue color of the sky on Earth to the yellow sulfuric clouds of Venus.
 * Physically-based volumetric fog and aerial perspective.
-* Procedural physically-based volumetric clouds.
-* Procedural physically-based 2D clouds (a more performant alternative to the volumetric clouds).
+* Procedural physically-based, interpolable volumetric clouds.
+* Procedural physically-based, interpolable 2D clouds (a more performant alternative to the volumetric clouds).
 * Procedural nebulae.
 * Procedural star fields.
 * Support for up to eight celestial bodies that illuminate the clouds and atmosphere, and cast cloud shadows. This can be suns, planets, rocky moons, gas giants, etc.
@@ -49,30 +49,39 @@ Here's a list of all the big features that Expanse supports. There are many thin
 
 If you want to get an idea of what's possible with Expanse, here's a few examples to get your imagination running. Stylized, realistic---it's all possible with Expanse!
 
+And yes, **these are all rendered in realtime**!
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/pretty_boys.jpg"/></div>
-        <div class="img-col"><img src="img/nebulae/banner_2.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/alone.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/up-close.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/stars/texture_stars.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/dense_6_15.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/city-penumbra.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/valley-of-mist.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/atmosphere/with_isotropic_fog.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
-        <!-- <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div> -->
+        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/the-ocean.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/high_ball.jpg"/></div>
         <div class="img-col"><img src="img/celestial_bodies/moon.jpg"/></div>
+        <div class="img-col"><img src="img/atmosphere/with_isotropic_fog.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/planet/earth_night.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/aerosol_density_10.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/magick.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/city-volumetric.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/1-4-0/purple-moon.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/space.jpg"/></div>
     </div>
     <div class="img-row">
         <div class="img-col"><img src="img/stars/banner_2.jpg"/></div>
-        <div class="img-col"><img src="img/celestial_bodies/limb_darkening_1.jpg"/></div>
+        <div class="img-col"><img src="img/stars/texture_stars.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/pretty_boys.jpg"/></div>
+        <div class="img-col"><img src="img/planet/earth_night.jpg"/></div>
     </div>
 </div>

@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/banner.png"/></div>
+        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
     </div>
 </div>
 

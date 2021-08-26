@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/anisotropy_0.6.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/alone.jpg"/></div>
     </div>
 </div>
 
