@@ -20,7 +20,7 @@ Some examples of the prior:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.75.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
         <div class="img-col"><img src="img/lighting/fog-lights.jpg"/></div>
         <div class="img-col"><img src="img/lighting/cloud-point-lights.jpg"/></div>
     </div>
