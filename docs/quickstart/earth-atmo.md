@@ -172,10 +172,10 @@ Smog and dust density varies widely from place to place on Earth. On a particula
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="http://www.tour-beijing.com/real_time_weather_photo/wp-content/uploads/The-sun-is-rising-in-FengtaiBeijing.jpg"/></div>
+        <div class="img-col"><img src="https://farm3.staticflickr.com/2504/3712833590_25fdf52423.jpg"/></div>
         <div class="img-col"><img src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/clear-sunset-clara-sue-beym.jpg"/></div>
     </div>
-    <p>Left: a smoggy sunset in Beijing. Right: a clear sunset over the ocean. Sources: <a href="http://www.tour-beijing.com/real_time_weather_photo/wp-content/uploads/The-sun-is-rising-in-FengtaiBeijing.jpg">http://www.tour-beijing.com/real_time_weather_photo/wp-content/uploads/The-sun-is-rising-in-FengtaiBeijing.jpg</a> and <a href="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/clear-sunset-clara-sue-beym.jpg">https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/clear-sunset-clara-sue-beym.jpg</a>.</p>
+    <p>Left: a smoggy sunset in Beijing. Right: a clear sunset over the ocean. Sources: <a href="https://farm3.staticflickr.com/2504/3712833590_25fdf52423.jpg">http://www.tour-beijing.com/real_time_weather_photo/wp-content/uploads/The-sun-is-rising-in-FengtaiBeijing.jpg</a> and <a href="https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/clear-sunset-clara-sue-beym.jpg">https://images.fineartamerica.com/images/artworkimages/mediumlarge/1/clear-sunset-clara-sue-beym.jpg</a>.</p>
 </div>
 
 We'll try our best to create a "one-size-fits-all" model.
@@ -217,69 +217,64 @@ So, in theory, we've got all the info we need about Earth's atmosphere to render
 
 Now, let's set up our atmosphere in Unity. 
 
-### Prefab Setup
+### Sky Setup
 
-To make things easier, we're gonna start with one of Expanse's **full sky prefabs**. These already have a sun, moon, stars, and some other things set up---this will reduce the irrelevant boilerplate setup we have to do.
+To make things easier, we're gonna start with one of Expanse's **default full skies**. These already have a sun, moon, stars, and some other things set up---this will reduce the irrelevant boilerplate setup we have to do.
 
-Open up your Unity project and drag in the prefab `Assets/Expanse/prefabs/Full Skies/Expanse Cloudless Sky.prefab`. For details on importing Expanse into your project, and rendering your first prefab sky, refer to the [quickstart guide](/quickstart/quickstart).
+Open up your Unity project, right click on the GameObject hierarchy, and select `Expanse => Full Skies => Advanced Sky`. For details on importing Expanse into your project, and rendering your first prefab sky, refer to the [quickstart guide](/quickstart/quickstart).
 
-Next, we're going to delete the `Earth Atmosphere` game object underneath this prefab. If you get a pop-up that says deleting it isn't possible, right click the parent `Expanse Cloudless Sky` game object, and select `Prefab->Unpack`. Now you should be able to delete it.
+Next, we're going to delete the `Earth Atmosphere` and `Fog` GameObject's underneath this prefab. This is what we'll be creating! 
+
+If you get a pop-up that says deleting these isn't possible, right click the parent `Expanse Volumetric Cloud Sky` game object, and select `Prefab->Unpack`. Now you should be able to delete them.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/modeling_atmo/delete_atmo.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/1-5-0/delete-init.jpg"/></div>
     </div>
-    <p>Delete the atmosphere game object, so we can build it up again ourselves.</p>
+    <p>Delete the atmosphere and fog GameObject's, so we can build them up again ourselves.</p>
 </div>
 
-Without the atmosphere, you should just see a black sky!
+Without the atmosphere, you should just see a black sky! 
+
+> Seeing what the scene looks like without an atmosphere makes it pretty clear how crucial it is for lighting.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/modeling_atmo/no_sky.jpg"/></div>
+        <div class="img-col"><img style="width:80%" src="img/quickstart/modeling_atmo/1-5-0/no-atmo.jpg"/></div>
     </div>
     <p>The result of deleting the atmosphere.</p>
 </div>
 
-### Air Block
+### Air Layer
 
-Now, we're going to build up our own atmosphere. Let's create an empty game object underneath the Expanse Cloudless Sky game object, and call it `Custom Atmosphere`---or whatever else you want. It doesn't matter where this game object goes in your scene, but to keep things neat, it can be good to keep all your Expanse game objects near each other.
+Now, we're going to build up our own atmosphere. Let's create an empty game object underneath the Expanse Volumetric Cloud Sky game object, and call it `Custom Atmosphere`---or whatever else you want. It doesn't matter where this game object goes in your scene, but to keep things neat, it can be good to keep all your Expanse game objects near each other.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/modeling_atmo/custom_atmo.jpg"/></div>
+        <div class="img-col"><img style="width:50%" src="img/quickstart/modeling_atmo/1-5-0/create-parent.jpg"/></div>
     </div>
     <p>Create an empty game object called `Custom Atmosphere`.</p>
 </div>
 
-Now, open up the new empty game object in the inspector, and add an `Atmosphere Layer Block` component. 
+Now, with that empty GameObject selected, right click the Hierarchy and select `Expanse => Advanced => Atmosphere Layer` to create a GameObject an Atmosphere Layer Component on it underneath the empty GameObject. Let's also rename it to `Air Layer`.
+
+> We could put this atmosphere layer anywhere we want in the hierarchy, but this is a nice place to put it organizationally.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/add_atmo_block.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/added_atmo_block.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/add-atmo-layer.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/atmo-layer-added.jpg"/></div>
     </div>
-    <p>Add an Atmosphere Layer Block to the Custom Atmosphere game object.</p>
+    <p>Add an Atmosphere Layer underneath the Custom Atmosphere game object.</p>
 </div>
 
-For every category of gas you want in your atmosphere, you'll create an `Atmosphere Layer Block` component. So, in our case, we'll ultimately be creating 3: one for air, one for the ozone, and one for aerosols. This is one of the ways Expanse's UI is *modular*. Instead of having one big UI, Expanse breaks its UI into small components that you can add and remove depending on what you need.
+For every category of gas you want in your atmosphere, you'll create an `Atmosphere Layer` component. So, in our case, we'll ultimately be creating 3: one for air, one for the ozone, and one for aerosols. This is one of the ways Expanse is *modular*. Instead of having one big monolithic component, Expanse breaks itself into small components that you can add and remove depending on what you need.
 
-For now, just stick to one layer. Looking at the controls in the component, you'll recognize a lot of familiar faces! Settings for the scattering and extinction coefficients, the density distribution, and the phase function are all right there. There are also a few more parameters that you probably won't recognize---these you can learn more about in the [Atmosphere Layer Block Documentation](/editor/blocks/atmosphere_layer_block).
+For now, let's just stick to one layer. Looking at the controls in the component, you'll recognize a lot of familiar faces! Settings for the scattering and extinction coefficients, the density distribution, and the phase function are all right there. There are also a few more parameters that you probably won't recognize---these you can learn more about in the [Atmosphere Layer Documentation](/editor/blocks/atmosphere_layer_block).
 
-Before we touch any of those parameters, we have to drag the Sky and Fog Volume that backs Expanse into its slot in the layer block component.
+> If for some reason your screen is still black at this point, **enter play mode, and then leave play mode.** Sometimes you need to do this in order for the new layer to register. **Enabling and disabling the parent sky GameObject should also fix the issue.**
 
-> Starting in v1.1.4, dragging the volume over is no longer necessary.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:75%" src="img/quickstart/modeling_atmo/drag.jpg"/></div>
-    </div>
-    <p>Drag the sky and fog volume into its slot in the layer block.</p>
-</div>
-
-The screen might still be black. **To fix this, enter play mode, and then leave play mode.** Sometimes you need to do this in order for the change in the layer to register. **Enabling and disabling the parent `Expanse Cloudless Sky` game object should also fix the issue.**
-
-Now, you should see the sky! If you look closely at the settings, you'll see that this layer is automatically set up to use the **Air** settings in our table. We will make one change though, which is to change the name field from `defaultLayerName` to `Air`. This name gets used in debug printouts, so it's good practice to use an informative name.
+Now, you should see the sky! If you look closely at the settings, you'll see that **this layer is automatically set up to use the **Air** settings in our table.** We will make one change though, which is to change the name field from `defaultLayerName` to `Air`. This name gets used in debug printouts, so it's good practice to use an informative name.
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. | Anisotropy |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |
@@ -287,20 +282,18 @@ Now, you should see the sky! If you look closely at the settings, you'll see tha
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/air.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/just-air.jpg"/></div>
     </div>
     <p>The sky, using one atmosphere layer block to model the air layer.</p>
 </div>
 
 ### Ozone Block
 
-Now, let's add another `Atmosphere Layer Block` for the ozone. This time, we'll input the information ourselves. First, like we did for the air layer block, we'll drag the sky and fog volume onto the volume slot, and change the layer's name to `Ozone`.
-
-> Again, starting in v1.1.4, dragging the volume over is no longer necessary.
+Now, let's add another `Atmosphere Layer` for the ozone. This time, we'll input the information ourselves, starting by naming the layer `Ozone`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/ozone_step_1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/add-ozone.jpg"/></div>
     </div>
     <p>Add a new block for the ozone, and set up the sky and fog volume reference, and set the layer name to `Ozone`.</p>
 </div>
@@ -315,7 +308,7 @@ First, we'll change the density distribution to `Tent`. We'll then set the densi
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/ozone_step_2.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/1-5-0/ozone-step-1.jpg"/></div>
     </div>
     <p>Copy the density settings for the ozone to its layer block.</p>
 </div>
@@ -324,8 +317,8 @@ We'll then copy the scattering and extinction coefficients from our table into t
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/ozone_step_3.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/ozone_color_pick.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/ozone-step-2.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/ozone-coeff.jpg"/></div>
     </div>
     <p>Copy in the scattering and extinction coefficients, using the color picker's RGB 0-1.0 mode.</p>
 </div>
@@ -334,7 +327,7 @@ Finally, we'll select the `Rayleigh` phase function (it actually should already 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/ozone_step_4.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/1-5-0/ozone-step-3.jpg"/></div>
     </div>
     <p>Select the Rayleigh phase function.</p>
 </div>
@@ -342,9 +335,10 @@ Finally, we'll select the `Rayleigh` phase function (it actually should already 
 Now, we've got a sky with an ozone layer! You can play around with the density parameter to make the sky more or less purple.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/sky_ozone.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/ozone-d-1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/ozone-d-3.jpg"/></div>
     </div>
-    <p>Sky with air and ozone layers.</p>
+    <p>Sky with air and ozone layers. Left: ozone density 1. Right: ozone density 3---this makes the sky a lot more purple.</p>
 </div>
 
 ### Aerosol Block
@@ -355,7 +349,7 @@ Let's now move on to creating our aerosol layer. Once again, this is mostly just
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |
 | Aerosols  | `(4.4-6, 4.4e-6, 4.4e-6)` | `(4e-6, 4e-6, 4e-6)` | Exponential | 0-10 | 1200 | - - - | Mie | 0.76 |
 
-Add a third `Atmosphere Layer Block`. Drag the sky and fog volume onto the volume slot, and change the layer's name to `Aerosols`.
+Add a third `Atmosphere Layer` underneath our parent `Custom Atmosphere` GameObject, and change the layer's name to `Aerosols` or `Fog` (whichever you prefer).
 
 > For a thrd time, starting in v1.1.4, dragging the volume over is no longer necessary.
 
@@ -367,18 +361,29 @@ Finally, select the `Mie` phase function, and set the anisotropy to `0.76`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/modeling_atmo/aerosols_step_4.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/aerosols-anisotropy.jpg"/></div>
     </div>
     <p>Select the Mie phase function and set the anisotropy to 0.76.</p>
 </div>
 
-And that's it! We've created all three of our atmosphere layer blocks---we have a model of the Earth's atmosphere, being rendered in realtime right before our eyes!
+This looks great---we get that nice white haze around the sun. However, you might notice that things start to look a little bit weird when you really crank the density. At this stage we'd expect to see more haze in front of the mountain, and maybe even some noticeable volumetric shadows being cast by the mountain onto that haze.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/modeling_atmo/sky_full.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/high-density.jpg"/></div>
     </div>
-    <p>The sky with all three atmosphere components---air, ozone, and aerosols.</p>
+    <p>The aerosol layer at a density of 50.</p>
+</div>
+
+This is easy to fix. If we instead use the density distribution `Screenspace Height Fog`, and enable the `Geometry Shadows` checkbox, the fog looks a bit more natural, and we get nice volumetric shadow streaks.
+
+> Expanse generally renders atmosphere layers to an optimized sky lookup texture. However, rendering them in this way makes it impossible to compute volumetric shadows for these layers. Density distributions denoted "Screenspace" are rendered to a view-aligned froxel buffer, which can support volumetric shadows.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/modeling_atmo/1-5-0/aerosol-volumetric.jpg"/></div>
+    </div>
+    <p>The aerosol layer adjusted to use the screenspace height fog density distribution and to receive volumetric geometry shadows.</p>
 </div>
 
 ## Adjustments and Fine Tuning
