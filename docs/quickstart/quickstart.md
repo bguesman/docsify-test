@@ -24,6 +24,8 @@ There's not much to do in this department---in fact, there's really only two thi
 
 **Delete any sun or moon directional lights that you have set up.** Expanse will add new ones for you.
 
+> We'll be using the default HDRP project with an empty scene from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.1.17 or higher**, should work.
+
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img style="width:40%" src="img/quickstart/delete_sky_fog.jpg"/></div>
@@ -33,9 +35,7 @@ There's not much to do in this department---in fact, there's really only two thi
 
 ## Creating A Sky
 
-The easiest way to start using Expanse is to create a full sky using the Hierarchy's create menu. This will load in a prefab of `GameObjects` that lay out all the components necessary for a basic sky, with a sun, moon, and clouds.
-
-As a note: we'll be using the default HDRP project from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.1.17 or higher**, should work.
+The easiest way to start using Expanse is to create a full sky using the Hierarchy's create menu. This will load in a prefab of `GameObjects` that lay out all the components necessary for a basic sky, with a sun, moon, and cloud layer.
 
 To begin, right click on the Hierarchy tab, and select `Expanse => Full Skies => Creative Sky`. There are other options to select from here---you can try them if you like. The Creative Sky is the easiest to control, and still provides a wide range of authoring capabilities, so it is what we'll use for this tutorial.
 
@@ -95,11 +95,11 @@ Another issue you will encounter is that Expanse computes aerial perspective and
 
 We've got a sky, and it looks roughly correct, but we don't have any clouds! This is because we have yet to select a **cloud preset**.
 
-Expanse provides a number of different presets to use as starting points for building your volumetric cloudscape. Since, in general, volumetric clouds are pretty hard to model, it can be easiest to start with a preset you like, and then tweak it until it looks how you want it to. 
+Expanse provides a number of different presets to use as starting points for building your volumetric cloudscape. Since, in general, volumetric clouds are pretty hard to model, it's easiest to start with a preset you like, and then tweak it until it looks how you want it to. 
 
 Open up the prefab foldout and select the `GameObject` called `Volumetric Clouds`. Here you'll find a [`Creative Cloud Volume`](/editor/creative/creative_cloud_volume_block) component. This is an intuitive wrapper around the more complicated [procedural cloud volume](/editor/blocks/procedural_cloud_volume_block), which exposes all the cloud rendering parameters that you can adjust.
 
-Expanse organizes its functionality into modular blocks that you can distribute across any number of game objects. This is useful for keeping things organized, cleaning up the UI, and for ensuring that you only access features that you need. For more detailed info on how blocks work, you can check out the [blocks page](/editor/blocks/blocks).
+> Expanse organizes its functionality into modular blocks that you can distribute across any number of game objects. This is useful for keeping things organized, cleaning up the UI, and for ensuring that you only access features that you need. For more detailed info on how blocks work, you can check out the [blocks page](/editor/blocks/blocks).
 
 Open the preset browser tab. You should see an array of presets that you can select from, all with images demonstrating what they look like.
 
@@ -195,7 +195,7 @@ So, we can select a cloud preset, and we can move the sun and moon around. But w
 
 Open up the prefab foldout again, and click on the `GameObject` named `Atmosphere` to open it up in the inspector. You should see a [`Creative Atmosphere`](/editor/creative/creative_atmosphere_block) component, with controls that allow you to tweak the atmosphere's color and density.
 
-You can play around with these parameters to get different looking skies. For instance, to get a more dramatic and stylized sunset look, we can adjust the "Sunset Color" to be a more saturated orange, and the daytime color to be a deep lavender.
+You can play around with these parameters to get different looking skies. For instance, to get a more dramatic and stylized sunset look, we can adjust the "Sunset Color" to be a more saturated orange, and the daytime color to be a deep indigo.
 
 > These controls are _fully physical_, even though their names might make you think otherwise. They adjust the scattering and extinction coefficients of the atmosphere participating medium. For more information, see the [atmosphere layer documentation page](/editor/blocks/atmosphere_layer_block).
 
