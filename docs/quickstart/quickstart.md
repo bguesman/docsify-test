@@ -31,57 +31,58 @@ There's not much to do in this department---in fact, there's really only two thi
     <p>Delete the directional light and sky and fog volume!</p>
 </div>
 
-## Selecting a Prefab
+## Creating A Sky
 
-The easiest way to start using Expanse is to drag and drop in one of the prefabs. These are prebuilt `GameObjects` that lay out all the components necessary for a basic sky, with a sun, moon, and clouds.
+The easiest way to start using Expanse is to create a full sky using the Hierarchy's create menu. This will load in a prefab of `GameObjects` that lay out all the components necessary for a basic sky, with a sun, moon, and clouds.
 
 As a note: we'll be using the default HDRP project from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.1.17 or higher**, should work.
 
-To begin, drag a prefab from the folder `Expanse/prefabs/Full Skies` into your scene. The prefabs are named by the clouds they use, since this is the biggest consideration for performance. In this guide, we'll be using the `Expanse Volumetric Cloud Sky` prefab, but you could easily follow along with any of the other prefabs.
+To begin, right click on the Hierarchy tab, and select `Expanse => Full Skies => Creative Sky`. There are other options to select from here---you can try them if you like. The Creative Sky is the easiest to control, and still provides a wide range of authoring capabilities, so it is what we'll use for this tutorial.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:70%" src="img/quickstart/drag_and_drop_edited.jpg"/></div>
+        <div class="img-col"><img style="width:70%" src="img/quickstart/1-5-0/create-menu.jpg"/></div>
     </div>
-    <p>Drag the prefab into your scene</p>
+    <p>Create a Creative Sky by right-clicking the Hierarchy tab.</p>
 </div>
 
-You should now see a sky in your scene, but it will probably look way too bright! We'll fix that in the next section.
+You should now see a sky in your scene, but it will probably look either too bright, or too dark! We'll fix that in the next section.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/post_process.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/too-dark.jpg"/></div>
     </div>
-    <p>The sky is there... but it's way too bright!</p>
+    <p>The sky is there... but it's a bit too dark.</p>
 </div>
 
 If you don't see Expanse's sky load in, you can try the following fixes:
 * **Disabling the default visual environment.** If your HDRP asset has a default visual environment, you may not be able to see Expanse's sky. To disable the default visual environment, go to `Edit->Project Settings->HDRP Default Settings` and uncheck the `Visual Environment` checkbox.
-* **Adjusting your camera's exposure settings.** If you see a black screen, your camera's exposure might not be set correctly. You can adjust it by adding an exposure override to your global post-processing volume. Typically an auto-exposure with `7` as the minimum and `12` as the maximum is a good starting point.
+* **Adjusting your camera's exposure settings.** If you see a black screen, your camera's exposure might not be set correctly. You can adjust it by adding an exposure override to your global post-processing volume. Typically an auto-exposure with `7` as the minimum and `12.5` as the maximum is a good starting point. This is a bit of a spoiler, since it's what we're going to do in the next section :)
 * **Hitting the play button.** As a last ditch effort, this can sometimes be necessary to build some of Expanse's data structures.
 
 If you try these fixes and still can't see anything, feel free to post in the [Expanse Discord](https://discord.gg/F3VQ2vJy9p).
 
+
 ## Adjusting The Camera
-Chances are something looks wrong about your scene---it's too bright! This is because your camera isn't set up to handle the super bright, physical light units that Expanse uses.
+Chances are something looks wrong about your scene---it's too dark, or maybe too bright! This is because your camera isn't set up to handle the physical, high-dynamic-range light units that Expanse uses.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/post_process_edit.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/create-exposure.jpg"/></div>
     </div>
     <p>Select your post-process volume, and add an exposure override if there isn't one there already.</p>
 </div>
 
-To fix this, go to your post-processing volume, and add an Exposure override (if you don't see one there already). Adjust it to use Automatic exposure, with a min of `7` and a max of `12`. Now everything should look right!
+To fix this, go to your post-processing volume, and add an Exposure override (if you don't see one there already). Adjust it to use Automatic exposure, with a min of `7` and a max of `12.5`. Now everything should look right!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/post_process_correct_edit.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/adjust-exposure.jpg"/></div>
     </div>
     <p>Adjust the exposure settings, and voila, you've got a visible sky!</p>
 </div>
 
-Another issue you will encounter is that Expanse computes aerial perspective only up until the camera's far clipping plane. You will want to adjust your camera's far clip plane to something like 100000 (100k) so that aerial perspective is computed correctly for clouds. This will also make sure cloud depth is written correctly, so that the clouds interact properly with Unity's stock fog implementation.
+Another issue you will encounter is that Expanse computes aerial perspective and fog only up until the camera's far clipping plane. You will want to adjust your camera's far clip plane to something like 100000 (100k) so that aerial perspective and fog are computed correctly for far away clouds.
 
 <div class="img-block">
     <div class="img-row">
@@ -90,144 +91,133 @@ Another issue you will encounter is that Expanse computes aerial perspective onl
     <p>Adjust your camera's far clip plane to be 100000 or higher, so that clouds have atmospheric scattering in front of them.</p>
 </div>
 
-## Moving the Sun and Moon
-Great, so now we've got our prefab loaded in, and we can start to mess around with some stuff! Probably the most satisfying thing to do first is to move the sun and moon around. As game engineers we're used to playing god, but there is an especially cool feeling you get when you command your own sunset.
-
-To move the sun and moon, open up the prefab foldout. You should see a `GameObject` underneath it called `Sun And Moon`. Open it up in the inspector view.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/hierarchy.jpg"/></div>
-    </div>
-    <p>The sun and moon controls are components on the Sun And Moon GameObject, in the Expanse Volumetric Cloud Sky prefab.</p>
-</div>
-
-You'll see two components in the inspector view---two "Celestial Body Blocks"---one for the sun and one for the moon. Expanse organizes its functionality into modular blocks that you can distribute across any number of game objects. This is useful for keeping things organized, cleaning up the UI, and for ensuring that you only access features that you need. For more detailed info on how blocks work, you can check out the [blocks page](/editor/blocks/blocks).
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/sun_moon_object_edit.jpg"/></div>
-    </div>
-    <p>The inspector view of the celestial body Game Object.</p>
-</div>
-
-We're going to focus on the direction parameter. This specifies the celestial body's light direction in degrees, and as such also determines its position in the sky. Adjusting the `x` parameter for the sun, as in the following gif, will move it up and down over the horizon. Adjusting the `y` parameter will rotate it about the vertical axis.
-
-If you do this in edit mode, you'll notice that when you adjust the sun's position, the cloud lighting takes a second to catch up. This is because Expanse uses temporal reprojection to render clouds in realtime. In game mode, you won't see this problem.
-
-<div class="img-block">
-    <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/sun-movement.mp4" type="video/mp4">
-    </video>
-    <p>Sun movement!</p>
-</div>
-
-You can also put the sun over the horizon and do the same thing with the moon. Notice that when you move the sun around at night, it changes the moon's illumination!
-
-<div class="img-block">
-    <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/moon-illuminate.mp4" type="video/mp4">
-    </video>
-    <p>Changing the sun's position illuminates the moon in different ways.</p>
-</div>
-
-For more info on celestial bodies, see the [celestial body block documentation page](/editor/blocks/celestial_body_block).
-
-## Adjusting the Atmosphere
-So, we can move the sun and moon around, and see how that changes the color of the sky. But what about things like adding pollution, and rolling in fog? Doing both of these things is as simple as adjusting a slider.
-
-Open up the prefab foldout again, and click on the `GameObject` named `Earth Atmosphere` to open it up in the inspector. You should see four `Atmosphere Layer Block` components. Without going into too much detail, each of these models a particular volume of gas in the Earth's atmosphere. You'll notice that each layer has a `Name` field. This is used in debug printouts, but is also handy for keeping track of which layer is which. 
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/atmo_edit.jpg"/></div>
-    </div>
-    <p>The components on the atmosphere game object. Each component represents a layer of the atmosphere, and has a name field to identify it.</p>
-</div>
-
-The layers we'll be messing around with are the ones named `Aerosols` and `Rain Fog`.
-
-**Aerosols** are pieces of particulate matter, like smoke and smog, that float around in the atmosphere. If we adjust the density of the layer named `Aerosols`, we can see that the sky gets hazier. It gets clearer when we bring the density down.
-
-<div class="img-block">
-    <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/aerosols.mp4" type="video/mp4">
-    </video>
-    <p>Adjusting the density of the aerosol layer.</p>
-</div>
-
-The **rain fog** layer is meant to model the look of being inside of a cloud. If we increase its density parameter, we see that gradually more and more fog starts to roll in, until the sky is completely gray. Notice that, when the fog density is very high, no shadows are cast. If you've ever been in Muir Woods on a very foggy day, you'll certainly recognize this phenomenon.
-
-<div class="img-block">
-    <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/rain_fog.mp4" type="video/mp4">
-    </video>
-    <p>Adjusting the density of the rain fog layer.</p>
-</div>
-
-There's plenty of other parameters for you to mess around with. For more info on atmosphere layers, see the [atmosphere layer block documentation page](/editor/blocks/atmosphere_layer_block).
-
 ## Selecting a Cloud Preset
 
-Expanse provides a number of different presets to use as starting points for building your volumetric cloudscape. Since, in general, volumetric clouds are pretty hard to model, it can be easiest to start with a preset you like, and then tweak it until it looks how you want it to. Visit the [procedural cloud volume block documentation page](/editor/blocks/procedural_cloud_volume_block) for a deeper dive into what each parameter does.
+We've got a sky, and it looks roughly correct, but we don't have any clouds! This is because we have yet to select a **cloud preset**.
 
-Open up the prefab foldout and select the `GameObject` called `Volumetric Clouds`. Here you'll find a `Procedural Cloud Volume Block` component.
+Expanse provides a number of different presets to use as starting points for building your volumetric cloudscape. Since, in general, volumetric clouds are pretty hard to model, it can be easiest to start with a preset you like, and then tweak it until it looks how you want it to. 
 
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/cloud_volume_block.jpg"/></div>
-    </div>
-    <p>The volumetric cloud preset "Across The Prairie".</p>
-</div>
+Open up the prefab foldout and select the `GameObject` called `Volumetric Clouds`. Here you'll find a [`Creative Cloud Volume`](/editor/creative/creative_cloud_volume_block) component. This is an intuitive wrapper around the more complicated [procedural cloud volume](/editor/blocks/procedural_cloud_volume_block), which exposes all the cloud rendering parameters that you can adjust.
 
-Click the preset button---the little sliders in the upper right hand corner of the component---and select any of the presets you are interested in. You'll notice a null reference error that pops up. This is because you have to re-drag the sky and fog volume onto the component when you select a new preset, like so.
+Expanse organizes its functionality into modular blocks that you can distribute across any number of game objects. This is useful for keeping things organized, cleaning up the UI, and for ensuring that you only access features that you need. For more detailed info on how blocks work, you can check out the [blocks page](/editor/blocks/blocks).
 
-> Starting in v1.1.4, dragging the volume over on preset selection is no longer necessary.
+Open the preset browser tab. You should see an array of presets that you can select from, all with images demonstrating what they look like.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/drag_volume.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/select-preset.jpg"/></div>
     </div>
-    <p>When you select a new preset, make sure you drag the sky and fog volume back into its slot on the component.</p>
+    <p>Select a preset by opening up the preset browser and clicking a preset you like.</p>
 </div>
 
-Here's the preset "Across the Prairie".
+Click on whatever preset you like, and it should load! Here's the preset "Gatos":
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/across_prairie.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/gatos.jpg"/></div>
     </div>
-    <p>The volumetric cloud preset "Across The Prairie".</p>
+    <p>The volumetric cloud preset "Gatos".</p>
 </div>
 
-And here's "Jade".
+And here's the preset, "Brewing":
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/jade.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/1-5-0/brewing.jpg"/></div>
     </div>
-    <p>The volumetric cloud preset "Jade".</p>
+    <p>The volumetric cloud preset "Brewing".</p>
 </div>
 
-For fun, let's animate the clouds to be very fast---kind of like you would see in a timelapse. Navigate to the `Movement` tab in the cloud volume component, and adjust the `Base Velocity` parameter to `(0.01, -0.01)`.
+For fun, let's animate the clouds to move very fast---kind of like you would see in a timelapse. Navigate to the `Modeling` tab in the creative cloud volume component, and adjust the `Wind` parameter to `(10, 10)`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/base_velocity.jpg"/></div>
+        <div class="img-col"><img style="width:80%" src="img/quickstart/1-5-0/wind.jpg"/></div>
     </div>
-    <p>The base velocity parameter of the procedural cloud volume.</p>
+    <p>The wind parameter of the creative cloud volume.</p>
 </div>
 
-**This will look pretty weird in edit mode---you'll see lots of Moire-esque artifacts. These go away when you enter play mode.**
+**This might look pretty weird in edit mode---if you're using one of the "Optimized" presets, you'll see lots of Moire-esque artifacts. These will go away when you enter play mode.**
 
 So, what are you waiting for? Click the play button, and watch your clouds smoothly roll across the sky!
 
 <div class="img-block">
     <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/cloud_move.mp4" type="video/mp4">
+    <source src="img/quickstart/1-5-0/moving_000.mp4" type="video/mp4">
     </video>
     <p>Moving clouds!</p>
 </div>
+
+
+## Adjusting the Time of Day
+One of the most satisfying things to do is to move the sun and moon around. As game engineers we're used to playing god, but there is an especially cool feeling you get when you command your own sunset.
+
+To move the sun and moon, we can use two strategies: we can directly set their directions, or we can adjust Expanse's time of day. We'll opt for the latter method, since it's the default one set up by Expanse's sky prefabs.
+
+Open up the sky `GameObject` foldout. You should see a `GameObject` underneath it called `Time Of Day Controller`. Open it up in the inspector view.
+
+You'll see a number of different parameters to play around with here. We're going to focus on two parameters:
+
+* The "minute" parameter, which we can drag to adjust the time of day at a reasonable speed---it will also progress the hour as we drag it above 60/below 0.
+* The "sky offset" parameter, which we can use to move the sun around the zenith, i.e., "left to right".
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/1-5-0/time-of-day-object.jpg"/></div>
+    </div>
+    <p>The time of day controls are on the "Time Of Day Controller" GameObject, and the "minute" and "sky offset" parameters.</p>
+</div>
+
+If we adjust these parameters, we can see the sun and moon move around, and watch the cloud illumination respond in realtime!
+
+<div class="img-block">
+    <video width="100%" height="100%" class="inline-video" controls>
+    <source src="img/quickstart/1-5-0/tod.mp4" type="video/mp4">
+    </video>
+    <p>Adjusting the time of day!</p>
+</div>
+
+If you do this in edit mode, you'll notice that when you adjust the sun's position, the cloud lighting takes a second to catch up. This is because Expanse uses temporal reprojection to render clouds in realtime. In game mode, you won't see this problem.
+
+If you put the sun over the horizon, and disable "Use Time Of Day" on the "Sun" GameObject, then move the sun around via the "Direction" control, you'll see that the moon's illumination changes depending on the sun direction. This means that Expanse accurately calculates real-world moon phases!
+
+<div class="img-block">
+    <video width="100%" height="100%" class="inline-video" controls>
+    <source src="img/quickstart/1-5-0/moon-illuminate.mp4" type="video/mp4">
+    </video>
+    <p>Changing the sun's position illuminates the moon in different ways.</p>
+</div>
+
+For more info on celestial bodies, see the [celestial body documentation page](/editor/blocks/celestial_body_block).
+
+## Adjusting the Atmosphere
+So, we can select a cloud preset, and we can move the sun and moon around. But what about things like adding pollution, and rolling in fog? Doing both of these things is as simple as adjusting a slider.
+
+Open up the prefab foldout again, and click on the `GameObject` named `Atmosphere` to open it up in the inspector. You should see a [`Creative Atmosphere`](/editor/creative/creative_atmosphere_block) component, with controls that allow you to tweak the atmosphere's color and density.
+
+You can play around with these parameters to get different looking skies. For instance, to get a more dramatic and stylized sunset look, we can adjust the "Sunset Color" to be a more saturated orange, and the daytime color to be a deep lavender.
+
+> These controls are _fully physical_, even though their names might make you think otherwise. They adjust the scattering and extinction coefficients of the atmosphere participating medium. For more information, see the [atmosphere layer documentation page](/editor/blocks/atmosphere_layer_block).
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/1-5-0/stylized.jpg"/></div>
+    </div>
+    <p>We can adjust the atmosphere sunset and daytime colors to get a more stylized look, without abandoning Expanse's physically-based atmosphere model.</p>
+</div>
+
+We can also easily adjust the amount of fog/smog in the atmosphere. Click on the `Fog` `GameObject`, and adjust the density parameter to see the effect of increasing and reducing the amount of fog.
+
+> Under the hood, the fog is also implemented as an [atmosphere layer](/editor/blocks/atmosphere_layer_block). However, I've found that it's more intuitive to separate it out into its own game object.
+
+<div class="img-block">
+    <video width="100%" height="100%" class="inline-video" controls>
+    <source src="img/quickstart/1-5-0/fog.mp4" type="video/mp4">
+    </video>
+    <p>Adjusting the density of the fog.</p>
+</div>
+
+There's plenty of other parameters for you to mess around with. For more info on how to use atmosphere layers in a more advanced way, see the [atmosphere layer documentation page](/editor/blocks/atmosphere_layer_block).
 
 ## Wrapup
 
