@@ -103,36 +103,78 @@ You may find that your machine is unable to handle these settings at a consisten
 </div>
 
 ### Defining the Volume
-Expanse generates and renders clouds within a volume that we specify. So, our first major decision is the size, shape, and location of this volume. Open up the `Modeling` tab, and you'll see parameters for the origin and extents of the volume.
+Expanse generates and renders clouds within a volume that we specify. So, our first major decision is the size, shape, and location of this volume. These are controlled by the transform of the GameObject that the Procedural Cloud Volume is on.
 
 In general, the volume has to be pretty big in order for clouds to properly bend over the horizon. However, this can negatively impact performance. The best thing to do is make your cloud volume as small as possible.
 
 Keeping this in mind, the settings we'll choose here are:
-* `Origin`: `(0, 1600, 0)`. We'll center the volume in the x and z directions, and put the clouds 1600 meters into the air, a reasonable height for cumulus clouds.
-* `X Extent` and `Z Extent`: both `100000` meters. This won't extend beyond the horizon.
-* `Y Extent`: `1200` meters. This bounds the thickness of our clouds.
-* `Curved`: `enabled` (so, box checked). This curves the cloud volume with the planet's surface. It's a subtle effect, but it looks nice.
+* `Origin`: `(0, 1250, 0)`. We'll center the volume in the x and z directions, and put the clouds 1250 meters into the air, a reasonable height for cumulus clouds.
+* `X Scale` and `Z Scale`: both `200000` meters. This won't extend beyond the horizon but will be more than enough to give us a good distance.
+* `Y Scale`: `1200` meters. This bounds the thickness of our clouds.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/extents_edit.jpg"/></div>
+        <div class="img-col"><img style="width:80%" src="img/quickstart/clouds/1-5-0/transform.jpg"/></div>
     </div>
-    <p>Set the cloud volume modeling parameters.</p>
+    <p>Set the transform of the Game Object to define the local and extents of the cloud volume.</p>
+</div>
+
+Next, we'll open up the `Modeling` tab on the component. We'll be greeted with a whole host of what are probably foreign and possibly confusing parameters. Don't worry, we'll learn what they do as we go! For now, we'll just do a few things to make the authoring process easier. 
+
+Click the animation curve labeled `Density Curve`. This curve controls the density of the clouds over height. For now we'll set it to be 1 everywhere---the clouds will have full density across the entire height of the cloud volume.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/density-curve.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/density-curve-editor.jpg"/></div>
+    </div>
+    <p>Set the density curve to be 1 over the entire height of the cloud volume.</p>
+</div>
+
+Do the exact same thing with the `Coverage Curve`---this curve controls how much the clouds cover the sky, again over the height of the volume. Once you do this, you should see clouds! *Well... ugly clouds, but clouds!*
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/first-cloud-visual.jpg"/></div>
+    </div>
+    <p>Now that we've adjusted the density and coverage curves away from zero, clouds are now visible!</p>
 </div>
 
 We'll also set up the clouds to fade out nicely toward the horizon. This is controlled by the density attenuation parameters. We'll set these to:
-* `Attenuation Distance`: `10000` meters.
-* `Attenuation Bias`: `15000` meters.
+* `Attenuation Distance`: `16000` meters.
+* `Attenuation Bias`: `30000` meters.
 
-This isn't necessarily physical, but it looks cool!
+This isn't necessarily physical, but it looks good!
 
-We'll ignore the `Ramp Up` parameter, which allows us to specify a start distance from clouds to appear.
+Finally, we'll set the various `Intensity` and `Multiply `parameters (`Structure Intensity`, `Detail Multiply`, etc.) to `0`. These control the various ways the cloud noises interact to compose the cloudscape. We'll investigate these more later.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/attenuation.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/intensities-0.jpg"/></div>
     </div>
-    <p>Set the density attenuation so that the clouds fade out nicely into the distance.</p>
+    <p>Set the various intensity and multiply parameters to 0, as a sort of "blank slate" to start from.</p>
+</div>
+
+We'll make one exception to this---we'll set the `Coverage Intensity` to `0.2`. This is the global (i.e., non-height-related) version of the curve parameter we set earlier. It controls how much the clouds cover the sky. Play around with it, it's fun!
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.2.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.25.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.5.jpg"/></div>
+    </div>
+    <p>Different coverage intensities. Left: 0.2. Middle: 0.25. Right: 0.5.</p>
+</div>
+
+The rest of the defaults are fine for now. We will come back to mess with them later.
+
+There's no denying it: **our clouds look like shit**. But we're only just getting started.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.2.jpg"/></div>
+    </div>
+    <p>Our clouds look terrible, but not for long!</p>
 </div>
 
 ### Crafting the Noises
