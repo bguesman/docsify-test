@@ -155,7 +155,7 @@ Finally, we'll set the various `Intensity` and `Multiply `parameters (`Structure
     <p>Set the various intensity and multiply parameters to 0, as a sort of "blank slate" to start from.</p>
 </div>
 
-We'll make one exception to this---we'll set the `Coverage Intensity` to `0.2`. This is the global (i.e., non-height-related) version of the curve parameter we set earlier. It controls how much the clouds cover the sky. Play around with it, it's fun!
+We'll make one exception to this---we'll set the `Coverage Intensity` to `0.25`. This is the global (i.e., non-height-related) version of the curve parameter we set earlier. It controls how much the clouds cover the sky. Play around with it, it's fun!
 
 <div class="img-block">
     <div class="img-row">
@@ -172,14 +172,14 @@ There's no denying it: **our clouds look like shit**. But we're only just gettin
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.2.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-0.25.jpg"/></div>
     </div>
     <p>Our clouds look terrible, but not for long!</p>
 </div>
 
 ### Crafting the Noises
 
-Now that the volume is set up, we're going to dig into authoring the volumetric noises that will form our clouds. Expanse uses six different procedural noises to model the cloud density field:
+Now that the volume is set up and we have some reasonable defaults, we're going to dig into authoring the volumetric noises that will form our clouds. Expanse uses six different procedural noises to model the cloud density field:
 
 1. **Base**: 3D noise that forms the general shape of the clouds.
 2. **Base Warp**: warp to the base noise texture to help create some fluid-looking features.
@@ -192,50 +192,36 @@ I won't sugarcoat it, **authoring these noises is hard.** It takes some practice
 
 However, in this tutorial we'll be authoring all the noises by hand, and going over some of the reasons why we choose particular parameter values. So, let's dive in!
 
-The first thing we'll do is open up the `Modeling` tab, and set all the `Intensity` sliders to zero, except the `Coverage Intensity` slider, which will be set to one. This will allow us to view only the base noise.
+First, we'll position the camera above the clouds. This is a nice trick that allows you to more easily see the structure and form of the clouds you're modeling. I've found that it can actually be harder, at least in the beginning phase, to model clouds from the ground.
+
+> Recall that the coverage intensity slider in the modeling foldout should be set to 0.25.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/sliders_zero.jpg"/></div>
-    </div>
-    <p>Set all the modeling sliders to zero, except for coverage intensity, which is set to 1.</p>
-</div>
-
-We'll also open the lighting tab and set the `Density` parameter to `50000`, so we can easily see the clouds.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/density_50k.jpg"/></div>
-    </div>
-    <p>Open up the lighting tab, the density to 50000.</p>
-</div>
-
-Finally, we'll position the camera above the clouds. This is a nice trick that allows you to more easily see the structure and form of the clouds you're modeling. I've found that it can actually be harder, at least in the beginning phase, to model clouds from the ground.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/above_clouds.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/move-cam-above.jpg"/></div>
     </div>
     <p>Position the camera above the cloud layer.</p>
 </div>
 
-The clouds will look pretty flat. This is because the base noise is taking up the entire rectangular volume we've defined. To fix this issue and see some form, open up the `Modeling` tab, and reduce the bottom value of the parameter `Height Gradient Top` to `0.75`. This will erode off the top of the clouds, and expose the internal structure of the base noise.
+The clouds will look pretty flat on the top. This is because the base noise is taking up the entire rectangular volume we've defined. To fix this issue and see some form, open up the `Modeling` tab, and open the curve editor for the `Coverage Curve`. Adding one control point somewhere in the middle and moving the rightmost control point to 0, make it look something like this:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:40%" src="img/quickstart/clouds/height_gradient_model.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/coverage-curve-take-1.jpg"/></div>
     </div>
-    <p>Open up the modeling tab and bring down the bottom value of the "height gradient top" parameter to 0.75.</p>
+    <p>Pull down the coverage toward the top of the cloud volume using the coverage curve editor.</p>
 </div>
 
-Now, your clouds should have a bit more visible shape! However, it still won't look too great. As we adjust the base noise values, the noise will start to look more and more like clouds.
+This will round off the top of the clouds, and expose the internal structure of the base noise. Here's the result:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/above_clouds_hg.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/rounded-off.jpg"/></div>
     </div>
-    <p>What the clouds look like now that we've lowered the height gradient range.</p>
+    <p>The result of adjusting the coverage curve.</p>
 </div>
+
+Now, your clouds should have a bit more visible shape---funnily enough, this already looks pretty good! That said, as we continue to adjust the base noise values, the noise will start to look even more and more like clouds.
 
 #### Base
 
@@ -243,7 +229,7 @@ Now, it's time to actually author the base noise. Open up the `Noise Editor` tab
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/noise_editor.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/noise-editor-ui.jpg"/></div>
     </div>
     <p>The noise editor UI.</p>
 </div>
@@ -252,82 +238,86 @@ This might look confusing at first, but you'll see as we walk through creating t
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/select_base.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/select-base.jpg"/></div>
     </div>
     <p>Select the base layer for editing.</p>
 </div>
 
-The `Noise Type` dropdown lets you select the kind of noise this layer uses. For a full documentation of all the different noises, see [the procedural cloud volume block documentation page.](/editor/blocks/procedural_cloud_volume_block?id=noise-type) For the base noise, we'll select the option `Perlin Worley`---this is a soft, kind of bulbous noise that is good for modeling clouds that have the trademark "cauliflower" shape, kind of like our reference photo.
+The `Noise Type` dropdown lets you select the kind of noise this layer uses. For a full documentation of all the different noises, see [the procedural cloud volume documentation page.](/editor/blocks/procedural_cloud_volume_block?id=noise-type) For the base noise, we'll select the option `Perlin Worley 2`---this is a soft, kind of bulbous noise that is good for modeling clouds that have the trademark "cauliflower" shape, kind of like our reference photo. You can also experiment with the other noises to see which ones you like!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/select_pw.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/select-pw-2.jpg"/></div>
     </div>
-    <p>Select the Perlin Worley noise type.</p>
+    <p>Select the Perlin Worley 2 noise type.</p>
 </div>
 
-The `Scale` parameter controls the size of the noise (in the x and z directions), coupled with the `Tile` parameter, which controls how many times to repeat the noise in the volume. A good strategy when using lower quality noise settings is to keep the scale lower, but the tile higher---this way the noise can be lower resolution but still express a lot of detail. We'll opt for something reasonable and set the scale to `(8, 8)`, and the tile to `9`.
+The `Scale` parameter controls the size of the noise (in the x and z directions), coupled with the `Tile` parameter, which controls how many times to repeat the noise in the volume. A good strategy when using lower quality noise settings is to keep the scale lower, but the tile higher---this way the noise can be lower resolution but still express a lot of detail. We'll opt for something reasonable and set the scale to `(8, 8)`, and the tile to `46`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/base_scale_tile.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/scale-tile.jpg"/></div>
     </div>
-    <p>Set the scale to (8, 8), and the tile to 9.</p>
+    <p>Set the scale to (8, 8), and the tile to 46.</p>
 </div>
 
 And, whoa!! All of a sudden our blah-looking volume is starting to look kind of like clouds!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/base_scaled.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/base-ok.jpg"/></div>
     </div>
     <p>Our base noise is starting to look pretty good!</p>
 </div>
 
-We'll make one final tweak before moving on: we'll up the `Octaves` parameter to `7`. This will increase the amount of detail in the noise.
+We'll make two final tweaks before moving on. 
+* We'll up the `Octaves` parameter to `7`. This will increase the amount of detail in the noise.
+* We'll set the `Octave Multiplier` parameter to `0.5`. This parameter controls how much each successive noise octave is multiplied by. `0.5` means that each higher detail octave will be half as intense as the previous level of detail---this creates a good balance between the low frequency and high frequency features of the noise.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/base_octave.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/base-octaves.jpg"/></div>
     </div>
-    <p>Up the octave count to 7.</p>
+    <p>Up the octave count to 7 and set the octave multiplier to 0.5.</p>
 </div>
 
 With that, our base noise is finished!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_base.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/base-final.jpg"/></div>
     </div>
     <p>Our final base noise!</p>
 </div>
 
 #### Coverage
 
-Modeling the coverage noise can be bit tricky, since this determines both the "size" and amount of our clouds. If we want smaller clouds that are spread out, we'll need to use pretty big coverage noise, but with a lower coverage intensity. If we want small close together clouds, we'll use a small coverage noise, but with high coverage intensity. If that doesn't make sense to you right now, don't worry---you'll get a feel for it as you play around with the settings.
+Modeling the coverage noise can be bit tricky, since this determines both the "size" and amount of our clouds. If we want smaller clouds that are spread out, we'll need to use pretty big coverage noise, but with a lower coverage intensity. If we want small close together clouds, we'll use a small coverage noise, but with high coverage intensity. 
 
-We'll choose the former option---smaller clouds, spread further apart, like our reference photo. Before we set any values in the `Noise Editor` though, let's go and change the coverage intensity so that the changes we make are visible. Open up the `Modeling` tab and set the `Coverage Intensity` parameter to `0.88`.
+If that doesn't make sense to you right now, don't worry. You'll get a feel for it as you play around with the settings. For now, we'll choose the latter option---smaller clouds, relatively close together, like our reference photo.
 
-Now, open up the `Noise Editor` tab again, and set `Layer Select` to `Coverage`. Set the following parameters:
+Open up the `Noise Editor` tab again, and set `Layer Select` to `Coverage`. Set the following parameters:
 
-* `Noise Type`: `Worley`. Worley noise is basically lots of little self-contained splotches. Perfect for making little circular clouds.
-* `Scale`: `(7, 13)`. It can often look better to set the coverage scale to be different in both directions. This can give your clouds a sense of directionality.
-* `Octaves`: `2`. You can play around with this, I think it looks best at `2`.
+* `Noise Type`: `Worley`. Using Worley noise as a coverage map will give us longer, more irregular cloud shapes. I think it's a good match for our reference. You can play around with the different options though and see what you like best.
+* `Scale`: `(48, 56)`. It can often look better to set the coverage scale to be different in both directions. This can give your clouds a sense of directionality.
+* `Octaves`: `5`. You can play around with this, I think `5` looks pretty good.
+* `Octave Multiplier`: `0.25`. A lower value here will keep the cloud edges from looking too jagged.
+* `Tile`: `2`. We'll leverage tiling to get a little more detail out of our coverage texture.
 
 Here's an image of the final noise settings for the coverage layer.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/coverage_settings.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/coverage-settings.jpg"/></div>
     </div>
     <p>The final settings for the coverage noise layer.</p>
 </div>
 
-And here's what it should look like. If you don't love the look, don't worry---we will be making it look much, much better!
+And here's what it should look like.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_coverage.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/final-coverage.jpg"/></div>
     </div>
     <p>How our clouds look with the final coverage noise applied.</p>
 </div>
@@ -336,62 +326,62 @@ And here's what it should look like. If you don't love the look, don't worry---w
 
 We'll now move on to setting up our structure and detail noises. Our base noise looks alright on its own, but it's lacking some of the small-scale features that really imbue the clouds with a sense of scale.
 
-Open up the `Modeling` tab and set the `Structure Intensity` parameter to `0.17`, so that the changes we make are visible. Then, open up the `Noise Editor` tab, and set `Layer Select` to `Structure`. Set the following parameters:
+Open up the `Modeling` tab and set the `Structure Intensity` parameter to `0.35`, so that the changes we make are visible. Then, open up the `Noise Editor` tab, and set `Layer Select` to `Structure`. Set the following parameters:
 
-* `Noise Type`: `Worley`. Worley noise is good for creating the "cauliflower bulb" look that's present in our reference.
-* `Scale`: `(8, 8)`.
-* `Octaves`: `6`.
-* `Tile`: `64`.
+* `Noise Type`: `Perlin Worley 2`. Worley noise is particularly good for creating the "cauliflower bulb" look that's present in our reference. We'll use Perlin Worley noise though, because it'll give us a little more variation.
+* `Scale`: `(24, 24)`.
+* `Octaves`: `3`.
+* `Tile`: `48`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/structure_settings.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/structure-settings.jpg"/></div>
     </div>
     <p>The final settings for the structure layer.</p>
 </div>
 
-This is how the clouds should look now. Some nice, bulbous shapes!
+This is how the clouds should look now. More detail!
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_structure.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/final-structure.jpg"/></div>
     </div>
     <p>How our clouds look with the final structure noise applied.</p>
 </div>
 
-Alright, let's add in the detail noise. In the `Modeling` tab, set the `Detail Intensity` parameter to `0.42`, again to ensure our changes are visible. Open up the `Noise Editor` tab and set `Layer Select` to `Detail`. Set the following parameters:
+Alright, let's add in the detail noise. In the `Modeling` tab, set the `Detail Intensity` parameter to `0.2`, again to ensure our changes are visible. Open up the `Noise Editor` tab and set `Layer Select` to `Detail`. Set the following parameters:
 
 * `Noise Type`: `Inverse Worley`. Inverse Worley noise is nice for creating wispiness---it's perfect for modeling the swirly tendrils in our reference.
-* `Scale`: `(8, 8)`.
-* `Octaves`: `6`.
-* `Octave Multiplier`: `0.65`. We crank this up a little from the usual `0.5` so that we don't lose too much detail in the higher octaves.
-* `Tile`: `72`.
+* `Scale`: `(12, 12)`.
+* `Octaves`: `5`.
+* `Octave Multiplier`: `0.75`. We crank this up a little from the usual `0.5` so that we don't lose too much detail in the higher octaves.
+* `Tile`: `196`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/detail_settings.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/detail-settings.jpg"/></div>
     </div>
     <p>The final settings for the detail layer.</p>
 </div>
 
-And here's what the clouds should look like. This makes a pretty big difference! You'll notice that the lighting is starting to look pretty off---we'll fix this in the next section.
+And here's what the clouds should look like. You'll notice that the lighting is starting to look pretty off---we'll fix this in the next section.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_detail.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/final-detail.jpg"/></div>
     </div>
     <p>How our clouds look with the final detail noise applied.</p>
 </div>
 
-Finally, we'll warp the detail noise a bit, to create some fluid-like features. In the `Modeling` tab, set the `Detail Warp Intensity` parameter to `0.1`. Open up the `Noise Editor` tab and set `Layer Select` to `Detail Warp`. Set the following parameters:
+Finally, we'll warp the detail noise a bit, to create some fluid-like features. In the `Modeling` tab, set the `Detail Warp Intensity` parameter to `0.13`. Open up the `Noise Editor` tab and set `Layer Select` to `Detail Warp`. Set the following parameters:
 
 * `Noise Type`: `Curl`. Curl noise is built to mimick the warping of a density field according to the laws of fluid dynamics.
 * `Scale`: `(8, 8)`.
-* `Octaves`: `4`.
-* `Octave Multiplier`: `0.25`. We pull this down from the usual `0.5` so that the high-frequency warping doesn't dominate the behavior.
-* `Tile`: `64`.
+* `Octaves`: `3`.
+* `Octave Multiplier`: `0.3`. We pull this down from the usual `0.5` so that the high-frequency warping doesn't dominate the behavior.
+* `Tile`: `196`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/detail_warp_settings.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/curl-settings.jpg"/></div>
     </div>
     <p>The final settings for the detail warp layer.</p>
 </div>
@@ -399,7 +389,7 @@ Finally, we'll warp the detail noise a bit, to create some fluid-like features. 
 And here's what the clouds should look like. This is a subtle difference but will be more visible from the ground.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/final_detail_warp.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/detail-warp-final.jpg"/></div>
     </div>
     <p>How our clouds look with the final detail warping applied.</p>
 </div>
@@ -408,33 +398,88 @@ And there you have it! That's all of our noises. When you design your own noises
 
 ### Balancing and Shaping
 
-The final step in the modeling stage is to adjust the global modeling parameters that shape the clouds independent of the noises. These parameters---things like the height gradient and rounding values---will sculpt the overall shape of the clouds. Adjusting these is crucial for getting your clouds to look pleasing.
+The final step in the modeling stage is to adjust the global modeling parameters that shape the clouds independent of the noises. These parameters---things like the density/coverage curves and the relative noise intensities---will sculpt the overall shape of the clouds. Adjusting these is crucial for getting your clouds to look pleasing.
 
 For this step, move the camera down below the clouds again. It'll make it easier to see the changes. Here's what our clouds look like now:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/before_shaping.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/no-shaping.jpg"/></div>
     </div>
     <p>How our clouds look without any additional shaping work.</p>
 </div>
 
-They look ok (minus the lighting, of course), but they look a bit boxy. We can fix this by adjusting some of the shaping parameters. In particular, open up the `Modeling` foldout and set,
-* `Rounding` to `7.5`. This controls how much the clouds are rounded off at the top.
-* `Rounding Shape` to `1.5`. This controls how sharp the round-off effect is.
+They still look pretty bad---even without considering that we haven't adjusted the lighting. In particular, they look very boxy and very solid. We can fix this by adjusting some of the shaping parameters.
 
-This helps reign in the boxiness a bit. I encourage you to play around with these parameters, and with the `Height Gradient` parameters, to get the look you desire.
+First, let's up the coverage a bit, so the clouds cover a bit more of the sky---this will give us more room to sculpt with. We'll open the modeling tab and increase the `Coverage Intensity` to `0.28`. The clouds will look something like this:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/after_shaping.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/coverage-up.jpg"/></div>
     </div>
-    <p>How our clouds look with the rounding effect applied.</p>
+    <p>How our clouds look with the coverage intensity at 0.28.</p>
 </div>
+
+Looking back at our reference photo, a few things are clear. For one, the clouds are nice and round on the top. Also, the clouds seem to start out as thin and wispy at a lower altitude, and then get denser and denser until they reach a maximum density somewhere in middle of their altitude range.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
+    </div>
+    <p>Our reference photo. Source: <a href="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg">https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg</a>.</p>
+</div>
+
+Luckily, we can model these phenomena with our coverage and density curves! Open up the curve editors for the `Density Curve` and `Coverage Curve` parameters, and draw curves that correspond to the things we've observed:
+
+* Density: cloud density initially increases over height, but eventually plateaus.
+* Coverage: cloud coverage decreases near the top of the height range, so that the cloud tops are round off.
+
+In other words, make them look something like this (density curve left, coverage curve right):
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/density-curve-final.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/coverage-curve-final.jpg"/></div>
+    </div>
+    <p>Left: the density curve. Cloud density increases over height and plateaus. Right: the coverage curve. Clouds coverage increases sharply, forming the bottoms of the clouds, and then slowly decreases so the tops of the clouds round off.</p>
+</div>
+
+This makes a world of difference! Here's what the clouds should look like now:
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/adjust-curves.jpg"/></div>
+    </div>
+    <p>The clouds with the coverage and density curves adjusted.</p>
+</div>
+
+Finally, we're going to adjust the `Multiply` sliders. These allow us to use the structure and detail noise to modulate the density of the clouds and create interesting internal structure. This is in contrast to the **intensity** sliders, which will only erode away the clouds at their edges. Both strategies are necessary to create convincing volumetric details.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/multiply-sliders.jpg"/></div>
+    </div>
+    <p>The multiply modeling sliders.</p>
+</div>
+
+In particular, we'll set
+* `Structure Multiply` to `0.08`
+* `Detail Multiply` also to `0.08`
+
+And with that, we have our final modeling result!
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/modeling-result.jpg"/></div>
+    </div>
+    <p>The final result of modeling and shaping our clouds!</p>
+</div>
+
+These look pretty great, but they still don't quite look like our reference. We'll fix this by adjusting the lighting parameters.
 
 ## Lighting
 
-Now that we've got our clouds shaped how we want, we can move on to tweaking their illumination characteristics.
+Now that we've got our clouds shaped how we want, we can move on to adjusting their illumination characteristics.
 
 Before we start, a note: typically, you'd go back and forth tweaking the lighting, and then the modeling parameters, and then back to the lighting, etc. However, we're blasting through it all sequentially so that it's easier to digest. Just know that if you're adjusting the lighting parameters and something doesn't look quite right, you might have to go back to the modeling stage and change some things around!
 
