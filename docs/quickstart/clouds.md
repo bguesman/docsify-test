@@ -2,7 +2,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/reference_match_2.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/result_001.jpg"/></div>
     </div>
     <p>The clouds we'll create in this tutorial.</p>
 </div>
@@ -31,65 +31,45 @@ All of this said, Expanse's primary goal is still to get as close to photorealis
 
 Alright, now that we've waxed philosophical, let's open up Unity and get to work.
 
-We'll assume that you've already imported Expanse into your project, and that you know how to use a full sky prefab. For more info on how to do this, and how to render your first sky with Expanse, check out the [quickstart guide](/quickstart/quickstart).
+We'll assume that you've already imported Expanse into your project, and that you know how to create a new advanced sky. For more info on how to do this, and how to render your first sky with Expanse, check out the [quickstart guide](/quickstart/quickstart).
 
-The first thing we'll do is drag in one of the full sky prefabs to minimize the amount of boilerplate setup we need to do. In particular, we'll drag the prefab `Assets/Expanse/prefabs/Full Skies/Expanse Cloudless Sky.prefab` into our scene, since we'll be creating the clouds on our own.
+The first thing we'll do is create a default full sky to minimize the amount of boilerplate setup we need to do. In particular, we'll right click on the hierarchy view and select `Expanse => Full Skies => Advanced Sky`. This will create a GameObject `Expanse Volumetric Cloud Sky` that has all the required sky components laid out for you.
 
-With that out of the way, let's add a `Procedural Cloud Volume Block` to the scene. This component is the authoring and rendering tool for creating volumetric clouds in Expanse.
-
-Specifically, let's create an empty under the main prefab and call it `Volumetric Clouds`.
+In particular, this includes a GameObject called `Volumetric Clouds`, which possesses a [`Procedural Cloud Volume`](editor/blocks/procedural_cloud_volume_block.md) component. This component is the authoring and rendering tool for creating volumetric clouds in Expanse.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/clouds/create_empty.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/cloud-object.jpg"/></div>
     </div>
-    <p>Create an empty game object under the main prefab, and rename it to "Volumetric Clouds".</p>
+    <p>The Procedural Cloud Volume component, the basis for the myriad of cloud types you can create with Expanse.</p>
 </div>
 
-We'll then add the `Procedural Cloud Volume Block` as a component on this empty.
+The default state for the Procedural Cloud Volume is to render no clouds---a clear, empty sky. It will be our endeavor to change that.
 
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/clouds/add_block.jpg"/></div>
-    </div>
-    <p>Add the Procedural Cloud Volume Block as a component on the empty Volumetric Clouds game object we just created.</p>
-</div>
-
-To fix the warning spew you'll inevitably get, drag the game object named "Expanse Sky And Fog Volume" onto the volume slot in the cloud volume component we just added.
-
-> Starting in v1.1.4, dragging the volume over is no longer necessary.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/drag_volume.jpg"/></div>
-    </div>
-    <p>Drag the game object named "Expanse Sky And Fog Volume" onto the volume slot in the cloud volume component we just added.</p>
-</div>
-
-You should now see the sky completely covered by a uniform volumetric cloud cover. **You may need to hit the play button and then go back to edit mode for the cloud volume to activate.**
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/init_state.jpg"/></div>
-    </div>
-    <p>The default state of the cloud volume block, a uniform haze.</p>
-</div>
-
-Ok, we're ready to start making some clouds!
+**Let's make some clouds!**
 
 ## Strategy Overview
 
-We can break up the cloud creation process into four phases: **modeling**, **lighting**, **movement**, and **performance**. Expanse has foldouts in the `Procedural Cloud Volume Block` that correspond to each.
+We can break up the cloud creation process into five phases: **modeling**, **lighting**, **movement**, **interaction**, and **performance**. The Procedural Cloud Volume has a number of foldouts that can be grouped into each category.
 
 **Modeling** is the process of designing the cloud density field. We'll be work with procedural noises to create the shape and form of our clouds. You can think about this kind of like authoring a mesh. There are two foldouts we'll work with: the `Modeling` foldout and the `Noise Editor` foldout.
 
-**Lighting** determines the actual rendered appearance of the clouds. If modeling the density field is like authoring a mesh, setting the lighting parameters is analogous to authoring that mesh's material. We'll work with the `Lighting` foldout for this.
+**Lighting** determines the actual rendered appearance of the clouds. If modeling the density field is like authoring a mesh, setting the lighting parameters is analogous to authoring that mesh's material. We'll work with the `Base Lighting`, `Self Shadowing`, and `Multiple Scattering` foldouts for this.
 
 **Movement** controls the way the clouds progress across the sky. The relevant parameters are in the `Movement` foldout.
 
+**Interaction** controls the way the clouds integrate with the other systems in your digital world---things like shadow casting and light pollution. These parameters are in the `Interaction` foldout.
+
 **Performance** is the process of optimizing the cloud rendering algorithm to look good but not tax the GPU too much. Tweaking these settings is critical for being able to maintain high framerates. The relevant foldout is the `Quality` foldout.
 
-We'll present these steps in order, but keep in mind that when you're authoring cloud layers from scratch, you'll probably jump between these steps quite often. Changing the lighting parameters may make you realize you need to fix something in the modeling stage. You might realize that, to get the performance you need, you have to lower the noise texture quality and rebalance the noise layers. These are just a few examples---the process is more of a continual oscillation between the steps that gets you closer and closer to your target look.
+We'll present these steps in order, but keep in mind that when you're authoring cloud layers from scratch, you'll probably jump between these steps quite often. Changing the lighting parameters may make you realize you need to fix something in the modeling stage. You might realize that, to get the performance you need, you have to lower the noise texture quality and rebalance the noise layers. These are just a few examples---the process is more of a continual oscillation between steps that gets you closer and closer to your target look.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:80%" src="img/quickstart/clouds/1-5-0/categories.jpg"/></div>
+    </div>
+    <p>A logical way to break up the different sections of the Procedural Cloud Volume component. Ungrouped are the "Preset Browser" foldout, which is just a way of cycling through saved cloud appearances, and the "Post Processing" foldout, which is outside the scope of this tutorial.</p>
+</div>
 
 Before we get started, let's do what most good artists do, and pick a photo of some clouds to use as our reference. I like the idea of creating some nice, fragmented prairie clouds, so let's use this image.
 
@@ -100,14 +80,16 @@ Before we get started, let's do what most good artists do, and pick a photo of s
     <p>Our reference photo. Source: <a href="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg">https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg</a>.</p>
 </div>
 
-We might not get this exact result, especially up to things like post-processing and exposure settings. Even so, it's important to use it as a guiding light, so that we are constantly reminded of what actual clouds look like.
+We might not get this exact result, especially up to things like post-processing and exposure settings---though we will get extremely close. Still, it's always important to use a reference, so that we are constantly reminded of what actual clouds look like.
 
 ## Modeling
 
 The first thing we'll do here is actually completely unrelated to modeling, but it will make our lives a lot easier. Navigate to the `Quality` foldout, and set: 
 * `Reprojection Frames` to 1
-* `Coarse Step Range` to `(64, 96)`
-* `Detail Step Range` to `(128, 256)`
+* `Coarse Step Range` to `(48, 96)`
+* `Detail Step Range` to `(96, 168)`
+* `Media Zero Threshold` to `1e-5`
+* `Use Temporal Denoising` to unchecked
 
 This basically sets the quality to maximum, so that we don't have to worry about un-optimized quality settings affecting our authoring process. We will go back and optimize the quality settings once we are finished authoring the clouds.
 
@@ -115,7 +97,7 @@ You may find that your machine is unable to handle these settings at a consisten
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/max_qual.jpg"/></div>
+        <div class="img-col"><img style="width:80%" src="img/quickstart/clouds/1-5-0/max-qual.jpg"/></div>
     </div>
     <p>Set the quality to max, so that we don't have to worry about quality settings interfering with our modeling process.</p>
 </div>
