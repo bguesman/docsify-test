@@ -71,7 +71,7 @@ We'll present these steps in order, but keep in mind that when you're authoring 
     <p>A logical way to break up the different sections of the Procedural Cloud Volume component. Ungrouped are the "Preset Browser" foldout, which is just a way of cycling through saved cloud appearances, and the "Post Processing" foldout, which is outside the scope of this tutorial.</p>
 </div>
 
-Before we get started, let's do what most good artists do, and pick a photo of some clouds to use as our reference. I like the idea of creating some nice, fragmented prairie clouds, so let's use this image.
+Before we get started, let's do what most good 3D artists do, and pick a photo of some clouds to use as our reference. I like the idea of creating some nice, fragmented prairie clouds, so let's use this image.
 
 <div class="img-block">
     <div class="img-row">
@@ -188,7 +188,7 @@ Now that the volume is set up and we have some reasonable defaults, we're going 
 5. **Detail**: 3D noise that further erodes the base noise, after the structure noise, to add the final level of detail.
 6. **Detail Warp**: warp to the detail noise, good for creating wispy-looping tails and tendrils.
 
-I won't sugarcoat it, **authoring these noises is hard.** It takes some practice to feel out exactly what the right settings are to achieve a particular look. This is partly why there's a number of presets for the `Procedural Cloud Volume Block` component; it can be a good idea to use one of these as a starting point for your own clouds.
+I won't sugarcoat it, **authoring these noises is hard.** It takes some practice to feel out exactly what the right settings are to achieve a particular look. This is partly why there's a number of presets for the `Procedural Cloud Volume` component; it can be a good idea to use one of these as a starting point for your own clouds.
 
 However, in this tutorial we'll be authoring all the noises by hand, and going over some of the reasons why we choose particular parameter values. So, let's dive in!
 
@@ -432,7 +432,7 @@ Looking back at our reference photo, a few things are clear. For one, the clouds
 Luckily, we can model these phenomena with our coverage and density curves! Open up the curve editors for the `Density Curve` and `Coverage Curve` parameters, and draw curves that correspond to the things we've observed:
 
 * Density: cloud density initially increases over height, but eventually plateaus.
-* Coverage: cloud coverage decreases near the top of the height range, so that the cloud tops are round off.
+* Coverage: cloud coverage decreases near the top of the height range, so that the cloud tops round off.
 
 In other words, make them look something like this (density curve left, coverage curve right):
 
@@ -677,7 +677,37 @@ Hit the play button, and voila! Your clouds should be moving.
 
 ## Interaction
 
-TODO!
+It's crucial that our clouds interact with the rest of the rendering pipeline in a way that makes sense. For the most part, Expanse handles this automatically, but there a few things we can adjust.
+
+Open up the `Interaction` foldout and you'll see a few settings you can play around with. 
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/interaction-foldout.jpg"/></div>
+    </div>
+    <p>The interaction dropdown.</p>
+</div>
+
+If we place a piece of geometry under the clouds and enable the `Cast Shadows` checkbox, we can see shadows show up on the geometry! We can also tweak the `Max Shadow Intensity` parameter to make the shadows more or less intense.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/shadows-0.3.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/shadows.jpg"/></div>
+    </div>
+    <p>Left: cloud shadows with max shadow intensity at 0.3. Right: cloud shadows with max shadow intensity at 1.</p>
+</div>
+
+You might also notice that if you crank the light pollution on the [Night Sky](editor/blocks/night_sky_block.md), the clouds can end up receiving too much light. You can fix this by adjusting the `Light Pollution Dimmer` parameter.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/lp-dim-1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/lp-dim-0.2.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/lp-dim-0.jpg"/></div>
+    </div>
+    <p>Left: light pollution dimmer at 1, so clouds are receiving full light pollution. They look a bit too washed out. Middle: light pollution dimmer at 0.2. This looks pretty good. Right: light pollution dimmer at 0, so clouds receive no light pollution. This looks a bit strange.</p>
+</div>
 
 ## Performance Optimization
 
@@ -745,7 +775,7 @@ One thing you may notice is some nasty flickering pixel-looking artifacts. You c
 Reprojection isn't perfect---when used with TAA, it can make your clouds look a bit blurry. It's also possible to see artifacts if your clouds are moving very fast. The best thing to do is only use as many reprojection frames as you need. If you can get away with 2 and still hit your performance requirements, do it.
 
 ### Step 6 (Optional): Resolution
-If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings Block`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result. The exception to this is if you decide to render in 4K, at which point rendering clouds at 1080p (half resolution) is recommended.
+If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result. The exception to this is if you decide to render in 4K, at which point rendering clouds at 1080p (half resolution) is recommended.
 
 Here's a comparison between our optimized clouds and our non-optimized clouds. The left image takes 3.5 ms to render. The right image takes only 0.75 ms!
 <div class="img-block">
@@ -766,11 +796,11 @@ Below are some of the other results you can get with Expanse's clouds---for insp
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/dense_6_15.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/alone.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/up-close.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/pretty_boys.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_1.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/the-ocean.jpg"/></div>
     </div>
 </div>

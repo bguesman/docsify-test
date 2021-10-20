@@ -287,7 +287,7 @@ Now, you should see the sky! If you look closely at the settings, you'll see tha
     <p>The sky, using one atmosphere layer block to model the air layer.</p>
 </div>
 
-### Ozone Block
+### Ozone Layer
 
 Now, let's add another `Atmosphere Layer` for the ozone. This time, we'll input the information ourselves, starting by naming the layer `Ozone`.
 
@@ -341,7 +341,7 @@ Now, we've got a sky with an ozone layer! You can play around with the density p
     <p>Sky with air and ozone layers. Left: ozone density 1. Right: ozone density 3---this makes the sky a lot more purple.</p>
 </div>
 
-### Aerosol Block
+### Aerosol Layer
 
 Let's now move on to creating our aerosol layer. Once again, this is mostly just a matter of transferring our table values to another layer block we'll create.
 
