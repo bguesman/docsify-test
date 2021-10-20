@@ -656,13 +656,13 @@ Cloud movement in Expanse is pretty simple---you can either specify a sampling o
 
 Let's do this ourselves. Open up the `Movement` tab, and set the following values.
 * `Use Offset`: unchecked. This specifies that we want to specify the cloud movement as a velocity.
-* `Coverage Velocity`: `(0.001, 0.001)`.
-* `Base Velocity`: `(0.00075, 0.00075)`.
-* `Structure Velocity`: `(0.005, 0.005)`.
-* `Detail Velocity`: `(0.01, 0.01)`.
+* `Coverage Velocity`: `(0.0002, -0.0002)`.
+* `Base Velocity`: `(0.00075, -0.00075)`.
+* `Structure Velocity`: `(0.005, -0.005)`.
+* `Detail Velocity`: `(0.01, -0.01)`.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/velocities.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/movement-settings.jpg"/></div>
     </div>
     <p>Set the velocity parameters in the movement tab.</p>
 </div>
@@ -670,10 +670,14 @@ Let's do this ourselves. Open up the `Movement` tab, and set the following value
 Hit the play button, and voila! Your clouds should be moving.
 <div class="img-block">
     <video width="100%" height="100%" class="inline-video" controls>
-    <source src="img/quickstart/clouds/moving.mp4" type="video/mp4">
+    <source src="img/quickstart/clouds/1-5-0/moving_000.mp4" type="video/mp4">
     </video>
     <p>Moving clouds!</p>
 </div>
+
+## Interaction
+
+TODO!
 
 ## Performance Optimization
 
@@ -685,15 +689,15 @@ What follows are a set of instructions for optimizing your cloudscape.
 
 ### Step 1: Texture Quality
 
-Expanse allows you to select the texture quality of the noises your clouds use. Navigate to the `Noise Editor` dropdown and you'll see the `Texture Quality Field`. Chances are, you will not be able to use `Ultra` or `Ripping Through The Metaverse` quality. Experiment around with the different texture qualities and track your framerate to see which is usable.
+Expanse allows you to select the texture quality of the noises your clouds use. Navigate to the `Noise Editor` dropdown and you'll see the `Texture Quality Field`. Chances are, you will not be able to use `Ultra` or `Ripping Through The Metaverse` quality. Experiment around with the different texture qualities and track your framerate to see which is usable. They can all look quite good, even "Potato".
 
 On my RTX 2080 Ti, for the clouds we just created, I'm going to select `High`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/qual_potato.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/qual_high.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/qual_rtm.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/botato.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/high.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/rtm.jpg"/></div>
     </div>
     <p>Comparison of quality levels. Left: potato. Middle: high. Right: ripping through the metaverse.</p>
 </div>
@@ -709,41 +713,54 @@ For my setup, I'll set the step distance range to `(125, 15000)`, the coarse ste
 
 If you set the step ranges too low, you'll start to notice noisy artifacts, so be careful here. You want them just low enough that there are no artifacts, but no lower.
 
-### Step 3: Thresholds
+To mitigate these noisy artifacts, you can click the `Use Temporal Denoising` checkbox, or you can alternatively enable Unity's TAA (or use both!). This will only get you so far though.
+
+### Step 3: LOD Distances
+
+Expanse renders clouds at 3 different levels of detail. You can decide where these LOD distances are with the `LOD Distances` parameter in the `Quality` foldout. Set this as aggressively as possible for maximum performance.
+
+I'll set them to `15000` and `30000`---just far enough that I can't notice the LOD transitions.
+
+### Step 4: Thresholds
 
 Expanse lets you decide when density samples transmittance values should be considered zero---setting this threshold high will allow more lighting calculations to be skipped and will improve performance. If you set these values too high, you'll see artifacts.
 
-In my case, I'll set the `Media Zero Threshold` to `0.001`, and the `Transmittance Zero Threshold` to `0.001`. This is on the upper end of values you can choose before you'll see noticeable issues.
+In my case, I'll set the `Media Zero Threshold` to `1e-5`, and the `Transmittance Zero Threshold` to `0.001`. This is on the upper end of values you can choose before you'll see noticeable issues.
 
 Optimizing these values is particularly crucial for cloudscapes that are very dense.
 
-### Step 4: Reprojection Frames
+### Step 5: Reprojection Frames
 
-With the settings we've optimized so far, my RTX 2080 Ti renders the clouds in around 7 ms. This is easily enough to hit 60 FPS if we're just rendering clouds, but if we want our game to include all sorts of other expensive effects, we'll need to optimize performance even more.
+With the settings we've optimized so far, my RTX 2080 Ti renders the clouds in around 3.5 ms. This is easily enough to hit 60 FPS if we're just rendering clouds, but if we want our game to include all sorts of other expensive effects, we'll need to optimize performance even more.
 
 This is where reprojection comes in---it allows us to render clouds across multiple frames, meaning we can still render clouds at full resolution, but do less work per individual frame.
 
-The `Reprojection Frames` parameter in the `Quality` dropdown controls this. If I use the maximum reprojection amount (`4`, which really actually means 16 frames), the render time decreases to 1 ms. If I decrease the texture quality to "potato", the render time further decreases to 0.8 ms.
+The `Reprojection Frames` parameter in the `Quality` dropdown controls this. If I use the maximum reprojection amount (`4`, which really actually means 16 frames), the render time decreases to 0.75 ms. If I decrease the texture quality to "potato", the render time further decreases to 0.55 ms.
 
-Reprojection isn't perfect---when used with TAA, it can make your clouds look blurry. It's also possible to see artifacts if your clouds are moving very fast. The best thing to do is only use as many reprojection frames as you need. If you can get away with 2 and still hit your performance requirements, do it.
+One thing you may notice is some nasty flickering pixel-looking artifacts. You can do three things to fix these:
+* Try increasing your sample counts
+* In the `Self Shadowing` foldout, set `Shadow Sample Jitter` to 0
+* Enable `Use Temporal Denoising` in the `Quality` dropdown
 
-### Step 5 (Optional): Resolution
-If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings Block`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result.
+Reprojection isn't perfect---when used with TAA, it can make your clouds look a bit blurry. It's also possible to see artifacts if your clouds are moving very fast. The best thing to do is only use as many reprojection frames as you need. If you can get away with 2 and still hit your performance requirements, do it.
 
-Here's a comparison between our optimized clouds and our non-optimized clouds. The left image takes 50 ms to render. The right image takes only 1 ms!
+### Step 6 (Optional): Resolution
+If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings Block`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result. The exception to this is if you decide to render in 4K, at which point rendering clouds at 1080p (half resolution) is recommended.
+
+Here's a comparison between our optimized clouds and our non-optimized clouds. The left image takes 3.5 ms to render. The right image takes only 0.75 ms!
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/qual_high.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/optimized_result.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/unoptimized.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/optimized.jpg"/></div>
     </div>
-    <p>Comparison of optimized vs. unoptimized result. Left: unoptimized clouds, rendering at 50 ms per frame. Right: optimized clouds, rendering in just 1 ms!</p>
+    <p>Comparison of optimized vs. unoptimized result. Left: unoptimized clouds, rendering at 3.5 ms per frame. Right: optimized clouds, rendering in just 0.75 ms!</p>
 </div>
 
 ## Wrapup
 
 Well, I hope you've enjoyed learning how to craft volumetric cloudscapes in Expanse. If you ever feel stuck, please feel free to post to the [Expanse Discord](https://discord.gg/F3VQ2vJy9p)!
 
-This is really just the beginning of what it is possible to create with Expanse. For more info on all the parameters you can play around with, check out the docs for the [`Procedural Cloud Volume Block`](/editor/blocks/procedural_cloud_volume_block).
+This is really just the beginning of what it is possible to create with Expanse. For more info on all the parameters you can play around with, check out the docs for the [`Procedural Cloud Volume`](/editor/blocks/procedural_cloud_volume_block).
 
 Below are some of the other results you can get with Expanse's clouds---for inspiration!
 
