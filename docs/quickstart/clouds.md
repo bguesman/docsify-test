@@ -485,210 +485,170 @@ Before we start, a note: typically, you'd go back and forth tweaking the lightin
 
 Ok, down to business.
 
-### The Attenuative Lighting Model
+### Expanse's Lighting Model
 
-Expanse computes cloud illumination using a modified version of the [Nubis lighting model](http://advances.realtimerendering.com/s2017/Nubis%20-%20Authoring%20Realtime%20Volumetric%20Cloudscapes%20with%20the%20Decima%20Engine%20-%20Final%20.pdf), developed by Andrew Schneider, the engineer/artist behind Horizon Zero Dawn's volumetric cloudscapes. The genius observation underlying the model is that, in a physically-based system, **light can only be attenuated by participating media.** Since this is the case, we can model the color of the clouds by applying different sorts of attenuation strategies to the raw intensity of the sunlight.
+Expanse computes cloud illumination using a custom state-of-the-art lighting model. It can be described by the three different types of lighting it computes:
 
-Put another way, the strategy for shading a cloud pixel is,
-1. Illuminate the pixel using the typical ray-marching scattering/transmittance calculation (described in the [Modeling The Earth's Atmosphere tutorial](/quickstart/earth-atmo)). **This will look far too bright.**
-2. Apply successive "dimmer switches" (some physical and some approximate) to this value to **darken the areas of the clouds that are too bright.**
+* **Base Lighting**. This is all the lighting that is fully physical, with no approximations. If Expanse's clouds were path-traced with thousands of bounces, this would be all you need to have the clouds look fully correct.
+* **Self Shadowing**. Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
+* **Multiple Scattering**. The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
 
-You'll get a sense for how this works as we progress through the different parameters.
+You'll get a sense for how these pieces fit together as we progress through the different parameters.
 
-### Baseline Lighting Parameters
+### Setup
 
-To give ourselves a "clean slate", so to speak, we'll turn off all the dimmer switches. This will show us the clouds at their brightest possible color. 
+To give ourselves a clean slate, so to speak, we'll turn off all the approximations and render the clouds with only "single scattering". This is pretty easy. Simply,
 
-Also, since we're making very dense, thick clouds, we'll also set the density parameter very high. For thinner clouds, you might go as low as `250`. We'll use a value of `50000`.
+* Open up the `Self Shadowing` foldout and set the `Shadow Persistence` parameter to `1`.
+* Open up the `Multiple Scattering` foldout and set the `Receptive Field` parameter to `0`.
 
-Open up the `Lighting` tab and set the following parameters:
-* `Density`: `50000`
-* `Anisotropy`: `0`
-* `Silver Intensity`: `0`
-* `Ambient Strength Range`: `(0, 0)`
-* `Vertical Probability Strength`: `0`
-* `Depth Probability Bias`: `1`
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/no_atten.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/lighting-clean-slate.jpg"/></div>
     </div>
-    <p>Set up the cloud lighting to turn off all attenuation.</p>
+    <p>Set these two parameters to turn off all approximations. This will make it easy to see their effect as we progress through the lighting setup.</p>
 </div>
 
-Here's how it should look---pretty terrible!
+### Base Lighting
+
+Now we're ready to start setting up our base lighting parameters. Open up the `Base Lighting` foldout. You'll be greeted with a number of parameters, some of which you'll recognize and some of which you might not. We'll be messing with the following ones:
+
+* `Density`: overall thickness/solid-ness of the clouds.
+* `Anisotropy`: How much light scatters around the sun vs. away from the sun.
+* `Ambient Strength Range`: How much ambient light the clouds receive over the height range of the volume.
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/no_atten_vis.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/base-lighting.jpg"/></div>
     </div>
-    <p>How the clouds look with all attenuation off. Pretty horrible if you ask me!</p>
+    <p>The base lighting foldout, and the parameter's we'll be using.</p>
 </div>
 
-Let's fix this.
+Since our reference has very dense, solid clouds, we'll also set the density parameter very high. For thinner clouds, you might go as low as `250`. We'll use a value of `200000`. Immediately, this will make the clouds look very different.
 
-### Shadowing
-The first and most important kind of attenuation is known as "self-shadowing". As light scatters into a cloud, it gets attenuated, since some of the photons scatter away before they can bounce out of the cloud and get into your eye. This result in dense clouds casting volumetric shadows onto themselves, darkening certain areas.
-
-To enable self-shadowing, check the `Self Shadowing` box.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/self_shadow_box.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/density-10k.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/density-200k.jpg"/></div>
     </div>
-    <p>Enable self shadowing by checking the "Self Shadow" box.</p>
+    <p>Left: density of 10000. Right: density of 200000, which is what we will be using.</p>
 </div>
 
-Immediately the clouds have much more form! Some areas are dark and in shadow. Others are bright.
+Next, we'll adjust the anisotropy of the clouds, which controls the directionality of the light scattering. Typically, clouds are highly anisotropic. This is what creates the sharp silver lining you see in clouds right next to the sun in the sky, and why clouds further across the sky from the sun are darker.
+
+We'll take a cue from nature and set the `Anisotropy` parameter to a relatively high value of `0.6`.
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/self_shadow.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/anisotropy-0.1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/anisotropy-0.6.jpg"/></div>
     </div>
-    <p>How the clouds look with self shadowing enabled.</p>
+    <p>Left: anistropy of 0.1. Right: anisotropy of 0.6, which is what we will be using.</p>
 </div>
 
-However, some areas might not look dark enough, and some might look too dark. To remedy this, Expanse implements a "multiple scattering" approximation that can help dampen the effect of self-shadowing. It's not important to understand exactly what this is or why it works, but if you're curious you can read more in the [Procedural Cloud Volume Docs](/editor/blocks/procedural_cloud_volume_block?id=multiple-scattering-amount).
+Finally, we'll adjust the amount of ambient light the clouds receive from the sky. Generally, the bottoms of clouds receive slightly less ambient light because they face the ground. Because of this, Expanse lets you specify the ambient light strength at the bottom and the top of the clouds, and smoothly blends between them over the height of the cloud volume.
 
-We'll set the following parameter values, but feel free to play around with them yourself. Set,
-* `Multiple Scattering Amount` to `0.5`.
-* `Multiple Scattering Bias` to `0.15`.
+We'll set the `Ambient Strength Range` parameter to `1.0` on the lower end, and a slightly higher `1.1` on the higher end.
 
-You might think that the result is too dark, but you'll see how we'll fix this in the next section.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/multiple_scattering.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ambient-0.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ambient-1-1.1.jpg"/></div>
     </div>
-    <p>Set the multiple scattering parameters to adjust the shadows.</p>
+    <p>Left: no ambient light at all. Looks pretty bad! Right: ambient range of (1, 1.1), the values we'll be using.</p>
 </div>
 
-### Ambient Light
 
-Clouds receive most of their light directly from the sun disc, but they also receive some blue light from the skydome. This is crucial to model to get the clouds looking right---otherwise they will look too dark and dusty.
+### Multiple Scattering
 
-In the `Lighting` tab, set the following parameters, which govern the way ambient light from the sky interacts with the clouds,
-* `Ambient Height Range`: `(0, 1)`. This defines the vertical range over which ambient light illuminates the clouds. At the minimum value, the ambient light is weakest, at at the maximum, the ambient light is strongest. This model works because the bottoms of clouds receive less ambient light.
-* `Ambient Strength Range`: `(0.5, 1.5)`. These are the actual strength values associated with the height range. So, together, these settings mean "at the bottom of the clouds, ambient strength will be `0.5`, and at the top of the clouds, ambient strength will increase up to `1.5`".
+These clouds are starting to look really good! However, there's still a problem. Comparing our clouds to our reference photo, **they look a bit too grey**, and their **shadows are too dark**. This becomes even more apparent when you look at the clouds at the back of the sky, opposite the sun.
 
-Here's what that looks like. Now the self-shadowing is less pronounced and looks more appropriate.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/ambient.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/too-grey.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/intense-shadows.jpg"/></div>
     </div>
-    <p>Introducing ambient light from the skydome into the cloud lighting model really helps!</p>
+    <p>Left: the clouds at the back of the sky are too grey. Right: the self shadowing is way too intense.</p>
 </div>
 
-### Attenuative Approximations
+In short, this is because our clouds exhibit none of the characteristics of multiple scattering. When light interacts with a cloud, it bounces around many times, making it appear whiter and more diffuse than it would otherwise. In practice, this is too computationally expensive to model. Expanse uses a physically-based approximation that's convincing while remaining performant.
 
-We'll now move onto the rest of the attenuative approximations. The clouds look pretty decent as-is, but there are still some things we can improve upon.
+Open up the multiple scattering tab and you'll see a few parameters. The one we'll focus on is `Multiple Scattering Receptive Field`. This controls how strong the multiple scattering effect is. If you drag it around, you'll notice that it brightens/darkens the clouds. For our purposes, we'll set this to `1.0`.
 
-For one, after we introduced the ambient light, the bottoms of the clouds got a bit too bright. We can remedy this by tweaking the `Vertical Probability` parameters. This is an adjustment that darkens the bottoms of the clouds---the idea is that light has a lower probability of scattering into the bottom of the clouds, because they are not facing the sun.
-
-We'll set the following parameters:
-
-* `Vertical Probability Height Range`: `(0.05, 0.25)`. Like the ambient height range, this controls the range over which the attenuation is applied.
-* `Vertical Probability Strength`: `0.4`. This controls how aggressive the attenuation is.
-
-Here's what that looks like. The bottoms of the clouds are now slightly darker, and thus they look more natural.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/vertical_prob.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/ms-foldout.jpg"/></div>
     </div>
-    <p>Darkening the bottoms of the clouds with the vertical probability parameters can help make them look more natural.</p>
+    <p>The multiple scattering foldout, with the receptive field parameter, the allow non-physical checkbox, and the bias parameter.</p>
 </div>
 
-Things are really starting to look good! However, if we compare to our reference, there's still some things we're missing.
-
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ms-rf-0.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ms-rf-1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ms-rf-5.jpg"/></div>
     </div>
-    <p>Our reference photo. Source: <a href="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg">https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg</a>.</p>
+    <p>Left: receptive field of 0, so no multiple scattering. Middle: receptive field of 1, what we'll use. Right: receptive field of 5, arguably too strong.</p>
 </div>
 
-For one, the clouds in this image appear to be brighter around the edges, at least closer to where the sun is in the sky. They also have kind of a "powered-sugar"-looking effect where their internal edges are brighter.
+Expanse also provides a few artistic overrides to the approximation, which become visible when you check the `Allow Non-Physical` checkbox. We'll do this, and up the parameter `Multiple Scattering Bias` to `0.015`. This will push a little more light into the creases of the clouds.
 
-The corresponding things we have to adjust, and the final remaining lighting parameters, are the **phase function** and the **depth probability**.
-
-Let's start with the **phase function**. The phase function tells us how bright clouds should be if they're close to the sun disc, and how dark they should be if they're far away. This is controlled by the `Anisotropy` parameter. The higher the anisotropy is, the brighter the clouds around the sun, and the darker the clouds away from the sun.
-
-Sometimes this isn't enough to meet every artistic goal, so Expanse also adds optional silver lining parameters to tweak the brightness of the clouds very close to the sun.
-
-Let's turn our camera toward the sun and set the following parameters:
-* `Anisotropy`: `0.3`. This value is a little less than physical.
-* `Silver Intensity`: `0.9`.
-* `Silver Spread`: `0.3`.
-
-This is the result:
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/anisotropy.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ms-rf-1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ms-bias-1.5.jpg"/></div>
     </div>
-    <p>Setting the anisotropy value can help distribute the light more correctly across the cloudscape.</p>
+    <p>Left: No bias to multiple scattering. Right: bias of 0.015 to multiple scattering. It's subtle, but it makes a big difference for far away clouds.</p>
 </div>
 
-Now, we'll address the "powdered-sugar" effect. This is the result of light scattering into denser/less dense places in the cloud. Taking this into account and adding more self-shadowing in these spots is kind of like the volumetric version of ambient occlusion.
+### Self Shadowing
 
-Let's set the following parameters:
-* `Depth Probability Height Range`: `(0.25, 0.8)`.
-* `Depth Probability Strength Range`: `(0.5, 2)`.
-* `Depth Probability Density Multiplier`: `2`.
-* `Depth Probability Bias`: `0.1`.
+The last thing to notice here is that the shadows are still a bit too intense. We can fix this easily by tweaking the self-shadowing settings.
 
-Repositioning our camera again, we get this result: on the left is without depth probability attenuation, and on the right is with it.
+Open up the `Self Shadowing` foldout, and mess around with the `Shadow Persistence` parameter. This will make the shadows more or less intense. It does so via the multiple scattering approximation, so it remains relatively physical, but it will have no effect if you have no multiple scattering set up.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/no_depth_prob.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/depth_prob.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/shadow-persistence.jpg"/></div>
     </div>
-    <p>Without depth probability (left) vs. with depth probability (right). The effect is subtle, but is most noticeable on the tops of the clouds.</p>
+    <p>The shadow persistence parameter.</p>
 </div>
 
-### Final Tweaks
-
-Now, in theory, we've finished lighting our clouds. However, it's important to check how they look under different illumination conditions. Moving the sun around and comparing to our reference, a few problems appear.
+We'll roll with a value of `0.33`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/depth_prob.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/evening.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/behind.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ss-0.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ss-0.33.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/ss-1.jpg"/></div>
+    </div>
+    <p>Left: shadow persistence of 0. This leaves the clouds a little too formless. Middle: shadow persistence of 0.33, what we'll use. Right: shadow persistence of 1. This results in shadows that are too intense.</p>
+</div>
+
+### Validation
+
+Now, in theory, we've finished lighting our clouds. However, it's important to check how they look under different illumination conditions. Moving the sun around and comparing to our reference, I think things look pretty good!
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/daylight.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/twilight.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/moonlight.jpg"/></div>
     </div>
     <p>Our clouds under different illumination conditions.</p>
 </div>
 
-For one, to my eyes, it looks like we overdid it on the vertical scattering probability. The clouds are just too dark on the bottom! To remedy this, let's adjust the following parameters:
-* In the `Lighting` tab, set `Vertical Probability Strength` to `0.3`.
-* Also in the `Lighting` tab, set `Vertical Probability Height Range` to `(0.05, 0.2)`.
+However, you usually don't have the benefit of copying down previously worked out parameters from a tutorial. Chances are if you embark on this process on your own, you'll need to go through a few cycles of tweaking, checking under illumination conditions, and tweaking again.
 
-This looks better! On the left is before the tweak, and on the right is after the tweak.
+**We've finished lighting our clouds, and they look great!** We're pretty much done with the visual part of this tutorial---the remaining sections will be focused on interaction and optimization. Congratulations for making it this far!
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/no_vertical_adjustment.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/vertical_adjustment.jpg"/></div>
+        <div class="img-col"><img src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/clouds/1-5-0/result_001.jpg"/></div>
     </div>
-    <p>Tweaking our vertical probability helps brighten up the bottoms of the clouds. Left: our original values. Right: tweaked.</p>
+    <p>Left: the reference. Right: our result. Not perfect, but pretty good!</p>
 </div>
-
-I also think that the edges of the clouds aren't quite bright enough at sunset. To help with this, let's adjust the multiple scattering parameters. In particular,
-* In the `Lighting` tab, set `Multiple Scattering Bias` to `0.17`.
-
-Now we've got a little more light bleeding through our clouds at sunset.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/no_ms_adjustment.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/clouds/ms_adjustment.jpg"/></div>
-    </div>
-    <p>Reducing the multiple scattering bias pushes the light a little further into our clouds. Left: our original values. Right: tweaked.</p>
-</div>
-
-Finally, if we open up the `Noise Editor` tab and up the cloud texture quality (we've been working in medium the whole time), and also apply a little post-processing, we can get pretty close to our reference!
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/reference_match_2.jpg"/></div>
-        <div class="img-col"><img style="height:81%" src="https://scx2.b-cdn.net/gfx/news/2019/observingclo.jpg"/></div>
-    </div>
-    <p>Our result with a bit of brightness/saturation postprocessing (left) vs. our reference (right).</p>
-</div>
-
-Now, we were never going to match the reference exactly, but we did a decent job of using it as a guiding light.
 
 ## Movement
 
