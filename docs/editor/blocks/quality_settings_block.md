@@ -1,6 +1,6 @@
-# Quality Settings Block
+# Quality Settings
 
-> Implemented as class `Expanse.QualitySettingsBlock` in `blocks/QualitySettingsBlock.cs`
+> Implemented as class `Expanse.QualitySettings` in `blocks/QualitySettings.cs`
 
 This block exposes general global quality settings for the atmosphere, clouds, and overall rendering algorithm. Other non-global quality settings, in particular for volumetric clouds, can be found on block instances.
 
@@ -75,7 +75,7 @@ Quality of atmosphere lookup textures. Lower quality settings will improve perfo
         <div class="img-col"><img src="img/quality_settings/potato_quality.jpg"/></div>
         <div class="img-col"><img src="img/quality_settings/ripping_through_the_metaverse_quality.jpg"/></div>
     </div>
-    <p>Left: "Potato"(lowest) quality. Right: "Ripping Through the Metaverse" (highest) quality. Even the lowest quality setting holds up pretty well. Only in special more extreme cases are the higher quality settings necessary.</p>
+    <p>Left: "Potato" (lowest) quality. Right: "Ripping Through the Metaverse" (highest) quality. Even the lowest quality setting holds up pretty well. Only in special more extreme cases are the higher quality settings necessary.</p>
 </div>
 
 #### Transmittance Samples
@@ -134,7 +134,11 @@ The number of samples to use when computing the occlusion estimate for screenspa
 
 #### Screenspace Scattering Samples
 **C# member variable:** `int m_screenspaceScatteringSamples` \
-The number of samples to use when computing the scattering for screenspace layers. Only affects layers that are physically lit.
+The number of samples to use when computing the scattering for **physically lit** screenspace layers.
+
+#### Screenspace Importance Sample
+**C# member variable:** `bool m_screenspaceImportanceSample` \
+Whether to use importance sampling to reduce the number of scattering samples required for a good result. Generally this is good to have enabled, but sometimes it can cause artifacts, so use it cautiously. Only affects layers that are physically lit, since they are only ones that are raymarched.
 
 #### Screenspace Fog Depth Skew
 **C# member variable:** `float m_screenspaceFogDepthSkew` \

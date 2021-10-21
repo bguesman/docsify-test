@@ -1,7 +1,5 @@
 TODO 1.5 UPDATE
 Procedural Cloud Plane Block
 Procedural Cloud Volume Block
-Quality Settings Block
 Texture Cloud Plane Block
 Creative Cloud Volume
-Creative Stars
