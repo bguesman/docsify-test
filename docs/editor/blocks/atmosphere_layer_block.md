@@ -1,6 +1,6 @@
-# Atmosphere Layer Block
+# Atmosphere Layer
 
-> Implemented as class `Expanse.AtmosphereLayerBlock` in `blocks/AtmosphereLayerBlock.cs`
+> Implemented as class `Expanse.AtmosphereLayer` in `blocks/AtmosphereLayer.cs`
 
 <div class="img-block">
     <div class="img-row">
@@ -98,7 +98,7 @@ Normally, Expanse renders atmosphere layers to a low-resolution spherical textur
 
 To address this, Expanse introduces the concept of screenspace layers---layers that are rendered in a less expensive (but still physically-based) fashion, per-camera pixel. Their main benefit is that they are free of some of the artifacts present in the spherical texture, they support a falloff distance from the player, and they support a form of screenspace volumetric shadowing. As such they are particularly useful for modeling fog, smoke, and other dense aerosols.
 
-With volumetric shadows turned off, these layers are extremely performant. However, with volumetric shadows on, they will perform raymarching against a downsampled version of the depth buffer. This can reduce performance---the performance hit can be mitigated by choosing an appropriate [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings block](/editor/blocks/quality_settings_block).
+With volumetric shadows turned off, these layers are extremely performant. However, with volumetric shadows on, they will perform raymarching against a downsampled version of the depth buffer. This can reduce performance---the performance hit can be mitigated by choosing an appropriate [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block).
 
 >Screenspace Uniform
 
@@ -289,14 +289,16 @@ Expanse computes multiple scattering for non-screenspace layers. This parameter 
 
 #### Physical Lighting
 **C# member variables:** `bool m_physicalLighting` \
-Normally, Expanse uses a cheap approximation to compute screenspace scattering. However, enabling this will instead raymarch the scattering properly, and correctly compute self shadowing. You could actually refer to this a layer with this checked as "path traced fog", since the ray marching is stochastic in nature.
+Normally, Expanse uses a cheap but very good approximation to compute screenspace scattering. However, enabling this will instead raymarch the scattering properly, and correctly compute self shadowing. You could actually refer to a layer with this checked as "path traced fog", since the ray marching is stochastic in nature.
+
+Since v1.5, there is virtually no difference between the two strategies. It is recommended that you keep this parameter turned off, for performance reasons.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/atmosphere/non-physical.png"/></div>
-        <div class="img-col"><img src="img/atmosphere/physical.png"/></div>
+        <div class="img-col"><img src="img/atmosphere/non-physical.jpg"/></div>
+        <div class="img-col"><img src="img/atmosphere/physical.jpg"/></div>
     </div>
-    <p>Left: non-physical lighting. Right: physical lighting.</p>
+    <p>Left: non-physical lighting. Right: physical lighting. Due to the new self-shadowing approximation introduced in v1.5, there is virtually no difference.</p>
 </div>
 
 <!---------------------------------------------------------------------------------------->
@@ -307,7 +309,7 @@ These parameters are only valid for [screenspace layers](/editor/blocks/atmosphe
 
 Expanse computes pseudo-volumetric shadows as a screenspace post-process using the depth buffer and the cloud transmittance buffer. Because of this, the shadow effects it computes are only an approximation. It's best to use them as a subtle effect, and defer to a more dedicated volumetrics plugin for true volumetric lighting. I'm pretty sure, based on some investigation, that Unity's volumetric fog uses the same strategy. It's also been employed with great results in a number of AAA games---in particular, Mirror's Edge: Catalyst, which was a big inspiration for this product.
 
-A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings block](/editor/blocks/quality_settings_block). This is a global setting, so it cannot be set per layer.
+A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block). This is a global setting, so it cannot be set per layer.
 
 #### Geometry Shadows
 **C# member variable:** `bool m_geometryShadows` \
