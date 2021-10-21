@@ -11,11 +11,11 @@ Want a sun in your scene? Drop a [Celestial Body Block](editor/blocks/celestial_
     <p>A sun in the sky, created by adding a Celestial Body Block to the scene.</p>
 </div>
 
-What about dynamic 3D clouds? Drag in a [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md), select a component preset, and there you have it!
+What about dynamic 3D clouds? Drag in a [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md), select a preset, and there you have it!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/clouds/candy.jpg"/></div>
+        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
     </div>
     <p>Procedural volumetric clouds, created by dragging a Procedural Cloud Volume Block onto an empty Game Object.</p>
 </div>
