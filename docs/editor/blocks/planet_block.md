@@ -1,6 +1,6 @@
-# Planet Block
+# Planet
 
-> Implemented as class `Expanse.PlanetBlock` in `blocks/PlanetBlock.cs`
+> Implemented as class `Expanse.Planet` in `blocks/Planet.cs`
 
 This block exposes the settings for the ground planet that Expanse's atmosphere and clouds are anchored around.
 

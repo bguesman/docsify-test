@@ -8,11 +8,11 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with the [Procedural Stars Block](editor/blocks/procedrual_stars_block.md).
+This block is a more intuitive alternative to directly working with [Procedural Stars](editor/blocks/procedrual_stars_block.md).
 
 #### Stars Block
-**C# member variable:** `Expanse.ProceduralStarsBlock m_starsBlock` \
-[Procedural Stars Block](editor/blocks/procedrual_stars_block.md) that this creative stars component controls.
+**C# member variable:** `Expanse.ProceduralStars m_starsBlock` \
+[Procedural Stars](editor/blocks/procedrual_stars_block.md) that this creative stars component controls.
 
 #### Brightness
 **C# member variable:** `float m_brightness` \

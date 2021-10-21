@@ -8,11 +8,11 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with [Celestial Body Blocks](editor/blocks/celestial_body_block.md).
+This block is a more intuitive alternative to directly working with [Celestial Bodies](editor/blocks/celestial_body_block.md).
 
 #### Sun Block
-**C# member variable:** `Expanse.CelestialBodyBlock m_sunBlock` \
-[Celestial Body Block](editor/blocks/celestial_body_block.md) that this creative sun controls. To set this up, you can create an Celestial Body Block and set it to the preset "Sun".
+**C# member variable:** `Expanse.CelestialBody m_sunBlock` \
+[Celestial Body](editor/blocks/celestial_body_block.md) that this creative sun controls. To set this up, you can create a Celestial Body and set it to the preset "Sun".
 
 #### Use Time Of Day
 **C# member variable:** `bool m_useTimeOfDay` \

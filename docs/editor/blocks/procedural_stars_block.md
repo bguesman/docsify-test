@@ -1,6 +1,6 @@
-# Procedural Stars Block
+# Procedural Stars
 
-> Implemented as class `Expanse.ProceduralStarsBlock` in `blocks/ProceduralStarsBlock.cs`
+> Implemented as class `Expanse.ProceduralStars` in `blocks/ProceduralStars.cs`
 
 <div class="img-block">
     <div class="img-row">

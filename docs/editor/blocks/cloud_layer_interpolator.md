@@ -87,13 +87,13 @@ Ultimately, the strategy that Expanse employs ended up leaning heavily on the Un
 Underneath the "Components" header are fields for all the components that are necessary for the cloud layer interpolator to function.
 
 #### Cloud Layer
-**C# member variable:** `Expanse.BaseCloudLayerBlock m_cloudLayer` \
-This is the cloud layer that the interpolator will use to actually render the clouds. For instance, a `ProceduralCloudVolumeBlock`.
+**C# member variable:** `Expanse.BaseCloudLayer m_cloudLayer` \
+This is the cloud layer that the interpolator will use to actually render the clouds. For instance, a `ProceduralCloudVolume`.
 
 #### Interpolated Noise
-**C# member variable:** `Expanse.TextureInterpolationBlock m_<noise layer>Interpolated` \
-Each layer of noise that the clouds use (Coverage, Base, Detail, etc.) requires a `TextureInterpolationBlock`. This block is responsible for blending between the current and target noise preset.
+**C# member variable:** `Expanse.TextureInterpolator m_<noise layer>Interpolated` \
+Each layer of noise that the clouds use (Coverage, Base, Detail, etc.) requires a `TextureInterpolator`. This block is responsible for blending between the current and target noise preset.
 
 #### Current and Target Noise
-**C# member variable:** `Expanse.ProceduralNoiseBlock m_<noise layer>Current` and `Expanse.ProceduralNoiseBlock m_<noise layer>Target` \
-Each noise layer also requires two `ProceduralNoiseBlock`'s---one for the "current" preset and one for the "target" preset. These regenerate noises on the fly as new presets are loaded.
+**C# member variable:** `Expanse.ProceduralNoiseGenerator m_<noise layer>Current` and `Expanse.ProceduralNoiseGenerator m_<noise layer>Target` \
+Each noise layer also requires two `ProceduralNoiseGenerator`'s---one for the "current" preset and one for the "target" preset. These regenerate noises on the fly as new presets are loaded.

@@ -1,23 +1,23 @@
 
-# Date Time Block
+# Date Time Controller
 
-> Implemented as class `Expanse.DateTimeBlock` in `blocks/DateTimeBlock.cs`
+> Implemented as class `Expanse.DateTimeController` in `blocks/DateTimeController.cs`
 
-This block implements a physical model of the sun/moon position, based on a specified time UTC. It'll also rotate the star texture if you want, using a non-physical strategy. It's best to think of this block more like a high-level controller for other blocks---you give it a time, and it sets the direction on specified sun/moon Celestial Body Blocks.
+This block implements a physical model of the sun/moon position, based on a specified time UTC. It'll also rotate the star texture if you want, using a non-physical strategy. It's best to think of this block more like a high-level controller for other blocks---you give it a time, and it sets the direction on specified sun/moon Celestial Bodies.
 
 **Important to note:** this block exposes two functions `SetDateTimeUTC()`, and `SetDateTimeLocal()`, that both accept a C# `DateTime` object. The first one will set the time in UTC, disregarding the block's UTC offset. The second will apply the offset before setting the time. If you are maintaining your game's time as a DateTime object, these are useful.
 
 #### Sun
-**C# member variable:** `Expanse.CelestialBodyBlock m_sun` \
-Celestial body block that will have the position of the sun. It's fine for this to be `None`, if you don't want this block to control the sun direction.
+**C# member variable:** `Expanse.CelestialBody m_sun` \
+Celestial body that will have the position of the sun. It's fine for this to be `None`, if you don't want this block to control the sun direction.
 
 #### Moon
-**C# member variable:** `Expanse.CelestialBodyBlock m_moon` \
-Celestial body block that will have the position of the soon. It's fine for this to be `None`, if you don't want this block to control the moon direction.
+**C# member variable:** `Expanse.CelestialBody m_moon` \
+Celestial body that will have the position of the soon. It's fine for this to be `None`, if you don't want this block to control the moon direction.
 
 #### Night Sky
-**C# member variable:** `Expanse.NightSkyBlock m_nightSky` \
-Night sky block that will rotate as time passes. It's fine for this to be `None`, if you don't want the night sky to rotate.
+**C# member variable:** `Expanse.NightSky m_nightSky` \
+Night sky that will rotate as time passes. It's fine for this to be `None`, if you don't want the night sky to rotate.
 
 #### Night Sky Rotation Speed
 **C# member variable:** `Vector3 m_nightSkyRotationSpeed` \

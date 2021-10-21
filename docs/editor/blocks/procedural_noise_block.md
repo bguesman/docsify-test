@@ -1,6 +1,6 @@
-# Procedural Noise Block
+# Procedural Noise Generator
 
-> Implemented as class `Expanse.ProceduralNoiseBlock` in `blocks/ProceduralNoiseBlock.cs`
+> Implemented as class `Expanse.ProceduralNoiseGenerator` in `blocks/ProceduralNoiseGenerator.cs`
 
 Block that generates a procedural noise texture. Exposes this texture as an `RTHandle` via the `GetTexture()` function.
 

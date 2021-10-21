@@ -8,15 +8,15 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with [Atmosphere Layer Blocks](editor/blocks/atmosphere_layer_block.md).
+This block is a more intuitive alternative to directly working with [Atmosphere Layers](editor/blocks/atmosphere_layer_block.md).
 
 #### Air Block
-**C# member variable:** `Expanse.AtmosphereLayerBlock m_airBlock` \
-[Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md) that this creative atmosphere controls. To set this up, you can create an Atmosphere Layer Block and set it to the preset "Rayleigh".
+**C# member variable:** `Expanse.AtmosphereLayer m_airBlock` \
+[Atmosphere Layer](editor/blocks/atmosphere_layer_block.md) that this creative atmosphere controls. To set this up, you can create an Atmosphere Layer and set it to the preset "Rayleigh".
 
 #### Ozone Block
-**C# member variable:** `Expanse.AtmosphereLayerBlock m_ozoneBlock` \
-[Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md) that this creative atmosphere controls. To set this up, you can create an Atmosphere Layer Block and set it to the preset "Ozone".
+**C# member variable:** `Expanse.AtmosphereLayer m_ozoneBlock` \
+[Atmosphere Layer](editor/blocks/atmosphere_layer_block.md) that this creative atmosphere controls. To set this up, you can create an Atmosphere Layer and set it to the preset "Ozone".
 
 #### Daytime Color
 **C# member variable:** `Color m_daytimeColor` \

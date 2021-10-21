@@ -1,6 +1,6 @@
-# Texture Nebulae Block
+# Texture Nebulae
 
-> Implemented as class `Expanse.TextureNebulaeBlock` in `blocks/TextureNebulaeBlock.cs`
+> Implemented as class `Expanse.TextureNebulae` in `blocks/TextureNebulae.cs`
 
 Adding this block to your scene will create a nebulae that uses a pre-authored texture.
 

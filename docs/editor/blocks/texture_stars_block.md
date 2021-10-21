@@ -1,6 +1,6 @@
-# Texture Stars Block
+# Texture Stars
 
-> Implemented as class `Expanse.TextureStarsBlock` in `blocks/TextureStarsBlock.cs`
+> Implemented as class `Expanse.TextureStars` in `blocks/TextureStars.cs`
 
 <div class="img-block">
     <div class="img-row">

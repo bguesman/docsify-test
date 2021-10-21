@@ -1,6 +1,6 @@
-# Procedural Nebulae Block
+# Procedural Nebulae
 
-> Implemented as class `Expanse.ProceduralNebulaeBlock` in `blocks/ProceduralNebulaeBlock.cs`
+> Implemented as class `Expanse.ProceduralNebulae` in `blocks/ProceduralNebulae.cs`
 
 <div class="img-block">
     <div class="img-row">
@@ -77,21 +77,21 @@ Global tint control for the whole nebula texture.
 <!------------------------------------- NOISE LAYERS ------------------------------------->
 <!---------------------------------------------------------------------------------------->
 ### Noise Layers
-**C# member variable:** `Expanse.ProceduralNebulaeBlock.LayerSettings[] m_layers` \
+**C# member variable:** `Expanse.ProceduralNebulae.LayerSettings[] m_layers` \
 Expanse models nebulae as layered noise. The noise layer workflow lets you author and tweak each layer individually, to be composited together in the final nebulae texture. Currently, you can use up to four noise layers.
 
 Each layer provides a number of authoring controls to maximize expressivity.
 
 #### Intensity
-**C# member variable:** `float intensity` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float intensity` in `Expanse.ProceduralNebulae.LayerSettings` \
 Intensity or brightness of the layer. Multiplied through the general intensity control.
 
 #### Color
-**C# member variable:** `Color color` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `Color color` in `Expanse.ProceduralNebulae.LayerSettings` \
 Color of the layer.
 
 #### Noise Type
-**C# member variable:** `Expanse.Datatypes.NoiseType noise` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `Expanse.Datatypes.NoiseType noise` in `Expanse.ProceduralNebulae.LayerSettings` \
 Type of noise to use for this layer. Expanse provides 7 noise distributions, specified by the enum `Expanse.Datatypes.NoiseType`. Refer to the figure below for a comparison.
 * `Constant`: exactly what it sounds like---just a flat, solid color.
 * `Value`: a sharper noise, helpful for modeling more intense striated gas clouds.
@@ -120,7 +120,7 @@ Type of noise to use for this layer. Expanse provides 7 noise distributions, spe
 </div>
 
 #### Scale
-**C# member variable:** `float scale` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float scale` in `Expanse.ProceduralNebulae.LayerSettings` \
 Scale of base octave of noise. Smaller values give bigger more global features, larger values give smaller more detailed features.
 
 <div class="img-block">
@@ -133,7 +133,7 @@ Scale of base octave of noise. Smaller values give bigger more global features, 
 </div>
 
 #### Octaves
-**C# member variable:** `int octaves` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `int octaves` in `Expanse.ProceduralNebulae.LayerSettings` \
 Number of noise octaves. Increasing the number of octaves can dim the overall noise texture, so it is useful to adjust the intensity control in tandem with this parameter.
 
 <div class="img-block">
@@ -146,15 +146,15 @@ Number of noise octaves. Increasing the number of octaves can dim the overall no
 </div>
 
 #### Octave Scale
-**C# member variable:** `float octaveScale` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float octaveScale` in `Expanse.ProceduralNebulae.LayerSettings` \
 Scale multiplier applied to additional octaves of noise. As an example, if this value is 2, each octave will be twice as small as the last octave.
 
 #### Octave Multiplier
-**C# member variable:** `float octaveMultiplier` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float octaveMultiplier` in `Expanse.ProceduralNebulae.LayerSettings` \
 Intensity multiplier applied to additional octaves of noise. As an example, if this value is 0.5, each octave will be half as intense as the last octave.
 
 #### Coverage
-**C# member variable:** `float coverage` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float coverage` in `Expanse.ProceduralNebulae.LayerSettings` \
 How much the coverage map effects this layer. A higher value will result in more nebula coverage. A lower value will result in less nebula coverage.
 
 <div class="img-block">
@@ -167,11 +167,11 @@ How much the coverage map effects this layer. A higher value will result in more
 </div>
 
 #### Spread
-**C# member variable:** `float spread` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float spread` in `Expanse.ProceduralNebulae.LayerSettings` \
 This parameter allows the layer to bleed across the coverage boundary, and is useful for softening edges.
 
 #### Bias
-**C# member variable:** `float bias` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float bias` in `Expanse.ProceduralNebulae.LayerSettings` \
 Bias of zero value. This can be used as an alternative to coverage, if you want to ignore the coverage map.
 
 <div class="img-block">
@@ -184,15 +184,15 @@ Bias of zero value. This can be used as an alternative to coverage, if you want 
 </div>
 
 #### Definition
-**C# member variable:** `float definition` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float definition` in `Expanse.ProceduralNebulae.LayerSettings` \
 This increases saturation and contrast, generally making the layer punchier. Increasing the definition usually requires also increasing the strength parameter to ensure that the strands can still get through the coverage map.
 
 #### Strength
-**C# member variable:** `float strength` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float strength` in `Expanse.ProceduralNebulae.LayerSettings` \
 This parameter is meant to be used in tandem with the coverage value. Higher strength values will allow more features to push through the coverage map. The best way to see what this parameter does is to play around with it.
 
 #### Warp Intensity
-**C# member variable:** `float warpIntensity` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float warpIntensity` in `Expanse.ProceduralNebulae.LayerSettings` \
 Intensity of warping effect. Nebulae are big bodies of interstellar gas, and so they obey the laws of fluid mechanics. It's important to capture some of the resulting swirly fluid features. Warping the base noise texture can help with that.
 
 <div class="img-block">
@@ -205,7 +205,7 @@ Intensity of warping effect. Nebulae are big bodies of interstellar gas, and so 
 </div>
 
 #### Warp Scale
-**C# member variable:** `float warpScale` in `Expanse.ProceduralNebulaeBlock.LayerSettings` \
+**C# member variable:** `float warpScale` in `Expanse.ProceduralNebulae.LayerSettings` \
 Scale of the noise used to warp this layer. A higher value gives smaller vortices and tendrils. A lower value gives bigger swirls and arcs.
 
 <div class="img-block">

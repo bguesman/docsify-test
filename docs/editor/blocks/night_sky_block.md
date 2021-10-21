@@ -1,6 +1,6 @@
-# Night Sky Block
+# Night Sky
 
-> Implemented as class `Expanse.NightSkyBlock` in `blocks/NightSkyBlock.cs`
+> Implemented as class `Expanse.NightSky` in `blocks/NightSky.cs`
 
 This block exposes settings that allow you to tweak the look of the night sky. This includes light pollution, artistic scattering overrides, and global rotation of stars/nebulae.
 
