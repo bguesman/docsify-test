@@ -6,6 +6,9 @@ Here's a collection of questions folks have asked one or more times---this is a 
 
 **A:** Expanse renders fog out to the far clipping plane. Chances are, you need to increase the far clipping plane for your main camera and sceneview camera---something like 100,000 is a good number.
 
+**Q: Expanse isn't working/looks weird in VR. What's wrong?**
+
+**A:** For VR, Expanse only works in multipass mode, and even then certain features like temporal reprojection and denoising won't work.
 
 **Q: My planar reflection probe is flickering.**
 
@@ -15,7 +18,7 @@ Here's a collection of questions folks have asked one or more times---this is a 
 
 **A:** Chances are you're in one of the following situations:
 
-* You have [reprojection frames](/editor/blocks/procedural_cloud_volume_block?id=reprojection-frames) set to more than 1, and you have Unity's TAA enabled. This will cause blurriness---either decrease the number of reprojection frames or disable TAA.
+* You have [reprojection frames](/editor/blocks/procedural_cloud_volume_block?id=reprojection-frames) set to more than 1, and you have Unity's TAA enabled. This will cause slight blurriness---either decrease the number of reprojection frames or disable TAA.
 * You have [denoising history frames](/editor/blocks/procedural_cloud_volume_block?id=denoising-history-frames) set very high. Try lowering it and seeing if you can tolerate the amount of noise; you can also increase the sample counts to compensate for it (the [detail step range](/editor/blocks/procedural_cloud_volume_block?id=detail-step-range)).
 
 **Q: The sky/clouds are bleeding through my geometry!**

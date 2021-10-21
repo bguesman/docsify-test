@@ -10,9 +10,9 @@ Expanse refers to these components as **blocks**.
 
 Blocks are the primary way that you can interact with Expanse's featureset. For every feature in Expanse, there is a block component that lets you use it. Some examples of blocks are:
 
-- [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md): if you add this block Component to a Game Object in your scene, it will create a volume filled with 3D clouds that you can manipulate and position with the block's parameters.
-- [Celestial Body Block](editor/blocks/celestial_body_block.md): adding this block Component to a Game Object in your scene will create a celestial body in your planet's sky, like the sun or the moon. This block lets you specify a directional light to use as the body's source of illumination, and will automatically control that light to match the body's parameters.
-- [Atmosphere Layer Block](editor/blocks/atmosphere_layer_block.md): use this block to add layers of air, gas, and fog to your planet's atmosphere.
+- [Procedural Cloud Volume](editor/blocks/procedural_cloud_volume_block.md): if you add this block Component to a Game Object in your scene, it will create a volume filled with 3D clouds that you can manipulate and position with the block's parameters.
+- [Celestial Body](editor/blocks/celestial_body_block.md): adding this block Component to a Game Object in your scene will create a celestial body in your planet's sky, like the sun or the moon. This block lets you specify a directional light to use as the body's source of illumination, and will automatically control that light to match the body's parameters.
+- [Atmosphere Layer](editor/blocks/atmosphere_layer_block.md): use this block to add layers of air, gas, and fog to your planet's atmosphere.
 
 There are many other block types that expose different features---you can find descriptions of them all under the [blocks header](editor/blocks/blocks.md) in the menu.
 
@@ -20,12 +20,19 @@ Here's an example of what the block for a sun might look like. You can see that 
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:75%" src="img/quickstart/sun_object.jpg"/></div>
+        <div class="img-col"><img style="width:60%" src="img/overview/celestial-body.jpg"/></div>
     </div>
-    <p>The inspector view of the celestial body block component.</p>
+    <p>The inspector view of the celestial body block.</p>
 </div>
 
-It might seem daunting at first, having to set up a whole collection of blocks on your own. To make things easier, **I've drawn up a number of pre-authored prefabs that you can drag and drop into your scene.** These have everything already set up for you, so you can just add and remove blocks depending on your use case. For instance, maybe your game takes place on a planet with two moons, so you need to add an extra celestial body block.
+It might seem daunting at first, having to set up a whole collection of blocks on your own. To make things easier, **Expanse has hierarchy create menu shortcuts for creating full skies.** These have everything already set up for you, so you can just add and remove blocks depending on your use case. For instance, maybe your game takes place on a planet with two moons, so you need to add an extra celestial body block.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img style="width:60%" src="img/overview/full-sky.jpg"/></div>
+    </div>
+    <p>Creating a full sky from the hierarchy's create menu.</p>
+</div>
 
 Also, for those who are reading this and enjoy scripting, all of the code for implementing the blocks is visible to you, so you can easily write your own custom blocks that are simpler or more complex than Expanse's default blocks. This is particularly useful if you want to create your own meta-parameters. An example of this could be something like a "rainy-ness" parameter for clouds, that adjusts cloud scattering coefficients to make them lighter or darker depending on "how much rain they have".
 
