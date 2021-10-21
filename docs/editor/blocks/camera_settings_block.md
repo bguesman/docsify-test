@@ -1,6 +1,6 @@
-# Camera Settings Block
+# Camera Settings
 
-> Implemented as class `Expanse.CameraSettingsBlock` in `blocks/CameraSettingsBlock.cs`
+> Implemented as class `Expanse.CameraSettings` in `blocks/CameraSettings.cs`
 
 Block for specifying camera-specific settings that can't be inferred from Unity cameras themselves. Required for Expanse to function.
 

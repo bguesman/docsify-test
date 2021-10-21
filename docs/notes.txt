@@ -1,7 +1,4 @@
 TODO 1.5 UPDATE
-Atmosphere Layer Block
-Camera Settings Block
-Celestial Body Block
 Cloud Layer Interpolator
 Date Time Block
 Night Sky Block

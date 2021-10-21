@@ -1,6 +1,6 @@
-# Celestial Body Block
+# Celestial Body
 
-> Implemented as class `Expanse.CelestialBodyBlock` in `blocks/CelestialBodyBlock.cs`
+> Implemented as class `Expanse.CelestialBody` in `blocks/CelestialBody.cs`
 
 <div class="img-block">
     <div class="img-row">
@@ -254,7 +254,7 @@ Tint to celestial body's emission texture, or just celestial body's emissive col
 
 #### Emission Multiplier
 **C# member variable:** `float m_emissionMultiplier` \
-Multiplier on emissive color/texture. Often, emission textures will be too blown out if their actual physical light values are used. This is an artistic override to correct that.
+Multiplier on emissive color/texture. Somtimes, emission textures will be too blown out if their actual physical light values are used. Sometimes the reverse is true---the physical luminance of the celestial body disc won't be enough to trigger effects like bloom and lens flares. This is an artistic override to correct thes issues.
 
 #### Limb Darkening
 **C# member variable:** `float m_limbDarkening` \
