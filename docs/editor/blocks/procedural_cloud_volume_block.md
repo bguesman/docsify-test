@@ -1,6 +1,6 @@
-# Procedural Cloud Volume Block
+# Procedural Cloud Volume
 
-> Implemented as class `Expanse.ProceduralCloudVolumeBlock` in `blocks/ProceduralCloudVolumeBlock.cs`
+> Implemented as class `Expanse.ProceduralCloudVolume` in `blocks/ProceduralCloudVolume.cs`
 
 <div class="img-block">
     <div class="img-row">
@@ -13,29 +13,39 @@ Adding this block to your scene will create a 3D cloud volume whose density fiel
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- PRESETS --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Preset Management
+## Preset Management
 
-The preferred way to author, save, and load presets for cloud layers is via the Save/Load preset buttons, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
+As of v1.5, the preferred way to author, save, and load presets for cloud layers is via the Preset Browser, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
 
-Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized to a JSON file on save.
+Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized as a [`ScriptableObject`](https://docs.unity3d.com/ScriptReference/ScriptableObject.html) on save.
 
-What this means for you is that, to save a preset from editor, you can just click the "Save Preset" button, and a file dialogue will pop up for you to specify the path to save the preset file to. To then load that preset, you can click the "Load Preset" button, and select the saved JSON preset file in the file picker that pops up.
+What this means for you is that, to save a preset from editor, you can just click the "Save Preset" button, and a file dialogue will pop up for you to specify the path to save the preset file to. A screen capture of the currently rendering main camera will automatically be used as preset image---so line up your shot carefully!
+
+To then load that preset, you can browse for it in the preset browser. You may have to hit `Refresh Library` to get it to show up.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/procedural_cloud_volume/save_load.jpg"/></div>
-    </div>
-    <p>Save and load buttons.</p>
+        <div class="img-col"><img style="width: 80%" src="img/procedural_cloud_volume/preset-browser.jpg"/></div>
+    </div>The cloud preset browser.</p>
 </div>
 
-To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayerBlock.cs`, which all cloud layer blocks derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
+To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayer.cs`, which all cloud layers derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
 
-You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this JSON-based preset system exists is to get around this unfortunate limitation of Unity presets.
+You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this ScriptableObject-based preset system exists is to get around this unfortunate limitation of Unity presets.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Modeling
+## Modeling
+We can split the parameters related to modeling clouds into two groups:
+
+* **Shaping and Geometry:** parameters related to the overall form of clouds
+* **Noise:** parameters related to crafting the noises that describe how the clouds look more locally
+
+### Shaping and Geometry
 These parameters describe the general shape, form, and distribution of the clouds.
+
+#### Geometry Extents and Origin
+As of v1.5, the origin and size of the cloud volume are controlled via the Unity `GameObject` transform.
 
 #### Noise Layer Array
 **C# member variable:** `Expanse.ProceduralCloudVolumeBlock.LayerSettings m_noiseLayers` \
@@ -70,9 +80,17 @@ Amount of cloud coverage.
 **C# member variable:** `float m_structureIntensity` \
 How much the structure noise layer erodes the base noise layer.
 
+#### Structure Multiply
+**C# member variable:** `float m_structureMultiply` \
+How much the structure noise layer multiplies the base noise layer. Good for creating internal details in the cloud that are visible when the sun shines through.
+
 #### Detail Intensity
 **C# member variable:** `float m_detailIntensity` \
 How much the detail noise layer erodes the base noise layer.
+
+#### Detail Multiply
+**C# member variable:** `float m_detailMultiply` \
+How much the detail noise layer multiplies the base noise layer. Good for creating internal details in the cloud that are visible when the sun shines through.
 
 #### Base Warp Intensity
 **C# member variable:** `float m_baseWarpIntensity` \
@@ -81,14 +99,6 @@ How much the base noise layer is warped by its warp texture.
 #### Detail Warp Intensity
 **C# member variable:** `float m_detailWarpIntensity` \
 How much the detail noise layer is warped by its warp texture.
-
-#### Geometry Extents
-**C# member variable:** `float m_XExtent`, `float m_YExtent`, and `float m_ZExtent` \
-Extents of the cloud volume, so boundaries in X, Y, and Z directions.
-
-#### Origin
-**C# member variable:** `Vector3 origin` \
-Origin of this layer's cloud geometry---the center of the cloud volume.
 
 #### Curved
 **C# member variable:** `bool m_curved` \
@@ -137,33 +147,58 @@ Range over which density ramps up to full. Useful as a sort of soft near clippin
     <p>Comparison of different ramp up ranges. Attenuation distance and bias are both set to 100000. Left: (0, 0), so no ramp up. Middle: (40000, 60000). The clouds directly overhead are gone. Right: (100000, 150000). Only the clouds far away remain.</p>
 </div>
 
-#### Rounding
-**C# member variable:** `float m_rounding` \
-How much to round off the tops of the clouds. This is a pretty important parameter to tweak to get realistic-looking cloud shapes. Many cloud systems lack this sort of capability, and, without it, their clouds look very blocky.
+#### Density Curve
+**C# member variable:** `AnimationCurve m_densityCurve` \
+Controls how the density of the cloud volume varies across the cloud volume's height. This is a pretty important parameter to tweak to get realistic-looking cloud shapes. For instance, with this parameter you can model,
+
+* Softer cloud bottoms for cumulus clouds
+* Wispy anvil formations due to ice crystallization in the upper atmosphere
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/no_round.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/round_3.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/round_5.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-curve-bad-editor.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-curve-bad.jpg"/></div>
     </div>
-    <p>Comparison of different rounding amounts. Rounding shape is set to 2.5 for each example. Left: rounding 1, so no rounding. Doesn't necessarily look bad, but the clouds are kind of boxy. Middle: rounding 3. Right: rounding 5.5.</p>
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-curve-good-editor.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-curve-good.jpg"/></div>
+    </div>
+    <p>Comparison of different density curves. Top: result with a constant density curve. This looks pretty weird. Bottom: result with a more reasonable density curve, where the cloud density increases over height. This softens the bottoms of the clouds and makes them look much more natural.</p>
 </div>
 
-#### Rounding Shape
-**C# member variable:** `float m_roundingShape` \
-The curve of the rounding.
-
-#### Height Gradient
-**C# member variable:** `Vector2 m_heightGradientBottom` and `m_heightGradientTop` \
-The height gradient of the clouds. The bottom height gradient determines the ramp-up of the cloud density along the height of the cloud volume. The top height gradient determines the ramp-down of the density at the tops of the clouds. Adjusting these parameters can help mitigate the blockiness of the clouds.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/hg_full.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/hg_0_0.15_0.9_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cumulonimbus-density.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cumulonimbus-coverage.jpg"/></div>
     </div>
-    <p>Left: height gradient of (0, 0)/(1, 1), so effectively no ramp up and no ramp down---the entire cloud volume is visible. This exposes weird artifacts in the vertical in-scatter probability (the dark cloud bottoms), and additionally makes the clouds look kind of boxy. Right: height gradient of (0, 0.15)/(0.9, 1). Adjusting the height gradient to soften the ramp up and ramp down fixes these problems.</p>
+    <p>An example of another density curve, used to decrease the density of an anvil structure relative to the base of some massive cumulonimbus clouds.</p>
 </div>
 
+#### Coverage Curve
+**C# member variable:** `AnimationCurve m_coverageCurve` \
+Controls how the coverage of the cloud volume varies across the cloud volume's height. This is crucial for shaping the clouds to achieve a realistic result. This parameter can help you round off the tops of cumulus clouds, create massive anvil formations, etc.
+
+> This parameter replaces the height gradient and rounding parameters that were used to shape clouds prior to v1.5.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage-curve-bad-editor.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage-curve-bad.jpg"/></div>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage-curve-good-editor.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/coverage-curve-good.jpg"/></div>
+    </div>
+    <p>Comparison of different coverage curves. Top: result with a constant coverage curve. This looks bad! Bottom: result with a more reasonable density curve, where the cloud density increases over height, and then decreases to round off the cloud tops. This makes the cloud shapes look at lot more familiar.</p>
+</div>
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/cumulonimbus-coverage-editor.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/cumulonimbus-coverage.jpg"/></div>
+    </div>
+    <p>An example of another coverage curve, used to create an anvil formation in huge cumulonimbus clouds.</p>
+</div>
 
 #### Wind Skew
 **C# member variable:** `Vector2 m_windSkew` \
@@ -180,7 +215,10 @@ Skew over height of the clouds due to wind, in the x and z directions respective
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------- NOISE LAYERS ------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Noise Layers
+### Noise
+These parameters describe the noises that Expanse uses to construct the density field. This is in contrast to the more global shaping parameters in the Shaping and Geometry section.
+
+#### Noise Layers
 **C# member variable:** `Expanse.ProceduralCloudVolumeBlock.LayerSettings[] m_layers` \
 Expanse models clouds using six layers of noise, authored as "noise layers". They are:
 * **Coverage:** determines where there are clouds, and where there is sky. You can think of this as a "cloud map".
@@ -282,19 +320,29 @@ Number of times to tile the texture across the cloud plane. Set this carefully i
 <!--------------------------------------- LIGHTING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Lighting
-These parameters describe the illumination characteristics of the cloud layer.
+## Lighting
+Expanse's cloud lighting model can be broken up into 3 categories:
+
+* **Base Lighting**. This is all the lighting that is fully physical, with no approximations. If Expanse's clouds were path-traced with thousands of bounces, this would be all you need to have the clouds look fully correct.
+* **Self Shadowing**. Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
+* **Multiple Scattering**. The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
+
+We'll split up the parameters into these sections
+
+### Base Lighting
+
+This is all the lighting that is fully physical, with no approximations. If Expanse's clouds were path-traced with thousands of bounces, this would be all you need to have the clouds look fully correct.
 
 #### Density
 **C# member variable:** `float m_density` \
 Density of this cloud layer.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/density_800.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/density_5000.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/poofy_guys.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-5k.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-30k.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/density-200k.jpg"/></div>
     </div>
-    <p>Comparison of different densities. Since it's pretty challenging to compare density with all other things being equal, we use three different examples. Left: density 800. Middle: density 5000. Right: density 50000.</p>
+    <p>Comparison of different densities. Left: density 5000. Middle: density 30000. Right: density 200000.</p>
 </div>
 
 #### Extinction and Scattering Coefficients
@@ -318,12 +366,13 @@ To keep your clouds physically realistic, follow these rules:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/too_dark.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/scatter_correction.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_correction.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/too-dark.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/bump-scatter.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms-correction.jpg"/></div>
     </div>
-    <p>If the clouds you're working on look too dark, your first inclination might be to adjust your scattering coefficients to be brighter than your extinction coefficients. This is non-physical! If you find this is the case, you should first try to use the multiple scattering parameters to fix the issue. Left: clouds that are too dark. Middle: correcting the issue by upping the scattering coefficients to 4x the extinction coefficients. This looks ok but is non-physical. Right: correcting the issue by upping the multiple scattering amount. This looks a lot better and is physical! At the end of the day, it's your choice, and different style goals may call for different strategies. That said, it's a principle of mine to always know where your model deviates from physical reality, and make sure it's intentional.</p>
+    <p>If the clouds you're working on look too dark, your first inclination might be to adjust your scattering coefficients to be brighter than your extinction coefficients. This is non-physical! If you find this is the case, you should first try to use the multiple scattering parameters to fix the issue. Left: clouds that are too dark. Middle: correcting the issue by upping the scattering coefficients to 4x the extinction coefficients. This looks ok but is non-physical. Right: correcting the issue by upping the multiple scattering receptive field. This looks a lot better and is physical! At the end of the day, it's your choice, and different style goals may call for different strategies. That said, it's a principle of mine to always know where your model deviates from physical reality, and make sure it's intentional.</p>
 </div>
+
 
 #### Anisotropy
 **C# member variable:** `float m_anisotropy` \
@@ -391,66 +440,9 @@ Strength range of ambient lighting the clouds receive from the sky, applied over
     <p>Comparison of different ambient strength ranges. Ambient height range is set to (0, 1) for all examples. Left: (0, 0), so no ambient. Looks pretty rough! Middle: (0.5, 1). This looks pretty decent. Right: (1, 2). This also looks pretty good.</p>
 </div>
 
-#### Vertical Probability Height Range
-**C# member variable:** `Vector2 m_verticalProbabilityHeightRange` \
-Unit height range to apply vertical in-scattering probability to.
+### Self Shadowing
 
-#### Vertical Probability Strength
-**C# member variable:** `float m_verticalProbabilityStrength` \
-Strength of vertical in-scattering probablity.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_0.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_0.8.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/vertical_prob_1.6.jpg"/></div>
-    </div>
-    <p>Comparison of different vertical probability strengths. Vertical probability height range is set to (0.05, 0.45) for all examples. Left: 0, so no vertical probability. The bottom of the clouds is clearly too bright. Middle: 0.8. The bottom of the clouds looks correctly darkened now. Right: 1.6. This may be a bit too strong of an effect, but who knows, could be right for a given situation. Perhaps for darker rain clouds.</p>
-</div>
-
-#### Depth Probability Height Range
-**C# member variable:** `Vector2 m_depthProbabilityHeightRange` \
-Unit height range to apply depth in-scattering probability to.
-
-#### Depth Probability Strength Range
-**C# member variable:** `Vector2 m_depthProbabilityStrengthRange` \
-Strength range of depth in-scattering probability applied over height range.
-
-#### Depth Probability Density Multiplier
-**C# member variable:** `float m_depthProbabilityDensityMultiplier` \
-Pre-multiplier on density for depth in-scattering probability. Can be useful for bringing the density into a range where the effect is noticeable.
-
-Generally, values between `2` and `4` are good.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_dens_mult_1.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_dens_mult_6.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
-    </div>
-    <p>Comparison of depth probability density multipliers. The height range is set to (0.08, 0.5), the the strength range is set to (0.1, 1.5), and the bias is set to 0.1. Left: multiplier of 1. This causes too much in-scatter attenuation---it's too dark! Middle: multiplier of 6. This is too bright---no depth probability effect is visible! Right: multiplier of 3. This turns out to be just right for this example.</p>
-</div>
-
-#### Depth Probability Bias
-**C# member variable:** `float m_depthProbabilityBias` \
-Bias applied to depth probability effect. Can help to soften the effect and reign in the extremes.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_1.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.1.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth_prob_bias_0.jpg"/></div>
-    </div>
-    <p>Comparison of different depth probability biases. The height range is set to (0.08, 0.5), the the strength range is set to (0.1, 1.5), and the density multiplier is set to 3. Left: bias of 1, so no depth probability effect is visible. The clouds don't have a lot of visible internal structure. Middle: bias of 0.1. This gives a reasonable powdered sugar effect, where the cloud edges are darkened. Right: bias of 0.</p>
-</div>
-
-#### Depth Probability High Detail
-**C# member variable:** `bool m_depthProbabilityHighDetail` \
-Whether or not to use high detail mode for depth probability. Enabling this will create more detailed internal cloud edges. There's no additional performance cost, this is a purely stylistic parameter.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth-prob-low-detail.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/depth-prob-high-detail.jpg"/></div>
-    </div>
-    <p>Comparison of different depth probability detail levels. Left: low detail. Right: high detail. Notice that there are more dark "creases" in the clouds.</p>
-</div>
+Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
 
 #### Self Shadowing
 **C# member variable:** `bool m_selfShadowing` \
@@ -473,49 +465,116 @@ Whether or not the clouds cast shadows on themselves.
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. It's still pretty important, though more subtle than with the dense layer. Left: self-shadowing enabled. Right: no self-shadowing.</p>
 </div>
 
+#### High Quality Shadows
+**C# member variable:** `bool m_highQualityShadows` \
+If enabled, raymarches a higher detail density field for computing shadows. This makes almost no visual difference but costs significantly more. It is recommended that you keep this disabled.
+
 #### Max Self Shadow Distance
 **C# member variable:** `float m_maxSelfShadowDistance` \
 Maximum distance that clouds can cast shadows onto themselves/each other. If this value is set too high, you may lose some detail in your cloud self-shadowing.
 
-#### Multiple Scattering Amount
-**C# member variable:** `float m_multipleScatteringAmount` \
-As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the amount of approximated multiple scattering. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
+#### Shadow Sample Jitter
+**C# member variable:** `float m_shadowSampleJitter` \
+How much to jitter shadow samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
+
+#### Shadow Persistence
+**C# member variable:** `float m_shadowPersistence` \
+How intense shadowing is. This parameter actually softens shadows by adjusting the multiple scattering approximation, so if the [multiple scattering receptive field](editor/blocks/procedural_cloud_volume_block.md?id=multiple-scattering-receptive-field) is zero, this will have no effect.
+
+> This parameter is similar to the Multiple Scattering Bias parameter from versions prior to v1.5.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/no_ms.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-0.2.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-1.jpg"/></div>
     </div>
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.5.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.75.jpg"/></div>
-    </div>
-    <p>Different amounts of multiple scattering. Multiple scattering bias is set to 0.15 for all three examples. Top Left: none. This looks pretty wrong! Top Right: 0.25. This is a bit better, maybe for rainclouds. Bottom Left: 0.5. This looks pretty good. Bottom Right: 0.75. This might be a bit too much, depending on the look you're going for.</p>
+    <p>Comparison of different shadow persistences. Left: minimum persistence of 0. Middle: persistence of 0.2. Right: maximum persistence of 1.</p>
 </div>
+
+#### Persistence Rampdown
+**C# member variable:** `float m_shadowPersistenceRampDown` \
+How much to adjust the shadow persistence as the view direction approaches the light direction. This can help accentuate shadows where the sun is in the sky.
+
+#### Persistence Rampdown Shape
+**C# member variable:** `float m_shadowPersistenceRampDownShape` \
+Shape of the persistence rampdown curve. High values will localize it to the light direction, lower values will spread it out more.
+
+### Multiple Scattering
+
+The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
+
+#### Multiple Scattering Receptive Field
+**C# member variable:** `float m_multipleScatteringReceptiveField` \
+As a way of approximating multiple scattering, Expanse integrates successive orders of multiple scattering using a LOD-ed density sample at the sample point in question. It assumes that scattering is received from a sphere of a particular radius---this parameter is that radius. Thus I chose the name "receptive field" for this value; it defines the volume that the sample point receives multiple scattering from.
+
+**The end result: this parameter basically controls how much multiple scattering there is.**
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/receptive-field-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/receptive-field-1.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/receptive-field-4.jpg"/></div>
+    </div>
+    <p>Different multiple scattering receptive field values. Left: receptive field of 0, so no multiple scattering. Middle: receptive field of 1.5, what looks to be a pretty good value. Right: receptive field of 4, which looks like it might be a little too much.</p>
+</div>
+
+
+#### High Detail Multiple Scattering
+**C# member variable:** `bool m_highDetailMultipleScattering` \
+Controls the LOD level to sample from when computing multiple scattering. If this is disabled, the multiple scattering will be smoother. If it's enabled, it'll be more detailed. There's no additional expense either way---it's a fully stylistic choice.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/low-detail-ms.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/high-detail-ms.jpg"/></div>
+    </div>
+    <p>Left: low detail multiple scattering. Right: high detail multiple scattering. The difference is subtle but noticeable.</p>
+</div>
+
+#### Phase Persistence
+**C# member variable:** `float m_phasePersistence` \
+How much the phase function affects the multiple scattering. Decreasing this will brighten the clouds on the opposite side of the sky as the sun.
+
+> The rationale for this parameter comes from the fact that higher orders of multiple scattering lose their directionality. The phase function grows closer to isotropic with each successive order of scattering. This parameter allows you to art-direct this physical phenomenon.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-1.jpg"/></div>
+    </div>
+    <p>Comparison of the effect of different phase persistences on the clouds at the back of the sky. Left: phase persistence of 0. The phase function is effectively bypassed when computing multiple scattering, so the clouds are bright. Middle: phase persistence of 0.5. The clouds are darker. Right: phase persistence of 1. The anisotropic phase function effects the multiple scattering in full force, and the clouds are very grey.</p>
+</div>
+
+#### Allow Non-Physical
+**C# member variable:** `bool m_allowNonPhysicalMultipleScattering` \
+Whether to show UI controls that allow you to tweak multiple scattering to be "non-physical". In actuality the entire multiple scattering algorithm is one big art-directable approximation, but some parameters are more in the spirit of being PBR than others.
+
+#### Multiple Scattering Multiplier
+**C# member variable:** `float m_multipleScatteringMultiplier` \
+Non-physically inspired way to increase the multiple scattering. Simply post-multiplies the result. First try adjusting the [receptive field](editor/blocks/procedural_cloud_volume_block.md?id=multiple-scattering-receptive-field), and only resort to this if you can't get that to work.
 
 #### Multiple Scattering Bias
 **C# member variable:** `float m_multipleScatteringBias` \
-As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the "bias" of approximated multiple scattering---put another way, it controls the depth into the clouds at which multiple scattering is added. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
+Partially physically-inspired bias to the multiple scattering. It does more than just add a constant amount to the scattering result, but it's not quite in line with the physical parts of the model. Still, it can be very useful for softening the multiple scattering effect.
 
-As a rule of thumb, lower values here are good for very dense, puffy clouds, since these exhibit a lot of multiple scattering deep in the cloud. Higher values are good for wispier clouds, since there's not much multiple scattering in that case.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_bias_0.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_0.5.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/ms_bias_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms-bias-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms-bias-0.02.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/ms-bias-0.1.jpg"/></div>
     </div>
-    <p>Different multiple scattering biases. Multiple scattering amount is set to 0.5 for all three examples. Left: 0. This means self-shadowing is effectively turned off. Makes it clear just how important it is! Middle: 0.15. This looks good to my eyes. Right: 0.25. This is a bit too extreme.</p>
+    <p>Comparison of the effect of different multiple scattering biases. Left: bias of 0. The creases in the low-density parts of the clouds are quite grey. Middle: bias of 0.02. This is a very small bias, but it helps push a little light into those places. Right: bias of 0.1. This is a pretty high bias, and results in relatively featureless multiple scattering.</p>
 </div>
 
-#### Multiple Scattering Rampdown
-**C# member variable:** `float m_multipleScatteringRampdown` \
-How much to ramp down the multiple scattering approximation as the view direction approaches the light direction. This can be useful for making sure that clouds block out enough of the sun close to the sun disc.
+<!---------------------------------------------------------------------------------------->
+<!------------------------------------- INTERACTION -------------------------------------->
+<!---------------------------------------------------------------------------------------->
 
-#### Multiple Scattering Rampdown Shape
-**C# member variable:** `float m_multipleScatteringRampdownShape` \
-Shape of the multiple scattering ramp down effect. Lower values will spread the ramp down further away from the light. Higher values will contain the rampdown to the area directly around the light.
+## Interaction
 
-#### Light Pollution Dimmer
+### Light Pollution Dimmer
 **C# member variable:** `float m_lightPollutionDimmer` \
 Dimmer to the effect of light pollution on clouds. When it's zero, the clouds receive no light pollution. When it's one, they receive full light pollution. This is a useful parameter for when you're using light pollution as more of an artistic effect to recolor the night sky.
 
@@ -527,40 +586,19 @@ Dimmer to the effect of light pollution on clouds. When it's zero, the clouds re
     <p>Left: no light pollution dimming. Notice how the clouds are very blue. Right: full light pollution dimming.</p>
 </div>
 
-#### Cast Shadows
+### Cast Shadows
 **C# member variable:** `bool m_castShadows` \
 Whether or not this layer casts shadows on the ground and geometry. Enabling can incur a small performance cost.
 
-#### Max Shadow Intensity
+### Max Shadow Intensity
 **C# member variable:** `float m_maxShadowIntensity` \
 How dark the shadows that the clouds cast onto the ground are.
-
-#### Cel Shade
-**C# member variable:** `bool m_celShade` \
-Whether to use cel/"toon" shading on the clouds. This is sort of a fun, experimental feature, so take it with a grain of salt.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_0.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_1.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/cel_shade_2.jpg"/></div>
-    </div>
-    <p>A few examples of cel-shaded volumetric clouds.</p>
-</div>
-
-#### Cel Shade Color Bands
-**C# member variable:** `bool m_celShadeColorBands` \
-Specifies the number of color bands to use when cel shading.
-
-#### Cel Shade Transmittance Band
-**C# member variable:** `bool m_celShadeTransmittanceBands` \
-Specifies the constant transmittance band to use when cel shading.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MOVEMENT --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Movement
+## Movement
 These parameters dictate how the clouds move across the sky.
 
 #### Use Offset
@@ -580,10 +618,66 @@ Sampling offset of the clouds, specifiable for each noise layer in uv space. Can
 Having this specifiable for each layer gives you more control over how you want the clouds to change. For instance, if you want the clouds to **appear** to be moving, but really stay in the same place, you could only animate the detail velocity.
 
 <!---------------------------------------------------------------------------------------->
+<!----------------------------------- POST-PROCESSING ------------------------------------>
+<!---------------------------------------------------------------------------------------->
+
+## Post-Processing
+
+Starting in v1.5, Expanse allows you to inject custom post-process operations after cloud layer rendering. 
+
+Custom post-processing passes are implementors of the `ScriptableObject` type `ICloudPostProcessPass`, which is as follows:
+
+```
+
+namespace Expanse {
+
+public struct CloudPostProcessPassInfo {
+    public CommandBuffer cmd;
+    public RTHandle sourceColorBuffer;
+    public RTHandle sourceTransmittanceAndHitBuffer;
+    public RTHandle targetColorBuffer;
+    public RTHandle targetTransmittanceAndHitBuffer;
+    public int bufferIndex;
+};
+
+public abstract class ICloudPostProcessPass : ScriptableObject {
+
+    /**
+     * @brief: called after a cloud layer is rendered. Allows you to do whatever you
+     * will with the cloud's color and transmittance/hit buffer.
+     * 
+     * In general, you'll probably want to modify:
+     *  - color.xyz
+     *  - transmittanceAndHit.xyz
+     * 
+     * You SHOULD NOT touch transmittanceAndHit.w, because that's where the cloud's approximate
+     * depth is stored. Well... unless you _really_ want to screw with shit.
+     * */
+    public abstract void Render(CloudPostProcessPassInfo info);
+
+}
+
+} // namespace Expanse
+
+```
+
+To apply these custom passes to a cloud layer, you can create instances of them in your `Assets` folder in the way that you would normally create `ScriptableObjects`. You can then add these instances to the list in the `Post-Processing` dropdown. Operations will be applied in the order of the list.
+
+Expanse provides a number of example implementations, including a painterly Kuwahara filter, an alpha-overlay, and a simple recolor pass. These are located in the directory `Expanse/custom-post-process-examples`. Feel free to use them in your game or use them as a reference for building your own post-process passes.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/post-process.jpg"/></div>
+    </div>
+    <p>Pseudo-painterly look achieved with a kuwahara pass and an alpha overlay pass with a brush strokes texture.</p>
+</div>
+
+<!---------------------------------------------------------------------------------------->
 <!--------------------------------------- QUALITY ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Quality
+
+## Quality
 These parameters tweak the rendering algorithm to trade quality for performance.
 
 Of particular note here are the raymarching parameters---the step ranges, and the zero thresholds. These will give you the biggest performance/quality tradeoff.
@@ -633,6 +727,10 @@ This parameter is different from the non-flythrough step ranges---it specifies s
 **C# member variable:** `Vector2 m_flythroughStepDistanceRange` \
 Distance range over which to apply the flythrough step range.
 
+#### LOD Distances
+**C# member variable:** `Vector2 m_LODDistances` \
+Distances at which to transition to medium and low LOD rendering. It's best to set these to where the change is just imperceptible, to improve performance.
+
 #### Media Zero Threshold
 **C# member variable:** `float m_mediaZeroThreshold` \
 Threshold below which normalized cloud density is considered to be zero. It is important to set this to something above zero, like `1e-4` or `1e-5`, as it determines an important early out for the algorithm.
@@ -656,7 +754,7 @@ Number of history frames to use for temporal denoising. You should probably keep
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Metadata
+## Metadata
 These parameters are metadata or references to components/objects that the block uses.
 
 #### Name
