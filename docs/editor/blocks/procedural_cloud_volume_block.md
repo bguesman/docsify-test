@@ -47,10 +47,6 @@ These parameters describe the general shape, form, and distribution of the cloud
 #### Geometry Extents and Origin
 As of v1.5, the origin and size of the cloud volume are controlled via the Unity `GameObject` transform.
 
-#### Noise Layer Array
-**C# member variable:** `Expanse.ProceduralCloudVolumeBlock.LayerSettings m_noiseLayers` \
-The six different noise layers that, combined together, define the cloud layer's density field. For details, see the [section on authoring noise layers](/editor/blocks/procedural_cloud_volume_block?id=noise-layers).
-
 #### Quality
 **C# member variable:** `Expanse.Datatypes.Quality m_noiseTextureQuality` \
 Quality of procedural noise textures for this layer. If no procedural noises are enabled, this parameter does not change anything.
@@ -219,7 +215,7 @@ Skew over height of the clouds due to wind, in the x and z directions respective
 These parameters describe the noises that Expanse uses to construct the density field. This is in contrast to the more global shaping parameters in the Shaping and Geometry section.
 
 #### Noise Layers
-**C# member variable:** `Expanse.ProceduralCloudVolumeBlock.LayerSettings[] m_layers` \
+**C# member variable:** `Expanse.ProceduralCloudVolumeBlock.LayerSettings[] m_noiseLayers` \
 Expanse models clouds using six layers of noise, authored as "noise layers". They are:
 * **Coverage:** determines where there are clouds, and where there is sky. You can think of this as a "cloud map".
 * **Base:** forms the base shapes and structure of the clouds.
@@ -327,7 +323,7 @@ Expanse's cloud lighting model can be broken up into 3 categories:
 * **Self Shadowing**. Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
 * **Multiple Scattering**. The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
 
-We'll split up the parameters into these sections
+We'll split up the parameters into these sections.
 
 ### Base Lighting
 
@@ -573,6 +569,8 @@ Partially physically-inspired bias to the multiple scattering. It does more than
 <!---------------------------------------------------------------------------------------->
 
 ## Interaction
+
+These parameters control how the clouds interact with different systems in your game.
 
 ### Light Pollution Dimmer
 **C# member variable:** `float m_lightPollutionDimmer` \

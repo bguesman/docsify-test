@@ -1,6 +1,6 @@
-# Texture Cloud Plane Block
+# Texture Cloud Plane
 
-> Implemented as class `Expanse.TextureCloudPlaneBlock` in `blocks/TextureCloudPlaneBlock.cs`
+> Implemented as class `Expanse.TextureCloudPlane` in `blocks/TextureCloudPlane.cs`
 
 <div class="img-block">
     <div class="img-row">
@@ -13,29 +13,35 @@ Adding this block to your scene will create a cloud plane whose density field is
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- PRESETS --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Preset Management
+## Preset Management
 
-The preferred way to author, save, and load presets for cloud layers is via the Save/Load preset buttons, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
+As of v1.5, the preferred way to author, save, and load presets for cloud layers is via the Preset Browser, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
 
-Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized to a JSON file on save.
+Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized as a [`ScriptableObject`](https://docs.unity3d.com/ScriptReference/ScriptableObject.html) on save.
 
-What this means for you is that, to save a preset from editor, you can just click the "Save Preset" button, and a file dialogue will pop up for you to specify the path to save the preset file to. To then load that preset, you can click the "Load Preset" button, and select the saved JSON preset file in the file picker that pops up.
+What this means for you is that, to save a preset from editor, you can just click the "Save Preset" button, and a file dialogue will pop up for you to specify the path to save the preset file to. A screen capture of the currently rendering main camera will automatically be used as preset image---so line up your shot carefully!
+
+To then load that preset, you can browse for it in the preset browser. You may have to hit `Refresh Library` to get it to show up.
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/procedural_cloud_volume/save_load.jpg"/></div>
-    </div>
-    <p>Save and load buttons.</p>
+        <div class="img-col"><img style="width: 80%" src="img/procedural_cloud_volume/preset-browser.jpg"/></div>
+    </div>The cloud preset browser.</p>
 </div>
 
-To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayerBlock.cs`, which all cloud layer blocks derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
+To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayer.cs`, which all cloud layers derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
 
-You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this JSON-based preset system exists is to get around this unfortunate limitation of Unity presets.
+You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this ScriptableObject-based preset system exists is to get around this unfortunate limitation of Unity presets.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Modeling
+## Modeling
 These parameters describe the general shape, form, and distribution of the clouds.
+
+#### Geometry Extents and Origin
+As of v1.5, the origin and size of the cloud volume are controlled via the Unity `GameObject` transform.
+
+The `Y` component of the scale controls the apparent thickness of the 2D clouds.
 
 #### Texture
 **C# member variable:** `Texture2D m_texture` \
@@ -46,14 +52,6 @@ Texture to use as the cloud density field. Interestingly enough, nothing too spe
 #### Tile
 **C# member variable:** `int m_tile` \
 How many times to tile the texture.
-
-#### Geometry Extents
-**C# member variable:** `Vector2 m_geometryXExtent` and `Vector2 m_geometryZExtent` \
-Extents of the cloud plane, so boundaries in X and Z directions.
-
-#### Height
-**C# member variable:** `float m_geometryHeight` \
-Height of this cloud plane. Typically, cirrus clouds form 12000 or so meters above the Earth's surface.
 
 #### Curved
 **C# member variable:** `bool m_curved` \
@@ -106,8 +104,18 @@ Range over which density ramps up to full. Useful as a sort of soft near clippin
 <!--------------------------------------- LIGHTING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Lighting
-These parameters describe the illumination characteristics of the cloud layer.
+## Lighting
+Expanse's cloud lighting model can be broken up into 3 categories:
+
+* **Base Lighting**. This is all the lighting that is fully physical, with no approximations. If Expanse's clouds were path-traced with thousands of bounces, this would be all you need to have the clouds look fully correct.
+* **Self Shadowing**. Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
+* **Multiple Scattering**. The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
+
+We'll split up the parameters into these sections.
+
+### Base Lighting
+
+This is all the lighting that is fully physical, with no approximations. If Expanse's clouds were path-traced with thousands of bounces, this would be all you need to have the clouds look fully correct.
 
 #### Density
 **C# member variable:** `float m_density` \
@@ -122,7 +130,7 @@ Density of this cloud layer.
 </div>
 
 #### Apparent Thickness
-**C# member variable:** `float m_apparentThickness` \
+**C# member variable:** `GameObject` Y Scale \
 Apparent thickness of this 2D cloud layer. Pushing this value too high can give strange results.
 <div class="img-block">
     <div class="img-row">
@@ -215,6 +223,10 @@ Amount of ambient lighting the clouds receive from the sky. Expanse doesn't comp
     <p>Various ambient light values. Left: no ambient light. These clouds are clearly too dark. Middle: 0.75. This seems about right. Right: 1.5. Too much ambient light can hide the details of self-shadowing.</p>
 </div>
 
+### Self Shadowing
+
+Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
+
 #### Self Shadowing
 **C# member variable:** `bool m_selfShadowing` \
 Whether or not the clouds cast shadows on themselves.
@@ -235,6 +247,45 @@ Whether or not the clouds cast shadows on themselves.
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. In this case, the effect is pretty much unnoticeable. Left: self-shadowing. Right: no self-shadowing.</p>
 </div>
 
+#### High Quality Shadows
+**C# member variable:** `bool m_highQualityShadows` \
+If enabled, raymarches a higher detail density field for computing shadows. This makes almost no visual difference but costs significantly more. It is recommended that you keep this disabled.
+
+#### Max Self Shadow Distance
+**C# member variable:** `float m_maxSelfShadowDistance` \
+Maximum distance that clouds can cast shadows onto themselves/each other. If this value is set too high, you may lose some detail in your cloud self-shadowing.
+
+#### Shadow Sample Jitter
+**C# member variable:** `float m_shadowSampleJitter` \
+How much to jitter shadow samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
+
+#### Shadow Persistence
+**C# member variable:** `float m_shadowPersistence` \
+How intense shadowing is. This parameter actually softens shadows by adjusting the multiple scattering approximation, so if the [multiple scattering receptive field](editor/blocks/procedural_cloud_volume_block.md?id=multiple-scattering-receptive-field) is zero, this will have no effect.
+
+> This parameter is similar to the Multiple Scattering Bias parameter from versions prior to v1.5.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-0.2.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/shadow-persistence-1.jpg"/></div>
+    </div>
+    <p>Comparison of different shadow persistences. Left: minimum persistence of 0. Middle: persistence of 0.2. Right: maximum persistence of 1.</p>
+</div>
+
+#### Persistence Rampdown
+**C# member variable:** `float m_shadowPersistenceRampDown` \
+How much to adjust the shadow persistence as the view direction approaches the light direction. This can help accentuate shadows where the sun is in the sky.
+
+#### Persistence Rampdown Shape
+**C# member variable:** `float m_shadowPersistenceRampDownShape` \
+Shape of the persistence rampdown curve. High values will localize it to the light direction, lower values will spread it out more.
+
+### Multiple Scattering
+
+The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
+
 #### Multiple Scattering Amount
 **C# member variable:** `float m_multipleScatteringAmount` \
 As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the amount of approximated multiple scattering. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
@@ -248,28 +299,30 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
     <p>Different amounts of multiple scattering. Multiple scattering bias is set to 0.25 for all three examples. Left: none. Middle: 0.25. Right: 1.</p>
 </div>
 
-#### Multiple Scattering Bias
-**C# member variable:** `float m_multipleScatteringBias` \
-As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the "bias" of approximated multiple scattering---put another way, it controls the depth into the clouds at which multiple scattering is added. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
+#### Phase Persistence
+**C# member variable:** `float m_phasePersistence` \
+How much the phase function affects the multiple scattering. Decreasing this will brighten the clouds on the opposite side of the sky as the sun.
+
+> The rationale for this parameter comes from the fact that higher orders of multiple scattering lose their directionality. The phase function grows closer to isotropic with each successive order of scattering. This parameter allows you to art-direct this physical phenomenon.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_0.25.jpg"/></div>
-        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_0.5.jpg"/></div>
-        <div class="img-col"><img src="img/texture_cloud_plane/ms_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.5.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-1.jpg"/></div>
     </div>
-    <p>Different multiple scattering biases. Multiple scattering amount is set to 0.25 for all three examples. Left: 0.25. Middle: 0.5. Right: 1.</p>
+    <p>Comparison of the effect of different phase persistences on the clouds at the back of the sky. Left: phase persistence of 0. The phase function is effectively bypassed when computing multiple scattering, so the clouds are bright. Middle: phase persistence of 0.5. The clouds are darker. Right: phase persistence of 1. The anisotropic phase function effects the multiple scattering in full force, and the clouds are very grey.</p>
 </div>
 
-#### Multiple Scattering Rampdown
-**C# member variable:** `float m_multipleScatteringRampdown` \
-How much to ramp down the multiple scattering approximation as the view direction approaches the light direction. This can be useful for making sure that clouds block out enough of the sun close to the sun disc.
+<!---------------------------------------------------------------------------------------->
+<!------------------------------------- INTERACTION -------------------------------------->
+<!---------------------------------------------------------------------------------------->
 
-#### Multiple Scattering Rampdown Shape
-**C# member variable:** `float m_multipleScatteringRampdownShape` \
-Shape of the multiple scattering ramp down effect. Lower values will spread the ramp down further away from the light. Higher values will contain the rampdown to the area directly around the light.
+## Interaction
 
-#### Light Pollution Dimmer
+These parameters control how the clouds interact with different systems in your game.
+
+### Light Pollution Dimmer
 **C# member variable:** `float m_lightPollutionDimmer` \
 Dimmer to the effect of light pollution on clouds. When it's zero, the clouds receive no light pollution. When it's one, they receive full light pollution. This is a useful parameter for when you're using light pollution as more of an artistic effect to recolor the night sky.
 
@@ -281,31 +334,19 @@ Dimmer to the effect of light pollution on clouds. When it's zero, the clouds re
     <p>Left: no light pollution dimming. Notice how the clouds are very blue. Right: full light pollution dimming.</p>
 </div>
 
-#### Cast Shadows
+### Cast Shadows
 **C# member variable:** `bool m_castShadows` \
 Whether or not this layer casts shadows on the ground and geometry. Enabling can incur a small performance cost.
 
-#### Max Shadow Intensity
+### Max Shadow Intensity
 **C# member variable:** `float m_maxShadowIntensity` \
 How dark the shadows that the clouds cast onto the ground are.
-
-#### Cel Shade
-**C# member variable:** `bool m_celShade` \
-Whether to use cel/"toon" shading on the clouds. This is sort of a fun, experimental feature, so take it with a grain of salt.
-
-#### Cel Shade Color Bands
-**C# member variable:** `bool m_celShadeColorBands` \
-Specifies the number of color bands to use when cel shading.
-
-#### Cel Shade Transmittance Band
-**C# member variable:** `bool m_celShadeTransmittanceBands` \
-Specifies the constant transmittance band to use when cel shading.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MOVEMENT --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Movement
+## Movement
 These parameters dictate how the clouds move across the sky.
 
 #### Use Offset
@@ -318,13 +359,13 @@ Velocity of the clouds. Setting this to a non-zero number automatically moves th
 
 #### Sampling Offset
 **C# member variable:** `Vector2 m_samplingOffset` \
-Sampling offset of the clouds. Can be animated as an alternative to the [velocity](/editor/blocks/texture_cloud_plane_block?id=sampling-offset) parameter.
+Sampling offset of the clouds. Can be animated as an alternative to the [velocity](/editor/blocks/texture_cloud_plane_block?id=velocity) parameter.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- QUALITY ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Quality
+## Quality
 These parameters tweak the rendering algorithm to trade quality for performance.
 
 #### Reprojection Frames
@@ -342,7 +383,7 @@ Number of history frames to use for reprojection. Increasing can improve perform
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- METADATA --------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Metadata
+## Metadata
 These parameters are metadata or references to components/objects that the block uses.
 
 #### Name
