@@ -286,8 +286,8 @@ Shape of the persistence rampdown curve. High values will localize it to the lig
 
 The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
 
-#### Multiple Scattering Amount
-**C# member variable:** `float m_multipleScatteringAmount` \
+#### Multiple Scattering Multiplier
+**C# member variable:** `float m_multipleScatteringMultiplier` \
 As a way of approximating multiple scattering, Expanse adjusts the self-shadowing effect. This parameter controls the amount of approximated multiple scattering. Because it adjusts the self-shadowing effect, it is only available when self-shadowing is turned on. Otherwise, it is unnecessary.
 
 <div class="img-block">
