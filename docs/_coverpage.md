@@ -12,4 +12,4 @@
 
 [Get Started](#expanse-documentation)
 
-![](img/1-4-0/beauclair.jpg)
+![](img/1-5-0/beauclair.jpg)
