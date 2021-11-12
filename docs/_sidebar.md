@@ -41,3 +41,4 @@
 - Integrations
     - [Transparency](integrations/transparency.md)
     - [Crest](integrations/crest.md)
+    - [KWS Water System](integrations/kws.md)

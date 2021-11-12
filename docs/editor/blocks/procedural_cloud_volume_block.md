@@ -703,6 +703,13 @@ Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry whe
     <p>Comparison of reprojection settings. Left: no reprojection. Middle: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable. Right: also maximum reprojection, but with TAA enabled. The clouds appear blurrier.</p>
 </div>
 
+#### Sample Jitter
+**C# member variable:** `float m_sampleJitter` \
+Amount to jitter the sample spatially (from pixel to pixel) and temporally (across frames). Set this 
+* To `0` to reduce noise if you don't plan on using temporal denoising/DLSS/TAA. You may also want to set it to `0` if you're heavily leveraging reprojection or subresolution.
+* To `0.5` if you want correct stochastic rendering for use with temporal denoising/DLSS/TAA.
+* To `1` if you still see noticeable banding artifacts at 0.5. This will "over-jitter" the samples, which can help further reduce banding, at the cost of more noise.
+
 #### Coarse Step Range
 **C# member variable:** `Vector2 m_coarseStepRange` \
 Step number range for coarse ray marching. The lower and upper limits are applied at the lower and upper [distance range](/editor/blocks/procedural_cloud_volume_block?id=step-distance-range) values. This lets you use fewer samples for smaller march distances.
