@@ -15,7 +15,7 @@ Adding this block to your scene will create a cloud plane whose density field is
 <!---------------------------------------------------------------------------------------->
 ## Preset Management
 
-As of v1.5, the preferred way to author, save, and load presets for cloud layers is via the Preset Browser, or, programmatically, the `SaveUniversal()` and `LoadUniversal()` functions.
+As of v1.5, the preferred way to author, save, and load presets for cloud layers is via the Preset Browser, or, programmatically, the `ToUniversal()` and `FromUniversal()` functions.
 
 Expanse stores cloud presets in a "universal" format---universal meaning, "unified across the different types of cloud layers" (2D, 3D, procedural, texture-based, etc.). This universal representation is serialized as a [`ScriptableObject`](https://docs.unity3d.com/ScriptReference/ScriptableObject.html) on save.
 
@@ -28,7 +28,7 @@ To then load that preset, you can browse for it in the preset browser. You may h
     </div>The cloud preset browser.</p>
 </div>
 
-To do this programmatically, you can use the `SaveUniversal()` and `LoadUniversal()` functions, defined in `blocks/advanced/BaseCloudLayer.cs`, which all cloud layers derive from. Each of these functions accepts a string filepath to the preset to save to/load from.
+To do this programmatically, you can use the `ToUniversal()` and `FromUniversal()` functions, defined in `blocks/advanced/BaseCloudLayer.cs`, which all cloud layers derive from. Each of these functions accepts a `UniversalCloudLayer` preset to load from. In the editor, you can load these presets via the `AssetDatabase` class, but in your game you will either need to use `Resources.Load()`, or (better yet) store instances of the presets you'd like to switch between on a GameObject (like a weather controller).
 
 You can also use [Unity's preset system](https://docs.unity3d.com/Manual/Presets.html) to manage presets, but this has the disadvantage of not being runtime-compatible (you can only select presets in the editor). In fact, the entire reason this ScriptableObject-based preset system exists is to get around this unfortunate limitation of Unity presets.
 
