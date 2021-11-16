@@ -10,6 +10,10 @@ Here's a collection of questions folks have asked one or more times---this is a 
 
 **A:** For VR, Expanse only works in multipass mode, and even then certain features like temporal reprojection and denoising won't work.
 
+**Q: The lighting is flickering.**
+
+**A:** This is likely because you have scene view and game view open at the same time. In this case, make sure you disable the [Prefer Editor Camera](/editor/blocks/camera_settings_block?id=prefer-editor-camera) setting in Expanse's camera settings. This will make sure the ambient probe is always rendered from your main camera (or whatever camera you specify as the [Ambient Probe Camera](/editor/blocks/camera_settings_block?id=ambient-probe-camera)). 
+
 **Q: My planar reflection probe is flickering.**
 
 **A:** Try increasing the far clipping plane on the reflection probe to something like 10000. 
