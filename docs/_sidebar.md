@@ -42,3 +42,4 @@
     - [Transparency](integrations/transparency.md)
     - [Crest](integrations/crest.md)
     - [KWS Water System](integrations/kws.md)
+    - [Space Graphics Toolkit](integrations/space-graphics-toolkit.md)
