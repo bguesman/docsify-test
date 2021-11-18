@@ -8,7 +8,7 @@
 
 Integrating Expanse with Carlos Wilkes' wonderful Space Graphics Toolkit is not too challenging. It uses the same transparency workaround that similar integrations (KWS, Crest) use. **Credit goes to Discord user OdderOtter for sorting out how to do this!**
 
-> Better Lit Shaders---a fantastic product---is not required for this integration. But you should still buy it! 
+> Better Shaders---a fantastic product---is not required for this integration. But you should still buy it! 
 
 Navigate to and open `/Assets/Space Graphics Toolkit/Features/Terrain/Shaders/TerrainOcean.shader`. After line `320`, which reads:
 
