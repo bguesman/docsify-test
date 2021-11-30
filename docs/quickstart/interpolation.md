@@ -156,6 +156,8 @@ Now, we can repeat the steps from above, but instead select `Jade Mapped Onto Mi
 
 ## Building a Simple Weather Controller
 
+> **As of the release of Expanse 1.5, this section of the tutorial is out of date.** For best practices on programmatically using interpolation, see the [Cloud Layer Interpolator](editor/blocks/cloud_layer_interpolator.md) documentation. This tutorial is still useful as a guide to building a weather controller, but you will need to make a few adjustments based on the new API. In particular, you will need to maintain a list of `UniversalCloudLayer` `ScriptableObjects`, instead of a list of filepaths to these objects.
+
 So this is great! We've now gotten to see one cloud preset slowly morph into another one, and we've fixed any hitching errors by making sure that the presets' tile factors align. Naturally though, nobody is gonna be around to click a button to transition between presets when a user is interacting with your shipped digital experience. In order for this dynamism to be useful, we have to make it autonomous.
 
 From here on out, we'll refer to an entity that makes autonomous decisions about when to switch presets as a **weather controller**. In this section, we'll build a very simple weather controller---one that lets us specify a list of presets, and every so often decides randomly to switch to one.

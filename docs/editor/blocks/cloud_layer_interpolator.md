@@ -9,10 +9,12 @@ This block allows you to smoothly and efficiently interpolate between different 
 To load a preset to begin interpolating towards, use the following function:
 
 ```
-public void LoadPreset(string filepath);
+LoadPreset(UniversalCloudLayer preset, string filepath="default preset name")
 ```
 
 This function is bound to the UI button "Load Preset", which you can use when you're in the editor. However, in a game environment, you'll likely need to have some sort of autonomous weather controller that calls `LoadPreset()` for you, based on weather transitions or scripted events.
+
+The second argument is optional---it will be used to display a name for the preset you are interpolating towards on the editor component.
 
 ### Example Usage
 
@@ -28,9 +30,9 @@ public class CloudPlaylist : MonoBehaviour
 {
     // Our interpolator that will cycle through the presets.
     public CloudLayerInterpolator interpolator;
-    // The preset files to cycle through---this will be exposed in the editor for us to edit.
-    public string[] files;
-    // Next preset to lerp towards (so, an index into the files array).
+    // The presets to cycle through---this will be exposed in the editor for us to edit.
+    public UniversalCloudLayer[] presets;
+    // Next preset to lerp towards (so, an index into the presets array).
     private int index = 0;
 
     void Start()
@@ -42,7 +44,7 @@ public class CloudPlaylist : MonoBehaviour
     void Update()
     {
         // Require that we have at least 2 presets to interpolate between.
-        if (files.Length < 2) 
+        if (presets.Length < 2) 
         {
             return;
         }
@@ -51,16 +53,16 @@ public class CloudPlaylist : MonoBehaviour
         {
             // If we haven't loaded any presets yet, load the first two presets simultaneously,
             // so that we start immediately interpolating from preset 1 to preset 2.
-            interpolator.LoadPreset(files[0]);
-            interpolator.LoadPreset(files[1]);
+            interpolator.LoadPreset(presets[0]);
+            interpolator.LoadPreset(presets[1]);
             index = 2;
         } 
-        else if (!interpolator.m_interpolating && index < files.Length) 
+        else if (!interpolator.m_interpolating && index < presets.Length) 
         {
             // If the interpolator has stopped interpolating, we know that it's
             // ready to receive another preset. If we have another preset to
             // load, load it!
-            interpolator.LoadPreset(files[index]);
+            interpolator.LoadPreset(presets[index]);
             index++;
         }
     }
