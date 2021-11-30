@@ -26,6 +26,23 @@ Whether or not to use dithering to reduce color banding. Since expanse computes 
     <p>Left: without dithering. Right: with dithering. The effect is challenging to see in these images, but fairly obvious in-engine.</p>
 </div>
 
+#### Night Sky Reflections
+**C# member variable:** `bool m_nightSkyReflections` \
+Whether or not to render the night sky (stars and nebulae) into the ambient reflection cubemap.
+
+#### Planet Reflections
+**C# member variable:** `bool m_planetReflections` \
+Whether or not to render the planet into the ambient reflection cubemap. Can be useful for faking some global illumination from the ground.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/no-planet-reflection.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/planet-reflection-dark.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/planet-reflection-bright.jpg"/></div>
+    </div>
+    <p>Left: no planet reflections. Middle: with planet reflections enabled, and a planet color set up to mimick the ground color. Right: with the planet color adjusted to be very bright, to make the effect obvious. Perhaps things look a little strange here because of the lack of ambient directionality to the foliage lighting.</p>
+</div>
+
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- CLOUDS ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
@@ -60,6 +77,14 @@ How big the cloud shadow map is. This will limit how far away from the origin th
 **C# member variable:** `Expanse.Datatypes.Quality m_cloudShadowMapQuality` \
 Texture quality of the shadow map. Make sure to increase the size of the HDRP cookie atlas accordingly. This can be done in the HDRP settings asset. Unity will print errors to indicate that you need to increase the atlas size.
 
+#### Cloud Reflections
+**C# member variable:** `bool m_cloudReflections` \
+Whether or not to render clouds into the ambient sky cubemap. Disabling this can improve performance, and is particularly useful if you don't require any kind of detailed cloud reflections to be rendered, or you can fake cloud reflections with fog.
+
+#### Amortize Cloud Reflections
+**C# member variable:** `bool m_amortizeCloudReflections` \
+Given that cloud reflections are enabled, this parameter amortizes their computation over a number of frames. This results in higher fidelity reflections for the same frame-by-frame cost, but the reflections will update slowly as a result of the temporal amortization. In general, you should enable this parameter, and disable it if you find that your lighting conditions are changing too fast for the reflections to update in time.
+
 <!---------------------------------------------------------------------------------------->
 <!-------------------------------------- ATMOSPHERE -------------------------------------->
 <!---------------------------------------------------------------------------------------->
@@ -76,6 +101,39 @@ Quality of atmosphere lookup textures. Lower quality settings will improve perfo
         <div class="img-col"><img src="img/quality_settings/ripping_through_the_metaverse_quality.jpg"/></div>
     </div>
     <p>Left: "Potato" (lowest) quality. Right: "Ripping Through the Metaverse" (highest) quality. Even the lowest quality setting holds up pretty well. Only in special more extreme cases are the higher quality settings necessary.</p>
+</div>
+
+#### Use Aerial Perspective
+**C# member variable:** `bool m_useAerialPerspective` \
+Whether or not to render aerial perspective over objects. Disabling this can improve performance. If you are using Unity or Expanse's fog, you may be able to disable aerial perspective without noticing too much of a visual downgrade. That said, I do think it looks nice and imbues things with an important sense of scale.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/no-ap.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/ap.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/ap-unity-fog.jpg"/></div>
+    </div>
+    <p>Left: No aerial perspective. Middle: with aerial perspective---note the blue haze in front of the terrain. Right: simulating aerial perspective with Unity's fog, on sky color mode.</p>
+</div>
+
+#### Use Multiple Scattering
+**C# member variable:** `bool m_useMultipleScattering` \
+Expanse uses a state of the art algorithm to model multiple scattering in the atmosphere. It significantly improves the appearance of the sky. However, if you are _really_ performance optimizing, you can disable it, though I would sooner suggest decreasing the [multiple scattering sample count](/editor/blocks/quality_settings_block?id=multiple-scattering-samples).
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/no-ms.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/ms.jpg"/></div>
+    </div>
+    <p>The sky rendered with and without multiple scattering. Left: No multiple scattering. Right: with multiple scattering. The sky is much brighter, and it looks much bluer as well.</p>
+</div>
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/no-ms-evening.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/ms-evening.jpg"/></div>
+    </div>
+    <p>Multiple scattering in the evening sky. Left: no multiple scattering. Right: with multiple scattering. Note how the penumbra is softened.</p>
 </div>
 
 #### Transmittance Samples

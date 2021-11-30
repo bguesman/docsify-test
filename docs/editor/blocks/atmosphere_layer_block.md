@@ -307,7 +307,12 @@ Since v1.5, there is virtually no difference between the two strategies. It is r
 ### Shadows
 These parameters are only valid for [screenspace layers](/editor/blocks/atmosphere_layer_block?id=screenspace-distributions), since only they are capable of volumetric shadows.
 
-Expanse computes pseudo-volumetric shadows as a screenspace post-process using the depth buffer and the cloud transmittance buffer. Because of this, the shadow effects it computes are only an approximation. It's best to use them as a subtle effect, and defer to a more dedicated volumetrics plugin for true volumetric lighting. I'm pretty sure, based on some investigation, that Unity's volumetric fog uses the same strategy. It's also been employed with great results in a number of AAA games---in particular, Mirror's Edge: Catalyst, which was a big inspiration for this product.
+Expanse can compute volumetric shadows in two ways:
+
+1. By ray marching the directional light's shadow map. This produces true volumetric shadows, and can be used for modeling a variety of interesting effects. I'm pretty sure, based on some investigation, that Unity's volumetric fog uses the same strategy.
+2. As a screenspace post-process using the depth buffer. The resulting shadow effects are only an approximation, so it's best to use them as a subtle effect. This strategy has been employed with great results in a number of AAA games---in particular, Mirror's Edge: Catalyst, which was a big inspiration for this product.
+
+Which method you want to use can be set with the [Shadowmap Volumetric Shadows](/editor/blocks/celestial_body_block?id=shadowmap-volumetric-shadows) parameter on each of your Celestial Bodies.
 
 A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block). This is a global setting, so it cannot be set per layer.
 
