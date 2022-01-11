@@ -6,9 +6,15 @@ Here's a collection of questions folks have asked one or more times---this is a 
 
 **A:** Expanse renders fog out to the far clipping plane. Chances are, you need to increase the far clipping plane for your main camera and sceneview camera---something like 100,000 is a good number.
 
-**Q: Expanse isn't working/looks weird in VR. What's wrong?**
+**Q: All my geometry is black.**
 
-**A:** For VR, Expanse only works in multipass mode, and even then certain features like temporal reprojection and denoising won't work.
+**A:** Expanse renders an ambient light probe for one camera, specified in the [Camera Settings](/editor/blocks/camera_settings_block). Make sure your main camera is set here. 
+
+Alternatively, you can tag your main camera as `MainCamera` (the default behavior in Unity), and it will be picked up as the ambient probe camera automatically.
+
+**Q: There's a bunch of shader warnings being printed about a punctual/directional shadow filter macro being redefined.**
+
+**A:** This is due to a Unity API change between version 2020.3 and 2021.1. Unfortunately, there's no workaround that avoids these redefinition warnings (that I've discovered yet).
 
 **Q: The lighting is flickering.**
 
@@ -23,7 +29,7 @@ Here's a collection of questions folks have asked one or more times---this is a 
 **A:** Chances are you're in one of the following situations:
 
 * You have [reprojection frames](/editor/blocks/procedural_cloud_volume_block?id=reprojection-frames) set to more than 1, and you have Unity's TAA enabled. This will cause slight blurriness---either decrease the number of reprojection frames or disable TAA.
-* You have [denoising history frames](/editor/blocks/procedural_cloud_volume_block?id=denoising-history-frames) set very high. Try lowering it and seeing if you can tolerate the amount of noise; you can also increase the sample counts to compensate for it (the [detail step range](/editor/blocks/procedural_cloud_volume_block?id=detail-step-range)).
+* You have [denoising history frames](/editor/blocks/procedural_cloud_volume_block?id=denoising-history-frames) set very high. First, enable [catmull-rom filtering](/editor/blocks/procedural_cloud_volume_block?id=catmull-rom-filtering), and see if this improves thigs. You can then try lowering the number of denoising frames you use. If the result is too noisy, you can try increasing the sample counts to compensate for it (the [detail step range](/editor/blocks/procedural_cloud_volume_block?id=detail-step-range)).
 
 **Q: The sky/clouds are bleeding through my geometry!**
 

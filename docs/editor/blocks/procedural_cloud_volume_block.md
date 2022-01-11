@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
+        <div class="img-col"><img src="img/1-5-0/banner-3.jpg"/></div>
     </div>
 </div>
 
@@ -461,17 +461,9 @@ Whether or not the clouds cast shadows on themselves.
     <p>Now, self-shadowing vs. no self-shadowing, for a layer that's not very dense. It's still pretty important, though more subtle than with the dense layer. Left: self-shadowing enabled. Right: no self-shadowing.</p>
 </div>
 
-#### High Quality Shadows
-**C# member variable:** `bool m_highQualityShadows` \
-If enabled, raymarches a higher detail density field for computing shadows. This makes almost no visual difference but costs significantly more. It is recommended that you keep this disabled.
-
 #### Max Self Shadow Distance
 **C# member variable:** `float m_maxSelfShadowDistance` \
 Maximum distance that clouds can cast shadows onto themselves/each other. If this value is set too high, you may lose some detail in your cloud self-shadowing.
-
-#### Shadow Sample Jitter
-**C# member variable:** `float m_shadowSampleJitter` \
-How much to jitter shadow samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
 
 #### Shadow Persistence
 **C# member variable:** `float m_shadowPersistence` \
@@ -487,14 +479,6 @@ How intense shadowing is. This parameter actually softens shadows by adjusting t
     </div>
     <p>Comparison of different shadow persistences. Left: minimum persistence of 0. Middle: persistence of 0.2. Right: maximum persistence of 1.</p>
 </div>
-
-#### Persistence Rampdown
-**C# member variable:** `float m_shadowPersistenceRampDown` \
-How much to adjust the shadow persistence as the view direction approaches the light direction. This can help accentuate shadows where the sun is in the sky.
-
-#### Persistence Rampdown Shape
-**C# member variable:** `float m_shadowPersistenceRampDownShape` \
-Shape of the persistence rampdown curve. High values will localize it to the light direction, lower values will spread it out more.
 
 ### Multiple Scattering
 
@@ -671,14 +655,12 @@ Expanse provides a number of example implementations, including a painterly Kuwa
 </div>
 
 <!---------------------------------------------------------------------------------------->
-<!--------------------------------------- QUALITY ---------------------------------------->
+<!-------------------------------------- SAMPLING ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
 
-## Quality
-These parameters tweak the rendering algorithm to trade quality for performance.
-
-Of particular note here are the raymarching parameters---the step ranges, and the zero thresholds. These will give you the biggest performance/quality tradeoff.
+## Sampling
+These parameters tweak the noise sampling strategy to trade quality for performance.
 
 Here's an example of what it looks like when you don't use enough samples.
 <div class="img-block">
@@ -689,26 +671,20 @@ Here's an example of what it looks like when you don't use enough samples.
     <p>Comparison of sampling strategies. Left: using far to few samples. This reveals the blue noise sample offset pattern used to de-band the rendering result. It looks bad! Right: using a sufficient amount of samples. This looks right!</p>
 </div>
 
-#### Reprojection Frames
-**C# member variable:** `int m_reprojectionFrames` \
-Number of history frames to use for reprojection. Increasing can improve performance, but at the cost of quality.
-
-Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry when using reprojection.
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/no_reproj.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj_taa.jpg"/></div>
-    </div>
-    <p>Comparison of reprojection settings. Left: no reprojection. Middle: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable. Right: also maximum reprojection, but with TAA enabled. The clouds appear blurrier.</p>
-</div>
-
 #### Sample Jitter
 **C# member variable:** `float m_sampleJitter` \
-Amount to jitter the sample spatially (from pixel to pixel) and temporally (across frames). Set this 
+Amount to jitter primary ray-marching samples along the ray spatially (from pixel to pixel) and temporally (across frames). Set this 
 * To `0` to reduce noise if you don't plan on using temporal denoising/DLSS/TAA. You may also want to set it to `0` if you're heavily leveraging reprojection or subresolution.
 * To `0.5` if you want correct stochastic rendering for use with temporal denoising/DLSS/TAA.
 * To `1` if you still see noticeable banding artifacts at 0.5. This will "over-jitter" the samples, which can help further reduce banding, at the cost of more noise.
+
+#### Pixel Jitter
+**C# member variable:** `float m_pixelJitter` \
+Amount to jitter the ray direction from frame to frame. This is particularly important for anti-aliasing results rendered at lower resolution.
+
+#### Shadow Sample Jitter
+**C# member variable:** `float m_shadowSampleJitter` \
+How much to jitter secondary raymarching---self-shadow---samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
 
 #### Coarse Step Range
 **C# member variable:** `Vector2 m_coarseStepRange` \
@@ -747,6 +723,29 @@ Threshold below which cloud transmittance is considered to be zero. It is import
 #### Max Consecutive Zero Samples
 **C# member variable:** `int m_maxConsecutiveZeroSamples` \
 Max number of consecutive zero samples before detail ray marching switches back to coarse ray marching.
+
+
+
+<!---------------------------------------------------------------------------------------->
+<!----------------------------------- REPROJ/DENOISE ------------------------------------->
+<!---------------------------------------------------------------------------------------->
+
+## Reprojection and Denoising
+These parameters allow you to use temporal amortization to reduce the cost of rendering your clouds, either by rendering fewer pixels for frame (reprojection) or using data from previous frames to supplement the samples taken in the current frame, allowing you to use lower sample counts (denoising).
+
+#### Reprojection Frames
+**C# member variable:** `int m_reprojectionFrames` \
+Number of history frames to use for reprojection. Increasing can improve performance, but at the cost of quality.
+
+Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry when using reprojection.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/no_reproj.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/4x_reproj_taa.jpg"/></div>
+    </div>
+    <p>Comparison of reprojection settings. Left: no reprojection. Middle: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable. Right: also maximum reprojection, but with TAA enabled. The clouds appear blurrier.</p>
+</div>
 
 #### Use Temporal Denoising
 **C# member variable:** `bool m_useTemporalDenoising` \
