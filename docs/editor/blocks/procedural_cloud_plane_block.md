@@ -525,13 +525,3 @@ Number of history frames to use for reprojection. Increasing can improve perform
     </div>
     <p>Comparison of reprojection settings. Left: no reprojection. Right: maximum reprojection, so rendering at 1/16th of the resolution. Reprojection gives great results if the clouds are slow-moving and far away. In this case the images are nearly indistinguishable.</p>
 </div>
-
-<!---------------------------------------------------------------------------------------->
-<!--------------------------------------- METADATA --------------------------------------->
-<!---------------------------------------------------------------------------------------->
-## Metadata
-These parameters are metadata or references to components/objects that the block uses.
-
-#### Name
-**C# member variable:** `string m_name` \
-The name for this layer used in debug and error printouts.

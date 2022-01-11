@@ -107,6 +107,12 @@ Whether or not the cloud layer is curved with the surface of the planet. This is
     <p>Curved (left) vs. not curved (right). Notice how the clouds go over the horizon in the left image, with curved turned on.</p>
 </div>
 
+#### Attenuation Origin
+**C# member variable:** `Transform m_attenuationOrigin` \
+Optional origin from which the density attenuation and ramp up is computed. If none is specified, the origin of the cloud volume is used. 
+
+You might, for instance, want to set this to the player's transform. Or, if your map is small, to the center of your map.
+
 #### Attenuation Distance
 **C# member variable:** `float m_attenuationDistance` \
 Distance over which density is attenuated.
@@ -436,13 +442,26 @@ Strength range of ambient lighting the clouds receive from the sky, applied over
     <p>Comparison of different ambient strength ranges. Ambient height range is set to (0, 1) for all examples. Left: (0, 0), so no ambient. Looks pretty rough! Middle: (0.5, 1). This looks pretty decent. Right: (1, 2). This also looks pretty good.</p>
 </div>
 
+#### Physical Ambient
+**C# member variable:** `bool m_physicalAmbient` \
+When enabled, computes proper physical ambient lighting, as opposed to using the height-based approximation. This can produce some stunning results, especially at twilight, but is prohibitively expensive for most applications. You should in general use this as a reference for tuning the height-based approximation.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/procedural_cloud_volume/approximate_ambient_000.jpg"/></div>
+        <div class="img-col"><img src="img/procedural_cloud_volume/physical_ambient_000.jpg"/></div>
+    </div>
+    <p>Left: height-based ambient approximation. Right: physical ambient lighting. The clouds here exhibit much more plausible self-shadowing, and their purple hue is pleasantly non-uniform, accordance with the varying appearance of the skydome.</p>
+</div>
+
 ### Self Shadowing
 
 Expanse lumps all direct light attenuation that results from clouds casting volumetric shadows onto themselves into this category. Approximations are made here to make the clouds more art-directable and more performant.
 
 #### Self Shadowing
 **C# member variable:** `bool m_selfShadowing` \
-Whether or not the clouds cast shadows on themselves.
+Whether or not the clouds cast shadows on themselves. Enabling this incurs a significant performance cost, but is usually necessary to achieve the desired visual result.
+
+When disabled, a (cost-free) height-based approximation is used as an alternative. It is, on inspection, similar to the one used by Cyberpunk 2077, and generally looks ok for very dense clouds.
 
 <div class="img-block">
     <div class="img-row">
@@ -450,7 +469,7 @@ Whether or not the clouds cast shadows on themselves.
         <div class="img-col"><img src="img/procedural_cloud_volume/no_self_shadow.jpg"/></div>
         <div class="img-col"><img src="img/procedural_cloud_volume/fake_shadow.jpg"/></div>
     </div>
-    <p>Self-shadowing vs. no self-shadowing, for a dense layer. In this case, the effect is very noticeable. Left: self-shadowing enabled. Looks good! Middle: no self-shadowing. As you can see, self-shadowing is pretty damned important! Right: you can try to approximate the self-shadowing effect using the vertical proability parameters. However this doesn't really look right, or very good.</p>
+    <p>Self-shadowing vs. no self-shadowing, for a dense layer. In this case, the effect is very noticeable. Left: self-shadowing enabled. Looks good! Middle: no self-shadowing. As you can see, self-shadowing is pretty damned important! Right: you can try to approximate the self-shadowing effect using the vertical proability parameters. This looks a lot worse than using correct self-shadowing, but can function as a tolerable alternative.</p>
 </div>
 
 <div class="img-block">
@@ -480,15 +499,21 @@ How intense shadowing is. This parameter actually softens shadows by adjusting t
     <p>Comparison of different shadow persistences. Left: minimum persistence of 0. Middle: persistence of 0.2. Right: maximum persistence of 1.</p>
 </div>
 
+#### Height Shadow Range
+**C# member variable:** `float m_heightShadowRange` \
+Range over which approximate height-based shadowing is applied, when self-shadowing is disabled. 0 means the bottom of the clouds, 1 means the top.
+
+#### Height Shadow Intensity
+**C# member variable:** `float m_heightShadowIntensity` \
+Range of shadow intensity applied over the specified height gradient. The lower value is the value applied at the lower end of the gradient (the bottom of the clouds), and the higher value is the value applied at the higher end of the gradient (the top of the clouds).
+
 ### Multiple Scattering
 
 The last two categories would be enough to render convincing smoke or fog, but clouds are very dense, and so light scatters many times within them. Expanse uses a novel approach to approximate the effect of these additional light bounces in a way that's convincing and performant.
 
 #### Multiple Scattering Receptive Field
 **C# member variable:** `float m_multipleScatteringReceptiveField` \
-As a way of approximating multiple scattering, Expanse integrates successive orders of multiple scattering using a LOD-ed density sample at the sample point in question. It assumes that scattering is received from a sphere of a particular radius---this parameter is that radius. Thus I chose the name "receptive field" for this value; it defines the volume that the sample point receives multiple scattering from.
-
-**The end result: this parameter basically controls how much multiple scattering there is.**
+As a way of approximating multiple scattering, Expanse integrates successive orders of multiple scattering using a novel technique. To avoid giving away exactly how it works, I can't explain it fully here. **The end result is that this parameter basically controls how much multiple scattering there is.**
 
 <div class="img-block">
     <div class="img-row">
@@ -502,7 +527,7 @@ As a way of approximating multiple scattering, Expanse integrates successive ord
 
 #### High Detail Multiple Scattering
 **C# member variable:** `bool m_highDetailMultipleScattering` \
-Controls the LOD level to sample from when computing multiple scattering. If this is disabled, the multiple scattering will be smoother. If it's enabled, it'll be more detailed. There's no additional expense either way---it's a fully stylistic choice.
+Controls how detailed the multiple scattering approximation is. If this is disabled, the multiple scattering will be smoother. If it's enabled, it'll be more detailed. There's no additional expense either way---it's a fully stylistic choice.
 
 <div class="img-block">
     <div class="img-row">
@@ -671,21 +696,6 @@ Here's an example of what it looks like when you don't use enough samples.
     <p>Comparison of sampling strategies. Left: using far to few samples. This reveals the blue noise sample offset pattern used to de-band the rendering result. It looks bad! Right: using a sufficient amount of samples. This looks right!</p>
 </div>
 
-#### Sample Jitter
-**C# member variable:** `float m_sampleJitter` \
-Amount to jitter primary ray-marching samples along the ray spatially (from pixel to pixel) and temporally (across frames). Set this 
-* To `0` to reduce noise if you don't plan on using temporal denoising/DLSS/TAA. You may also want to set it to `0` if you're heavily leveraging reprojection or subresolution.
-* To `0.5` if you want correct stochastic rendering for use with temporal denoising/DLSS/TAA.
-* To `1` if you still see noticeable banding artifacts at 0.5. This will "over-jitter" the samples, which can help further reduce banding, at the cost of more noise.
-
-#### Pixel Jitter
-**C# member variable:** `float m_pixelJitter` \
-Amount to jitter the ray direction from frame to frame. This is particularly important for anti-aliasing results rendered at lower resolution.
-
-#### Shadow Sample Jitter
-**C# member variable:** `float m_shadowSampleJitter` \
-How much to jitter secondary raymarching---self-shadow---samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
-
 #### Coarse Step Range
 **C# member variable:** `Vector2 m_coarseStepRange` \
 Step number range for coarse ray marching. The lower and upper limits are applied at the lower and upper [distance range](/editor/blocks/procedural_cloud_volume_block?id=step-distance-range) values. This lets you use fewer samples for smaller march distances.
@@ -700,13 +710,29 @@ Distance range over which to apply the step number ranges.
 
 #### Flythrough Step Range
 **C# member variable:** `Vector2 m_flythroughStepRange` \
-Step distance range for flythrough ray marching. The lower and upper limits are applied at the lower and upper [distance range](/editor/blocks/procedural_cloud_volume_block?id=flythrough-step-distance-range) values. This lets you use fewer samples for smaller march distances.
+Step distance range used for certain cases of flythrough ray marching. The lower and upper limits are applied at the lower and upper [distance range](/editor/blocks/procedural_cloud_volume_block?id=flythrough-step-distance-range) values. This lets you use fewer samples for smaller march distances.
 
 This parameter is different from the non-flythrough step ranges---it specifies step distance, not in step count. A reasonable value for this might be something like `(16, 512)`, which will take 16 meter steps up close, and 512 meter steps far away.
 
 #### Flythrough Step Distance Range
 **C# member variable:** `Vector2 m_flythroughStepDistanceRange` \
 Distance range over which to apply the flythrough step range.
+
+
+#### Sample Jitter
+**C# member variable:** `float m_sampleJitter` \
+Amount to jitter primary ray-marching samples along the ray spatially (from pixel to pixel) and temporally (across frames). Set this 
+* To `0` to reduce noise if you don't plan on using temporal denoising/DLSS/TAA. You may also want to set it to `0` if you're heavily leveraging reprojection or subresolution.
+* To `0.5` if you want correct stochastic rendering for use with temporal denoising/DLSS/TAA.
+* To `1` if you still see noticeable banding artifacts at 0.5. This will "over-jitter" the samples, which can help further reduce banding, at the cost of more noise.
+
+#### Pixel Jitter
+**C# member variable:** `float m_pixelJitter` \
+Amount to jitter the ray direction from frame to frame. This is particularly important for anti-aliasing results rendered at lower resolution.
+
+#### Shadow Sample Jitter
+**C# member variable:** `float m_shadowSampleJitter` \
+How much to jitter secondary raymarching---self-shadow---samples. Increasing this can cause noise, but if you're using DLSS, it can greatly improve the smoothness of the shadows. If you're not using DLSS or are rendering clouds with reprojection enabled, you'll probably want to set this parameter to `0`, indicating not to use any jitter.
 
 #### LOD Distances
 **C# member variable:** `Vector2 m_LODDistances` \
@@ -724,6 +750,13 @@ Threshold below which cloud transmittance is considered to be zero. It is import
 **C# member variable:** `int m_maxConsecutiveZeroSamples` \
 Max number of consecutive zero samples before detail ray marching switches back to coarse ray marching.
 
+#### Light Sampling Strategy
+**C# member variable:** `int m_lightSamplingStrategy` \
+Strategy to use for selecting which directional light(s) to sample when evaluating the cloud lighting. This parameter can have a massive impact on performance when using two or more celestial bodies. One of:
+
+* **All:** sample all directional lights. Most expensive when there are multiple lights, but guarantees there will be no visual artifacts. Cheapest when there is only one light, since no special logic is required.
+* **Stochastic:** randomly sample only one directional light. Samples are drawn from a distribution that samples bright lights more frequently, and excludes occluded lights.
+* **Brightest:** sample only the brightest non-occluded light. This strategy works beautifully for cases where you have a very bright and a very dim light---i.e., the moon and the sun.
 
 
 <!---------------------------------------------------------------------------------------->
@@ -737,7 +770,7 @@ These parameters allow you to use temporal amortization to reduce the cost of re
 **C# member variable:** `int m_reprojectionFrames` \
 Number of history frames to use for reprojection. Increasing can improve performance, but at the cost of quality.
 
-Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry when using reprojection.
+Be aware that Temporal Anti-Aliasing (TAA) can make the clouds appear blurry when using reprojection, though less so than in versions prior to 1.5.
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="img/procedural_cloud_volume/no_reproj.jpg"/></div>
@@ -755,12 +788,22 @@ When enabled, Expanse will use TAA-based denoising to allow fewer samples to be 
 **C# member variable:** `int m_denoisingHistoryFrames` \
 Number of history frames to use for temporal denoising. You should probably keep this low if you plan on having rapid cloud movement or cloud flythrough.
 
-<!---------------------------------------------------------------------------------------->
-<!--------------------------------------- METADATA --------------------------------------->
-<!---------------------------------------------------------------------------------------->
-## Metadata
-These parameters are metadata or references to components/objects that the block uses.
+#### Denoising Depth Rejection
+**C# member variable:** `bool m_denoisingDepthRejection` \
+Whether or not to reject denoising history samples based on their approximate depth. Can be useful for reducing blurriness during flythrough or when rendering fast-moving clouds.
 
-#### Name
-**C# member variable:** `string m_name` \
-The name for this layer used in debug and error printouts.
+#### Depth Rejection Threshold
+**C# member variable:** `Vector2 m_depthRejectionThreshold` \
+Depth thresholds at which to reject denoising history samples. Specified as a multiplier of the current sample depth. So, for instance, if we set this to `(0.5, 2)`, it would mean we'd reject samples that were closer than half the current depth, and further than twice the current depth.
+
+#### Catmull Rom Filtering
+**C# member variable:** `bool m_catmullRomFiltering` \
+If enabled, uses Catmull Rom filtering to sample from history buffers (for both denoising and reprojection). This can significantly reduce blurriness due to camera motion.
+
+#### Neighborhood Clamping
+**C# member variable:** `bool m_neighborhoodClamping` \
+If enabled, uses neighborhood clamping to constrain history samples (for both denoising and reprojection). This can be useful for flythrough and fast-moving clouds, but can introduce artifacts and inhibit the effectiveness of denoising.
+
+#### Neighborhood Clamp Intensity
+**C# member variable:** `float m_neighborhoodClampIntensity` \
+How strong the neighborhood clamping effect is. 1 is full strength. 0 is minimum strength.
