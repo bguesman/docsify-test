@@ -91,6 +91,10 @@ Given that cloud reflections are enabled, this parameter amortizes their computa
 ### Atmosphere
 These parameters pertain to global atmosphere quality.
 
+#### Fullscreen Atmosphere
+**C# member variable:** `bool m_fullscreenAtmosphere` \
+If enabled, renders the atmosphere per-pixel, instead of using an optimized lookup table. This is extremely expensive and should only be used in non-realtime applications.
+
 #### Atmosphere Texture Quality
 **C# member variable:** `Expanse.Datatypes.Quality m_atmosphereTextureQuality` \
 Quality of atmosphere lookup textures. Lower quality settings will improve performance, at the cost of visual fidelity.
@@ -222,3 +226,7 @@ Whether or not to use temporal denoising for the fog to help remove stochastic s
 How many history frames to use when denoising screenspace layers. The higher this value is, the better the denoising will be. However, if you set it too high, you'll start to get noticeable ghosting.
 
 For something like an FPS, where the player moves relatively slow compared to volumetric shadow casters, you can probably set this pretty high. For a flight sim, you might have to set this lower to avoid ghosting.
+
+#### Fog Pixel Jitter
+**C# member variable:** `float m_fogPixelJitter` \
+How much to jitter pixels from frame to frame. Useful for anti-aliasing fog when using temporal denoising.

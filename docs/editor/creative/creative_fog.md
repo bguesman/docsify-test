@@ -18,9 +18,9 @@ This block is a more intuitive alternative to directly working with [Atmosphere 
 **C# member variable:** `Color m_color` \
 Color of the fog. Keeping this relatively grey is a good move if you're going for realism.
 
-#### Density
-**C# member variable:** `float m_density` \
-Density of the fog.
+#### Visibility Distance
+**C# member variable:** `float m_visibilityDistance` \
+How far out things are visible due to the fog. Effectively controls the fog density.
 
 #### Radius
 **C# member variable:** `float m_radius` \
