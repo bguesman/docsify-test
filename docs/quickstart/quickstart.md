@@ -2,7 +2,7 @@
 
 It's possible to get Expanse into your project in fewer than 15 minutes! Follow this guide for instructions.
 
-Hate reading? Check out the [video companion](https://youtu.be/3H9KYBnmLo0) for this tutorial!
+Hate reading? Check out the [video companion](https://youtu.be/PXs3De2lFqU) for this tutorial!
 
 ## Licensing
 
