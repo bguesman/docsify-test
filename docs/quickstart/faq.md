@@ -14,7 +14,34 @@ Alternatively, you can tag your main camera as `MainCamera` (the default behavio
 
 **Q: There's a bunch of shader warnings being printed about a punctual/directional shadow filter macro being redefined.**
 
-**A:** This is due to a Unity API change between version 2020.3 and 2021.1. Unfortunately, there's no workaround that avoids these redefinition warnings (that I've discovered yet).
+I.e.
+
+```
+Shader warning in 'CloudCompositor(Clone)': 'DIRECTIONAL_FILTER_ALGORITHM': macro redefinition. Previous definition found at C:/Users/bradg/Graphics/unity/Real Landscapes/Assets/Expanse/code/source/atmosphere/Atmosphere.hlsl:11. at kernel FULLSCREEN_0 at C:/Users/bradg/Graphics/unity/Real Landscapes/Library/PackageCache/com.unity.render-pipelines.high-definition@12.1.0/Runtime/Lighting/Shadow/HDShadowAlgorithms.hlsl(27)
+```
+
+**A:** This is due to a Unity API change between version 2020.3 and 2021.1. Unfortunately, there's no workaround to bake into the release version of Expanse that avoids these redefinition warnings without breaking Expanse in one Unity version or the other (that I've discovered yet).
+
+To get rid of these warnings, you'll want to edit `Atmosphere.hlsl`. **Near the top of the file remove (or comment out) the following:**
+
+```
+// BEGIN HACK [shadow sampling]
+// These need to be defined in Unity 2020.3. If you are not using Unity
+// 2020.3 and you are getting redefinition warnings, YOU CAN COMMENT
+// THESE OUT.
+#ifndef PUNCTUAL_FILTER_ALGORITHM
+#define PUNCTUAL_FILTER_ALGORITHM(sd, posSS, posTC, sampleBias, tex, samp) SampleShadow_PCF_Tent_3x3(_ShadowAtlasSize.zwxy, posTC, sampleBias, tex, samp)
+#endif
+#ifndef DIRECTIONAL_FILTER_ALGORITHM
+#define DIRECTIONAL_FILTER_ALGORITHM(sd, posSS, posTC, sampleBias, tex, samp) SampleShadow_PCF_Tent_5x5(_CascadeShadowAtlasSize.zwxy, posTC, sampleBias, tex, samp)
+#endif
+#ifndef AREA_FILTER_ALGORITHM
+#define AREA_FILTER_ALGORITHM(sd, posSS, posTC, tex, samp, bias) SampleShadow_EVSM_1tap(posTC, sd.shadowFilterParams0.y, sd.shadowFilterParams0.z, sd.shadowFilterParams0.xx, false, tex, s_linear_clamp_sampler)
+#endif
+// END HACK [shadow sampling]
+```
+
+This should get rid of the warnings.
 
 **Q: The lighting is flickering.**
 
