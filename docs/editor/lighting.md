@@ -6,17 +6,18 @@ What's easy to forget---but becomes immediately obvious when you start setting u
 
 Expanse can interact with the following kinds of lights:
 
-* **Directional lights**, which can light the atmosphere, fog, and clouds.
-* **Point lights**, which can light fog and clouds.
-* **Spot lights**, which can only light fog.
-* **Expanse's fog does not support area lights**.
+- **Directional lights**, which can light the atmosphere, fog, and clouds.
+- **Point lights**, which can light fog and clouds.
+- **Spot lights**, which can only light fog.
+- **Expanse's fog does not support area lights**.
 
 Expanse interacts with lights in two ways: it **pulls data from lights** to use in lighting the atmosphere/fog/clouds, and it also **pushes data to lights** to modify their properties to better reflect how the light should look under Expanse's volumetric conditions.
 
-Some examples of the prior: 
-* Expanse grabs the light direction, color, and brightness from a directional light, and uses it to light the clouds.
-* Expanse uses the position/color/intensity of a point light and uses it to light the clouds.
-* Expanse grabs the shape, direction, position, etc. of a spotlight and uses it to light the fog.
+Some examples of the prior:
+
+- Expanse grabs the light direction, color, and brightness from a directional light, and uses it to light the clouds.
+- Expanse uses the position/color/intensity of a point light and uses it to light the clouds.
+- Expanse grabs the shape, direction, position, etc. of a spotlight and uses it to light the fog.
 
 <div class="img-block">
     <div class="img-row">
@@ -37,7 +38,6 @@ An example (actually, probably the canonical example) of the latter: Expanse set
     <p>Left: the sunlight color at noon. Right: the sunlight color at golden hour---much more orange, and much dimmer!</p>
 </div>
 
-
 ## Light Control
 
 The way you indicate to Expanse that you want a light to interact with its volumetrics is simple: you add the `Light Control` script to the light game object.
@@ -51,13 +51,13 @@ You'll then be presented with the following set of parameters to be adjusted to 
     <p>The Expanse light control UI.</p>
 </div>
 
-A few notes:
-* If you can avoid it, don't enable the "Raymarch" parameter for point/spot lights. It's way more expensive than the alternative analytical strategy and isn't any more physically correct.
-* You'll have to specify the light color in the light control UI, as opposed to using the Unity light's light color. This is because Expanse modulates the light's _actual_ color via the transmittance through the fog/atmosphere.
+> You'll have to specify the light color in the light control UI, as opposed to using the Unity light's light color. This is because Expanse modulates the light's _actual_ color via the transmittance through the fog/atmosphere.
 
 ## Ambient Lighting and Reflections
 
 Expanse renders the sky, clouds, and fog to Unity's reflection cubemap. Because of this, ambient light and reflections should just work, no setup required. However, if you want these to update in realtime, it's _crucial_ that you set the Visual Environment override's `Ambient Mode` setting on the sky and fog volume to `Dynamic`.
+
+Ambient lighting is also computed from the position of a particular camera. You can set which camera this is via [the ambient probe camera parameter on the camera settings component](/editor/blocks/camera_settings_block?id=ambient-probe-camera).
 
 <div class="img-block">
     <div class="img-row">
