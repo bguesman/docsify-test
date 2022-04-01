@@ -74,6 +74,16 @@ This parameter can be particularly useful for 4K support, where you may want to 
     <p>Left: clouds rendered in full res. Right: clouds rendered at 1/16th res (so a quarter of the screen height and width). It can be hard to tell the difference here, since the images may appear small in the browser, but the right image is blurrier.</p>
 </div>
 
+#### Interactive Clouds
+
+**C# member variable:** `bool m_interactiveClouds` \
+When enabled, clouds can be rendered between the camera and scene geometry. When disabled, clouds are always rendered behind scene geometry. It is more performant to have this disabled.
+
+#### Cull Clouds Behind Geometry
+
+**C# member variable:** `bool m_cullCloudBehindGeometry` \
+When enabled, only renders clouds for un-occluded pixels. This can improve performance a lot, but it is currently an experimental feature, because it can introduce unwanted artifacts.
+
 #### Composite Clouds By Height
 
 **C# member variable:** `bool m_compositeCloudsByHeight` \
@@ -178,7 +188,7 @@ The number of samples used when computing single scattering. With importance sam
 #### Multiple Scattering Samples
 
 **C# member variable:** `int m_multipleScatteringSamples` \
-The number of samples to use when computing the initial isotropic estimate of multiple scattering. Importance sampling does not apply here. To get a near-perfect result, around 32 samples is necessary. But it is a fairly subtle effect, so as low as 8 samples gives a decent result.
+The number of samples to use when computing the initial isotropic estimate of multiple scattering. Importance sampling does not apply here. To get a near-perfect result, around 8 samples is necessary. But it is a fairly subtle effect, so as low as 4 samples gives a decent result.
 
 #### Multiple Scattering Accumulation Samples
 
@@ -209,6 +219,11 @@ Whether or not to use importance sampling for aerial perspective. Importance sam
 **C# member variable:** `float m_aerialPerspectiveDepthSkew` \
 Skews precomputed aerial perspective samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
 
+#### Aerial Perspective Render Distance
+
+**C# member variable:** `float m_aerialPerspectiveRenderDistance` \
+How far out from the camera to render aerial perspective to. Generally a value of around 30k-100k meters is good. This is decoupled from the camera's far clipping plane because it is necessary to render it very far away to composite on top of clouds.
+
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------------ FOG ----------------------------------------->
 <!---------------------------------------------------------------------------------------->
@@ -217,35 +232,30 @@ Skews precomputed aerial perspective samples to be further from the camera (if l
 
 These parameters pertain to global fog quality---so, screenspace atmosphere layers.
 
-#### Screenspace Fog Quality
+#### Fog Quality
 
 **C# member variable:** `Expanse.Datatypes.Quality m_screenspaceFogQuality` \
 Quality of fog lookup texture. Lower quality settings will improve performance, at the cost of visual fidelity. The primary cost here is in the fidelity of the volumetric shadows. If you aren't using volumetric shadows, you may as well set this very low.
 
-#### Screenspace Occlusion Samples
+#### Fog Sub Samples
 
-**C# member variable:** `int m_screenspaceOcclusionSamples` \
-The number of samples to use when computing the occlusion estimate for screenspace layers.
+**C# member variable:** `int m_fogSubSamples` \
+How many samples to use per froxel when lighting fog. Increasing this can help with noise, but **it is important for performance to keep this as low as possible.**
 
-#### Screenspace Scattering Samples
+#### Screenspace Shadow Samples
 
-**C# member variable:** `int m_screenspaceScatteringSamples` \
-The number of samples to use when computing the scattering for **physically lit** screenspace layers.
+**C# member variable:** `int m_screenspaceShadowSamples` \
+The number of samples to use when computing screenspace volumetric shadows for fog layers.
 
-#### Screenspace Importance Sample
+#### Fog Depth Skew
 
-**C# member variable:** `bool m_screenspaceImportanceSample` \
-Whether to use importance sampling to reduce the number of scattering samples required for a good result. Generally this is good to have enabled, but sometimes it can cause artifacts, so use it cautiously. Only affects layers that are physically lit, since they are only ones that are raymarched.
+**C# member variable:** `float m_fogDepthSkew` \
+Skews precomputed fog samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
 
-#### Screenspace Fog Depth Skew
+#### Fog Depth Downscale
 
-**C# member variable:** `float m_screenspaceFogDepthSkew` \
-Skews precomputed screenspace fog samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
-
-#### Screenspace Depth Downscale
-
-**C# member variable:** `int m_screenspaceDepthDownscale` \
-Downscale factor for depth buffer used for occlusion in screenspace atmosphere layers. If this factor is lower, performance is worse but the volumetric shadows are sharper. If it's higher, performance is better, but the shadows are blurrier. This can be used to an artistic end. Sometimes the sharp shadows you get when using the full resolution depth buffer are too sharp.
+**C# member variable:** `int m_fogDepthDownscale` \
+Downscale factor for depth buffer used for screenspace shadows in fog layers. If this factor is lower, performance is worse but the volumetric shadows are sharper. If it's higher, performance is better, but the shadows are blurrier. This can be used to an artistic end. Sometimes the sharp shadows you get when using the full resolution depth buffer are too sharp.
 
 <div class="img-block">
     <div class="img-row">
@@ -255,19 +265,16 @@ Downscale factor for depth buffer used for occlusion in screenspace atmosphere l
     <p>Left: no downscaling applied to depth buffer. Right: downscale factor of 3 applied to depth buffer. Notice how the crepuscular rays aren't quite as streaky.</p>
 </div>
 
-#### Fog Use Temporal Denoising
+#### Fog Use Blur Denoising
 
-**C# member variable:** `bool m_fogUseTemporalDenoising` \
-Whether or not to use temporal denoising for the fog to help remove stochastic sampling noise.
+**C# member variable:** `bool m_fogUseBlurDenoising` \
+When enabled, blurs the fog buffer to reduce noise. You lose a bit of sharpness, but generally it does a good job.
 
 #### Fog Denoising History Frames
 
 **C# member variable:** `int m_fogDenoisingHistoryFrames` \
-How many history frames to use when denoising screenspace layers. The higher this value is, the better the denoising will be. However, if you set it too high, you'll start to get noticeable ghosting.
+How many history frames to use when denoising fog. The higher this value is, the better the denoising will be. However, if you set it too high, you'll start to get noticeable ghosting.
 
 For something like an FPS, where the player moves relatively slow compared to volumetric shadow casters, you can probably set this pretty high. For a flight sim, you might have to set this lower to avoid ghosting.
 
-#### Fog Pixel Jitter
-
-**C# member variable:** `float m_fogPixelJitter` \
-How much to jitter pixels from frame to frame. Useful for anti-aliasing fog when using temporal denoising.
+Note: when this is set to zero, temporal denoising is disabled.
