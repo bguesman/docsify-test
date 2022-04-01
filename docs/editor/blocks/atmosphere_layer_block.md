@@ -13,10 +13,13 @@ This block allows you to add layers of participating media to Expanse's atmosphe
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
 <!---------------------------------------------------------------------------------------->
+
 ### Modeling
+
 These parameters describe the distribution of the layer's participating media---thickness, density distribution, etc.
 
 #### Density
+
 **C# member variable:** `float m_density` \
 The density of the participating media. This together with the scattering/extinction coefficients determines the way the media absorbs and scatters light. As such its units/scale depend on the choice of units for the scattering/extinction coefficients.
 
@@ -39,8 +42,9 @@ The density of the participating media. This together with the scattering/extinc
 </div>
 
 #### Density Distribution
+
 **C# member variable:** `Expanse.AtmosphereDatatypes.DensityDistribution m_densityDistribution` \
-The density distribution of the participating media---in other words, how the gases in this atmosphere layer are distributed around the Earth. Expanse supports four density distributions, split into two categories based on how they are rendered and what features they support: [Regular Distributions](/editor/blocks/atmosphere_layer_block?id=regular-distributions) and [Screenspace Distributions](/editor/blocks/atmosphere_layer_block?id=screenspace-distributions).
+The density distribution of the participating media---in other words, how the gases in this atmosphere layer are distributed around the Earth. Expanse supports four density distributions, split into two categories based on how they are rendered and what features they support: [Regular Distributions](/editor/blocks/atmosphere_layer_block?id=regular-distributions) and [Fog Distributions](/editor/blocks/atmosphere_layer_block?id=fog-distributions).
 
 The parameterizations for these distributions are discussed in their subsections.
 
@@ -48,7 +52,7 @@ The parameterizations for these distributions are discussed in their subsections
 
 Expanse provides two efficient density distribution models that will suit most of your needs.
 
->Exponential
+> Exponential
 
 Exponential layers are, most likely, the bread-and-butter building blocks you'll be working with to build your atmosphere. They are very dense near the surface of the earth, and then get less dense as you get farther up into the atmosphere, until at some distance they are basically zero. Many phenomena in nature exhibit this kind of pattern, and atmosphere gas distributions are no exception.
 
@@ -57,7 +61,9 @@ Earth's atmosphere is modelable as two exponential layers: one that exhibits "ra
 More sophisticated models may take into account the ozone layer, which is modelable in Expanse as a tent distribution (see the next density distribution type).
 
 This distribution is parameterized by:
+
 ##### Thickness
+
 **C# member variable:** `float m_thickness` \
 How far out into space the atmosphere layer extends.
 
@@ -69,18 +75,21 @@ How far out into space the atmosphere layer extends.
     <p>Left: one exponential layer, setup to mimic Earth's nitrogen/oxygen/carbon dioxide atmosphere. Right: the same setup as left, but with an additional exponential layer that models aerosols like smoke and smog, creating the characteristic air glow around the sun disc.</p>
 </div>
 
->Tent
+> Tent
 
 The tent distribution has a maximum value at a particular altitude, its "height" parameter, and then decays above and below that value. It's good for modeling "bands" of gas that are concentrated at a particular height above the ground.
 
 The ozone is one of those layers. Modeling the ozone is not strictly necessary, but is key to making the sky appear properly blue in the daytime, and appropriately purple in the evening.
 
 This distribution is parameterized by:
+
 ##### Height
+
 **C# member variable:** `float m_height` \
 Height of the band center.
 
 ##### Thickness
+
 **C# member variable:** `float m_thickness` \
 How far away from the center height band the layer extends.
 
@@ -92,20 +101,25 @@ How far away from the center height band the layer extends.
     <p>Left: atmosphere with just exponential rayleigh and mie layers. Right: with the ozone added in. Notice how it better approximates the purple twilight we are all familiar with.</p>
 </div>
 
-#### Screenspace Distributions
+#### Fog Distributions
 
 Normally, Expanse renders atmosphere layers to a low-resolution spherical texture, and then composites them into the camera's rectangular framebuffer. This is, more or less, why it can afford to use an expensive but physically accurate rendering algorithm in realtime. However, this strategy is limiting in that it cannot resolve sharp, volumetric shadows---crepuscular or "god" rays.
 
-To address this, Expanse introduces the concept of screenspace layers---layers that are rendered in a less expensive (but still physically-based) fashion, per-camera pixel. Their main benefit is that they are free of some of the artifacts present in the spherical texture, they support a falloff distance from the player, and they support a form of screenspace volumetric shadowing. As such they are particularly useful for modeling fog, smoke, and other dense aerosols.
+To address this, Expanse introduces the concept of fog layers---layers whose density distribution can be rendered in a less expensive (but still physically-based) fashion. Their main benefits are:
 
-With volumetric shadows turned off, these layers are extremely performant. However, with volumetric shadows on, they will perform raymarching against a downsampled version of the depth buffer. This can reduce performance---the performance hit can be mitigated by choosing an appropriate [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block).
+- They are free of some of the artifacts present in the spherical texture
+- They support a falloff distance from the player
+- They support point and spot lights
+- They support volumetric shadows from fog and clouds
 
->Screenspace Uniform
+> Uniform Fog
 
-A screenspace layer that is distributed uniformly within a constant radius around the camera. This is particularly useful for modeling atmospheric effects like rain fog and smoke.
+A fog layer that is distributed uniformly within a constant radius around the camera. This is particularly useful for modeling atmospheric effects like rain fog and smoke.
 
 This distribution is parameterized by:
+
 ##### Radius
+
 **C# member variable:** `float m_height` \
 The radius around the camera where the density is non-zero. To minimize the data members in the atmosphere layer class, the variable is overloaded with the height parameter.
 
@@ -115,21 +129,24 @@ The radius around the camera where the density is non-zero. To minimize the data
         <div class="img-col"><img src="img/atmosphere/uniform_rain_fog_density_300.jpg"/></div>
         <div class="img-col"><img src="img/atmosphere/uniform_rain_fog_density_3000.jpg"/></div>
     </div>
-    <p>Screenspace uniform "rain fog" at varying densities. Left to right: 0, 300, 3000.</p>
+    <p>Uniform "rain fog" at varying densities. Left to right: 0, 300, 3000.</p>
 </div>
 
->Screenspace Height Fog
+> Height Fog
 
-A screenspace layer that is distributed exponentially from the plane aligned to the ground where the camera is placed, extending outward to a specified attenuation radius. This layer can mimic the regular exponential layer, though not perfectly, as it will fail to capture the curvature of the planet (sorry flat-earthers). 
+A fog layer that is distributed exponentially from the plane aligned to the ground where the camera is placed, extending outward to a specified attenuation radius. This layer can mimic the regular exponential layer, though not perfectly, as it does not quite capture the curvature of the planet (sorry flat-earthers).
 
 As its name suggests, it's good for modeling height fog. It can also be a duplicate of the usual exponential aerosol layer, set up to provide some volumetric shadowing effects.
 
 This distribution is parameterized by:
+
 ##### Radius
+
 **C# member variable:** `float m_height` \
 The falloff radius around the camera. If this value is low, the height fog will be concentrated right around the camera. If it's high, the height fog will extend far out away from the camera. To minimize the data members in the atmosphere layer class, the variable is overloaded with the height parameter.
 
 ##### Thickness
+
 **C# member variable:** `float m_thickness` \
 How far out into space the atmosphere layer extends.
 
@@ -139,7 +156,7 @@ How far out into space the atmosphere layer extends.
         <div class="img-col"><img src="img/atmosphere/height_fog_density_300.jpg"/></div>
         <div class="img-col"><img src="img/atmosphere/height_fog_density_1500.jpg"/></div>
     </div>
-    <p>Screenspace height fog at varied densities. Left to right: zero, 300, 1500.</p>
+    <p>Height fog at varied densities. Left to right: zero, 300, 1500.</p>
 </div>
 
 <div class="img-block">
@@ -147,18 +164,19 @@ How far out into space the atmosphere layer extends.
         <div class="img-col"><img src="img/atmosphere/rayleigh_and_exponential_aerosols.jpg"/></div>
         <div class="img-col"><img src="img/atmosphere/screenspace_height_fog_aerosols.jpg"/></div>
     </div>
-    <p>Left: atmosphere set up with a regular exponential aerosol layer. Right: atmosphere set up with a screenspace height fog aerosol layer, with the density cranked up to make the volumetric shadowing effect visible.</p>
+    <p>Left: atmosphere set up with a regular exponential aerosol layer. Right: atmosphere set up with a height fog aerosol layer, with the density cranked up to make the volumetric shadowing effect visible.</p>
 </div>
-
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MATERIAL --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
 ### Lighting
+
 These parameters describe the color and illumination characteristics of the atmosphere layer.
 
 #### Extinction and Scattering Coefficients
+
 **C# member variables:** `Color m_extinctionCoefficients` and `Color m_scatteringCoefficients` \
 Volumetric coefficients can be challenging to understand if you are unfamiliar with volumetric rendering theory. Their main function is to determine the **color** of the sky. One easy way to think about them is to describe what they do to the sky color at different times of the day.
 
@@ -196,25 +214,27 @@ Volumetric coefficients can be challenging to understand if you are unfamiliar w
 A more technical description of these coefficients reveals why they influence the sky color in this way: extinction coefficients tell you what color light gets **absorbed**, and scattering coefficients tell you what color light gets **scattered** or **reflected**. At mid-day, light doesn't have to go through very much atmosphere, so not much blue light gets absorbed, and the scattering color, blue, dominates. At sunset, light has to go through much more atmosphere, so most of the blue gets absorbed, leaving orange behind.
 
 To keep your skies physically realistic, follow these rules:
+
 1. **Keep your scattering coefficients less than or equal to your absorption coefficients.** This ensures that your atmosphere layer is energy-conserving. Intuitively, it means your atmosphere will never scatter more light than it receives from the sun.
 2. **Use coefficients on the order of `1e-6`**. This isn't strictly necessary but will allow you to use more reasonable density values in the range of 1-10.
 3. **Use the same hue for both your scattering and extinction coefficients**. In other words, keep the hue the same, and only adjust the value and saturation. Again, this isn't necessary, but real-life examples where these hues are different are pretty rare.
 
 The following table gives some common real-world examples of scattering and extinction coefficients.
 
-|Example |Extinction Coefficients |Scattering Coefficients |Density |
-|---------------- |------------------ |-------------------	|----------- |
-| Earth Rayleigh | `(5.802e-6, 13.558e-6, 33.1e-6)` | `(5.802e-6, 13.558e-6, 33.1e-6)` | `1` |
-| Earth Aerosols | `(4e-6, 4e-6, 4e-6)` | `(3.996e-6, 3.996e-6, 3.996e-6)` 	| `0-10` |
-| Earth Ozone | `(0.65e-6, 1.881e-6, 0.085e-6)` | `(0, 0, 0)` | `0-1` |
-| Earth Clouds | `(4e-6, 4e-6, 4e-6)` | `(4e-6, 4e-6, 4e-6)` | `0-50000` |
-| Mars Rayleigh | `(1.961e-2, 1.176e-2, 0.392e-2)` | `(1.992e-2, 1.357e-2, 0.575e-2)` | `0.001` |
+| Example        | Extinction Coefficients          | Scattering Coefficients          | Density   |
+| -------------- | -------------------------------- | -------------------------------- | --------- |
+| Earth Rayleigh | `(5.802e-6, 13.558e-6, 33.1e-6)` | `(5.802e-6, 13.558e-6, 33.1e-6)` | `1`       |
+| Earth Aerosols | `(4e-6, 4e-6, 4e-6)`             | `(3.996e-6, 3.996e-6, 3.996e-6)` | `0-10`    |
+| Earth Ozone    | `(0.65e-6, 1.881e-6, 0.085e-6)`  | `(0, 0, 0)`                      | `0-1`     |
+| Earth Clouds   | `(4e-6, 4e-6, 4e-6)`             | `(4e-6, 4e-6, 4e-6)`             | `0-50000` |
+| Mars Rayleigh  | `(1.961e-2, 1.176e-2, 0.392e-2)` | `(1.992e-2, 1.357e-2, 0.575e-2)` | `0.001`   |
 
 #### Phase Function
+
 **C# member variable:** `Expanse.AtmosphereDatatypes.PhaseFunction m_phaseFunction` \
 The phase function of the participating media, which determines the directionality of the light scattering. Expanse provides support for three different phase functions.
 
->Isotropic
+> Isotropic
 
 The isotropic phase function scatters light evenly in all directions. This is good for fog and general haze.
 
@@ -226,7 +246,7 @@ The isotropic phase function scatters light evenly in all directions. This is go
     <p>Left: scene without isotropic rain fog. Right: with an isotropic rain fog layer. Really adds a lot of mood!</p>
 </div>
 
->Rayleigh
+> Rayleigh
 
 The Rayleigh phase function models scattering where the participating media particles are around the same size as the wavelength of scattered light. This is useful for modeling the bulk of the Earth's atmosphere---given that it's mostly nitrogen, oxygen, and carbon dioxide.
 
@@ -238,7 +258,7 @@ The Rayleigh phase function models scattering where the participating media part
     <p>Comparison between using an isotropic phase function to model Earth's main atmosphere (left) and using the correct Rayleigh phase function (right). Notice the sky in the right image is brighter around the sun disc, a result of subtle forward scattering.</p>
 </div>
 
->Mie
+> Mie
 
 The Mie phase function models scattering where the participating media particles are bigger than the wavelength of scattered light. This is good for modeling smoke, fog, and aerosols.
 
@@ -247,6 +267,7 @@ Such scattering follows the complicated laws of Mie theory. In order to make thi
 In order to keep this physical, it's best to use a grey color for the scattering and extinction coefficients, since this sort of scattering is not wavelength-dependent in the range of visible light.
 
 ##### Anisotropy
+
 **C# member variable:** `float m_anisotropy` \
 Anisotropy controls the directionality of the scattering behavior modeled by the Mie phase function. A maximum value of `1` means that light will mostly scatter in the direction of the light, so-called "forward scattering". A minimum value of `-1` means that light will scatter in the direction opposite of the light, referred to as "backward scattering". A value of `0` will be nearly identical to the isotropic phase function, with no preference for either direction.
 
@@ -262,6 +283,7 @@ Aerosols due to pollution on Earth typically have an anisotropy of around `0.76`
 </div>
 
 #### Tint
+
 **C# member variables:** `Color m_tint` \
 Tint to the layer's color. Perfect grey, `(127, 127, 127)`, specifies no tint. **This parameter is non-physical, and is meant only as an artistic override.** If you'd like to tweak the color of the atmosphere, you'll probably get a better result by changing the [extinction and scattering coefficients](/editor/blocks/atmosphere_layer_block?id=extinction-and-scattering-coefficients).
 
@@ -274,9 +296,10 @@ Tint to the layer's color. Perfect grey, `(127, 127, 127)`, specifies no tint. *
     <p>Comparison of tint versus adjusting the scattering and extinction coefficients. Left: no tint. Middle: using the tint parameter to adjust the sky color to look more "tropical". Right: using the scattering/extinction coefficients to achieve the same effect. The point of this comparison isn't necessarily to gawk at how much better it looks using the coefficients, but to prove that it's possible to get the result in a way that respects physical accuracy.</p>
 </div>
 
-#### Multiple Scattering  Multiplier
+#### Multiple Scattering Multiplier
+
 **C# member variables:** `float m_multipleScatteringMultiplier` \
-Expanse computes multiple scattering for non-screenspace layers. This parameter allows you to adjust that contribution to be nonphysical. A value of `1` is neutral/physical. Any other value is non-physical. In other words, this parameter is purely an artistic override.
+Expanse computes multiple scattering in atmosphere layers. This parameter allows you to adjust that contribution to be nonphysical. A value of `1` is neutral/physical. Any other value is non-physical. In other words, this parameter is purely an artistic override.
 
 <div class="img-block">
     <div class="img-row">
@@ -287,40 +310,32 @@ Expanse computes multiple scattering for non-screenspace layers. This parameter 
     <p>Different values for the multiple scattering multiplier. Left to right: no multiple scattering, 1x multiple scattering (physical), 5x multiple scattering. Cranking this parameter can create some pretty dreamy effects!</p>
 </div>
 
-#### Physical Lighting
-**C# member variables:** `bool m_physicalLighting` \
-Normally, Expanse uses a cheap but very good approximation to compute screenspace scattering. However, enabling this will instead raymarch the scattering properly, and correctly compute self shadowing. You could actually refer to a layer with this checked as "path traced fog", since the ray marching is stochastic in nature.
-
-Since v1.5, there is virtually no difference between the two strategies. It is recommended that you keep this parameter turned off, for performance reasons.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/atmosphere/non-physical.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/physical.jpg"/></div>
-    </div>
-    <p>Left: non-physical lighting. Right: physical lighting. Due to the new self-shadowing approximation introduced in v1.5, there is virtually no difference.</p>
-</div>
-
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- SHADOWS ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
-### Shadows
-These parameters are only valid for [screenspace layers](/editor/blocks/atmosphere_layer_block?id=screenspace-distributions), since only they are capable of volumetric shadows.
 
-Expanse can compute volumetric shadows in two ways:
+### Shadows
+
+Expanse can compute volumetric shadows for [fog layers](/editor/blocks/atmosphere_layer_block?id=fog-distributions) in two ways:
 
 1. By ray marching the directional light's shadow map. This produces true volumetric shadows, and can be used for modeling a variety of interesting effects. I'm pretty sure, based on some investigation, that Unity's volumetric fog uses the same strategy.
 2. As a screenspace post-process using the depth buffer. The resulting shadow effects are only an approximation, so it's best to use them as a subtle effect. This strategy has been employed with great results in a number of AAA games---in particular, Mirror's Edge: Catalyst, which was a big inspiration for this product.
 
 Which method you want to use can be set with the [Shadowmap Volumetric Shadows](/editor/blocks/celestial_body_block?id=shadowmap-volumetric-shadows) parameter on each of your Celestial Bodies.
 
+Only true volumetric shadows are supported for point and spot lights.
+
 A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block). This is a global setting, so it cannot be set per layer.
 
+For [regular atmosphere layers](/editor/blocks/atmosphere_layer_block?id=regular-distributions), two settings ([occlusion bias](/editor/blocks/atmosphere_layer_block?id=occlusion-bias) and [occlusion spread](/editor/blocks/atmosphere_layer_block?id=occlusion-spread)) are exposed to help with scattering bleeding through geometry in an unwanted way.
+
 #### Geometry Shadows
+
 **C# member variable:** `bool m_geometryShadows` \
 Whether or not scene geometry should cast volumetric shadows for this layer.
 
 #### Cloud Shadows
+
 **C# member variable:** `bool m_cloudShadows` \
 Whether or not clouds should cast volumetric shadows for this layer.
 
@@ -333,6 +348,7 @@ Whether or not clouds should cast volumetric shadows for this layer.
 </div>
 
 #### Max Geometry Occlusion
+
 **C# member variable:** `float m_maxGeometryOcclusion` \
 The maximum amount that scene geometry can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as geometry will have no occluding power.
 
@@ -346,15 +362,42 @@ The maximum amount that scene geometry can attenuate scattering. A value of `1` 
 </div>
 
 #### Max Cloud Occlusion
+
 **C# member variable:** `float m_maxCloudOcclusion` \
 The maximum amount that clouds can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as clouds will have no occluding power.
 
-<!---------------------------------------------------------------------------------------->
-<!--------------------------------------- METADATA --------------------------------------->
-<!---------------------------------------------------------------------------------------->
-### Metadata
-These parameters are metadata or references to components/objects that the block uses.
+#### Occlusion Bias
 
-#### Name
-**C# member variable:** `string m_name` \
-The name for this layer used in debug and error printouts.
+**C# member variable:** `float m_occlusionBias` \
+Provides a way of offsetting the attenuation of aerial perspective as a consequence of approximate volumetric shadowing (for non-fog layers). To see the effect, put the sun behind a big piece of geometry (like a mountain) and play around with this parameter. Expanse does not accurately model atmospheric volumetric shadows due to the performance cost, and instead uses this approximation to avoid visual artifacts.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_1.jpg"/></div>
+        <p></p>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.jpg"/></div>
+        <p>Comparison of different occlusion biases. In all cases, occlusion spread is set to 1. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion bias of 1, so aerial perspective is not attenuated at all around the sun disc. Bottom Left: occlusion bias of 0.25, so aerial perspective is attenuated by some amount around the sun disc. This approximates the ground truth reasonably, though not perfectly. Bottom Right: occlusion bias of 0, so aerial perspective is fully attenuated around the sun disc.</p>
+    </div>
+</div>
+
+#### Occlusion Spread
+
+**C# member variable:** `float m_occlusionSpread` \
+How aggressively aerial perspective due to non-fog layers is attenuated as a consequence of approximate volumetric shadowing. To see the effect, put the sun behind a big piece of geometry (like a mountain) and play around with this parameter. Expanse does not accurately model atmospheric volumetric shadows due to the performance cost, and instead uses this approximation to avoid visual artifacts.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.jpg"/></div>
+        <p></p>
+    </div>
+    <div class="img-row">
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.25.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_1.jpg"/></div>
+        <p>Comparison of different occlusion spreads. In all cases, occlusion bias is set to 0.5 to make the effect as noticeable as possible. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion spread of 0, so maximum spread. Bottom Left: occlusion spread of 0.25, so some the spread is tighter. Bottom Right: occlusion spread of 1, so aerial perspective is minimally spread.</p>
+    </div>
+</div>
