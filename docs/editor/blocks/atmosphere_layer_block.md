@@ -401,3 +401,14 @@ How aggressively aerial perspective due to non-fog layers is attenuated as a con
         <p>Comparison of different occlusion spreads. In all cases, occlusion bias is set to 0.5 to make the effect as noticeable as possible. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion spread of 0, so maximum spread. Bottom Left: occlusion spread of 0.25, so some the spread is tighter. Bottom Right: occlusion spread of 1, so aerial perspective is minimally spread.</p>
     </div>
 </div>
+
+<!---------------------------------------------------------------------------------------->
+<!------------------------------------- INTERACTION -------------------------------------->
+<!---------------------------------------------------------------------------------------->
+
+### Interaction
+
+#### Receive Density Particles
+
+**C# member variable:** `bool m_receiveDensityParticles` \
+If this layer uses a [fog distribution](/editor/blocks/atmosphere_layer_block?id=fog-distributions), enabling this allows the layer to receive density from [fog particle systems](/editor/blocks/fog_particle_system_block).
