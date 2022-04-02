@@ -23,6 +23,8 @@ Using fog particle systems is relatively easy. Simply,
 
 Now, when you play the Unity particle system, you should see fog appear near the particles! You'll probably want to disable rendering in the Unity particle system settings as well, so only the Expanse fog shows up, though this is up to you.
 
+To adjust the size, distribution, and speed of the particles, just use the Unity particle system's controls.
+
 > Stay tuned, eventually I'll post a more in-depth YouTube tutorial on how to best make use of fog particle systems.
 
 ### Parameters
