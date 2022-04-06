@@ -59,3 +59,8 @@ Rotation of the moon's texture.
 
 **C# member variable:** `Color m_surfaceTint` \
 Tint to the moon's albedo.
+
+#### Above Horizon
+
+**C# function:** `bool AboveHorizon()` \
+Returns true when the celestial body is above the horizon, and false otherwise. This is the best way to adjust which celestial body's light casts directional shadows, and to script other visibilty-dependent things that are generally tied to time of day in an ad hoc way.

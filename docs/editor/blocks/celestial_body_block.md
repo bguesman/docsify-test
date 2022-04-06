@@ -140,6 +140,11 @@ Artistic override for light transmittance. Good for introducing more direct ligh
 
 These parameters control how the celestial bodies interact with Expanse's volumetrics and with scene geometry.
 
+#### Above Horizon
+
+**C# function:** `bool AboveHorizon()` \
+Returns true when the celestial body is above the horizon, and false otherwise. This is the best way to adjust which celestial body's light casts directional shadows, and to script other visibilty-dependent things that are generally tied to time of day in an ad hoc way.
+
 #### Light Interaction
 
 **C# member variable:** `Expanse.LightDatatypes.LightInteraction m_lightInteraction` \

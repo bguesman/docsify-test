@@ -54,3 +54,8 @@ Brightness of the sun disc itself.
 
 **C# member variable:** `Color m_discTint` \
 Tint to the sun disc.
+
+#### Above Horizon
+
+**C# function:** `bool AboveHorizon()` \
+Returns true when the celestial body is above the horizon, and false otherwise. This is the best way to adjust which celestial body's light casts directional shadows, and to script other visibilty-dependent things that are generally tied to time of day in an ad hoc way.

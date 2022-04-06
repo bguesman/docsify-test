@@ -103,21 +103,9 @@ More specifically, you'll want to
 
 **Q: How do I check if celestial bodies are behind the horizon?**
 
-**A:** This is a useful feature to have. Sometime in the next few updates, Expanse will expose a function in the `CelestialBody` class `BehindHorizon()` that returns whether this is true.
+**A:** As of version 1.6.1, Expanse exposes a function in the `CelestialBody` class `AboveHorizon()` that returns whether the celestial body is above or below the planet horizon.
 
-For now, the best way to check this is to look at the `CelestialBody`'s associated `LightControl` script's transmittance value. You access this within `LightControl.cs` via
-
-```
-Vector3 transmittance = ((Vector4)AtmosphereRenderer.GetBodyTransmittance(m_atmosphereIndex)).xyz();
-```
-
-And check for occlusion with something like
-
-```
-bool occluded = (transmittance.x < 1e-6) && (tranmittance.y < 1e-6) && (transmittance.z < 1e-6);
-```
-
-This is a pain right now, but it will be easier very soon.
+It is also exposed on the `LightControl` class, the `CreativeSun` class, and the `CreativeMoon` class.
 
 **Q: I get an error that says \_CameraDepthTexture is not set.**
 
