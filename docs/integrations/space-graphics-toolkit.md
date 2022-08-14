@@ -31,7 +31,8 @@ outColor = ApplyBlendMode(diffuseLighting, specularLighting, builtinData.opacity
 add this line:
 
 ```
-outColor = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, outColor, GetCurrentExposureMultiplier());
+float opacity = 0; // unused
+outColor = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, outColor, GetCurrentExposureMultiplier(), opacity);
 ```
 
 which will composite Expanse's fog and clouds on top of/behind any transparent materials.

@@ -6,7 +6,7 @@
     </div>
 </div>
 
-> KWS will soon natively support an Expanse integration (as of 11/12/21---wow, that's quite a date). However, for now you'll still need to use this guide to modify your copy of KWS.
+> KWS will soon natively support an Expanse integration---as you're reading this, it may already be true. This page will still lie around until then though, for legacy documentation purposes.
 
 Integrating KWS with Expanse is not particularly challenging, but it is a little bit different than the usual transparency workaround. Since KWS uses its own custom lighting model, and does not rely on Unity's HDRP forward lit pass implementation, you'll need to copy and paste a bit of shader code.
 
@@ -42,9 +42,10 @@ And swap them out for
     EvaluateAtmosphericScattering(posInput, i.viewDir, atmosColor, atmosOpacity);
 
     float4 expanseFogAndClouds = float4(0, 0, 0, 1);
-    expanseFogAndClouds = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, expanseFogAndClouds, GetCurrentExposureMultiplier());
+    float opacity = 0;
+    expanseFogAndClouds = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, expanseFogAndClouds, GetCurrentExposureMultiplier(), opacity);
     atmosColor += expanseFogAndClouds.xyz;
-    atmosOpacity *= expanseFogAndClouds.w;
+    atmosOpacity *= opacity;
 #endif
 ```
 

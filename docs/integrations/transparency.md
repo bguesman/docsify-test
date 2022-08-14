@@ -135,7 +135,8 @@ This is where Unity applies its fog ("EvaluateAtmosphericScattering") to transpa
 outColor = ApplyBlendMode(diffuseLighting, specularLighting, builtinData.opacity);
             
 // [EXPANSE]: perform atmospheric scattering lookup/composite.
-outColor = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, outColor, GetCurrentExposureMultiplier());
+float opacity = 0; // unused
+outColor = EvaluateExpanseFogAndClouds(Linear01Depth(posInput.deviceDepth, _ZBufferParams), posInput.positionNDC, outColor, GetCurrentExposureMultiplier(), opacity);
 // [EXPANSE]: End modifications.
 
 outColor = EvaluateAtmosphericScattering(posInput, V, outColor);

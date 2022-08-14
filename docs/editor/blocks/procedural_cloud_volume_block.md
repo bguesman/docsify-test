@@ -803,7 +803,3 @@ If enabled, uses Catmull Rom filtering to sample from history buffers (for both 
 #### Neighborhood Clamping
 **C# member variable:** `bool m_neighborhoodClamping` \
 If enabled, uses neighborhood clamping to constrain history samples (for both denoising and reprojection). This can be useful for flythrough and fast-moving clouds, but can introduce artifacts and inhibit the effectiveness of denoising.
-
-#### Neighborhood Clamp Intensity
-**C# member variable:** `float m_neighborhoodClampIntensity` \
-How strong the neighborhood clamping effect is. 1 is full strength. 0 is minimum strength.

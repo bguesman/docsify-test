@@ -252,6 +252,13 @@ The number of samples to use when computing screenspace volumetric shadows for f
 **C# member variable:** `float m_fogDepthSkew` \
 Skews precomputed fog samples to be further from the camera (if less than 1) or closer to the camera (if greater than 1). Adjusting this can be useful for environments with very heavy fog, where it can be more important to capture scattering close to the camera.
 
+#### Fog Depth Bias
+
+**C# member variable:** `float m_fogDepthBias` \
+Biases the depth value that fog is rendered at for each slice toward the camera, to prevent fog bleeding through objects that should occlude it. The best way to avoid this is to increase the fog quality and bring the camera's far clip plane closer, but this parameter can be useful when these two things are not enough.
+
+At zero, no bias is applied. At one, maximum bias is applied. Default is 0.5.
+
 #### Fog Depth Downscale
 
 **C# member variable:** `int m_fogDepthDownscale` \

@@ -329,43 +329,6 @@ A note: to adjust the streakiness of the screenspace shadows, you can tweak the 
 
 For [regular atmosphere layers](/editor/blocks/atmosphere_layer_block?id=regular-distributions), two settings ([occlusion bias](/editor/blocks/atmosphere_layer_block?id=occlusion-bias) and [occlusion spread](/editor/blocks/atmosphere_layer_block?id=occlusion-spread)) are exposed to help with scattering bleeding through geometry in an unwanted way.
 
-#### Geometry Shadows
-
-**C# member variable:** `bool m_geometryShadows` \
-Whether or not scene geometry should cast volumetric shadows for this layer.
-
-#### Cloud Shadows
-
-**C# member variable:** `bool m_cloudShadows` \
-Whether or not clouds should cast volumetric shadows for this layer.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/atmosphere/no_cloud_shadows.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/cloud_shadows_darker.jpg"/></div>
-    </div>
-    <p>Left: no cloud shadows. Right: with cloud shadows. This produces the "god rays" effect.</p>
-</div>
-
-#### Max Geometry Occlusion
-
-**C# member variable:** `float m_maxGeometryOcclusion` \
-The maximum amount that scene geometry can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as geometry will have no occluding power.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/atmosphere/occlusion_0.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/occlusion_0.5.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/occlusion_1.jpg"/></div>
-    </div>
-    <p>Comparison of different max occlusion values. Left: value of 0---effectively turning volumetric shadows off. Middle: value of 0.5. Right: value of 1. Notice how the volumetric shadows are darker and more pronounced in the right-most image, where geometry has maximum occluding power.</p>
-</div>
-
-#### Max Cloud Occlusion
-
-**C# member variable:** `float m_maxCloudOcclusion` \
-The maximum amount that clouds can attenuate scattering. A value of `1` means that full occlusion is possible. A value of `0` is tantamount to turning shadows off, as clouds will have no occluding power.
-
 #### Occlusion Bias
 
 **C# member variable:** `float m_occlusionBias` \
