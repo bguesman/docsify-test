@@ -14,7 +14,7 @@ If you are an **individual creator**, you can purchase a single license. If you 
 
 Once you have purchased Expanse, you can download it from the asset store, and import it into your project. It should import to the folder `Assets/Expanse`.
 
-**Your project must be using HDRP version 2020.1.17 or higher.** Expanse may work with older versions of HDRP, but it hasn't been tested with them. **Expanse does not support the Universal or Builtin Render Pipelines.**
+**Your project must be using HDRP version 2020.3.7f1 or higher.** Expanse may work with older versions of HDRP, but it hasn't been tested with them. **Expanse does not support the Universal or Builtin Render Pipelines.**
 
 ## Preparing Your Project
 
@@ -24,7 +24,7 @@ There's not much to do in this department---in fact, there's really only two thi
 
 **Delete any sun or moon directional lights that you have set up.** Expanse will add new ones for you.
 
-> We'll be using the default HDRP project with an empty scene from `2020.1.17.f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.1.17 or higher**, should work.
+> We'll be using the default HDRP project with an empty scene from `2020.3.7f1` in this tutorial, but any project, **provided it's an HDRP project in version 2020.3.7f1 or higher**, should work.
 
 <div class="img-block">
     <div class="img-row">

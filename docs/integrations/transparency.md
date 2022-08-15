@@ -29,7 +29,7 @@ Follow these steps to implement this workaround.
 For convenience, I've created modified copies of the lit shaders for the following Unity versions:
 
 * 2020.1.17f1
-* 2020.3.7f1
+* 2020.3.7f1.7f1
 * 2021.2.0a16
 
 You ought to try out each of these and see if they work with your version of Unity. The way to do this is pretty straightforward.
