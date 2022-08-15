@@ -33,3 +33,11 @@ Amount of ozone gas. Increasing will make the sky more purple at sunset.
 #### Thickness
 **C# member variable:** `float m_thickness` \
 How thick and dense the atmosphere is. Good for alien planets.
+
+#### Smogginess
+**C# member variable:** `float m_smogginess` \
+How smoggy the atmosphere is. Upping this can be good for city environments.
+
+#### Smog Saturation
+**C# member variable:** `float m_smogSaturation` \
+How close the smog color is to the atmosphere color. Can help reintroduce some color to otherwise very grey smog.
