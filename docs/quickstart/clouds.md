@@ -579,7 +579,7 @@ Open up the multiple scattering tab and you'll see a few parameters. The one we'
     <div class="img-row">
         <div class="img-col"><img style="width:60%" src="img/quickstart/clouds/1-5-0/ms-foldout.jpg"/></div>
     </div>
-    <p>The multiple scattering foldout, with the receptive field parameter, the allow non-physical checkbox, and the bias parameter.</p>
+    <p>The multiple scattering foldout, with the receptive field parameter and the bias parameter.</p>
 </div>
 
 <div class="img-block">
@@ -591,7 +591,7 @@ Open up the multiple scattering tab and you'll see a few parameters. The one we'
     <p>Left: receptive field of 0, so no multiple scattering. Middle: receptive field of 1, what we'll use. Right: receptive field of 5, arguably too strong.</p>
 </div>
 
-Expanse also provides a few artistic overrides to the approximation, which become visible when you check the `Allow Non-Physical` checkbox. We'll do this, and up the parameter `Multiple Scattering Bias` to `0.015`. This will push a little more light into the creases of the clouds.
+Expanse also provides a few artistic overrides to the approximation. Let's up the parameter `Multiple Scattering Bias` to `0.015`. This will push a little more light into the creases of the clouds.
 
 <div class="img-block">
     <div class="img-row">

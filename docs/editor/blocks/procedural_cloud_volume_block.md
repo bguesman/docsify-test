@@ -524,38 +524,6 @@ As a way of approximating multiple scattering, Expanse integrates successive ord
     <p>Different multiple scattering receptive field values. Left: receptive field of 0, so no multiple scattering. Middle: receptive field of 1.5, what looks to be a pretty good value. Right: receptive field of 4, which looks like it might be a little too much.</p>
 </div>
 
-
-#### High Detail Multiple Scattering
-**C# member variable:** `bool m_highDetailMultipleScattering` \
-Controls how detailed the multiple scattering approximation is. If this is disabled, the multiple scattering will be smoother. If it's enabled, it'll be more detailed. There's no additional expense either way---it's a fully stylistic choice.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/low-detail-ms.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/high-detail-ms.jpg"/></div>
-    </div>
-    <p>Left: low detail multiple scattering. Right: high detail multiple scattering. The difference is subtle but noticeable.</p>
-</div>
-
-#### Phase Persistence
-**C# member variable:** `float m_phasePersistence` \
-How much the phase function affects the multiple scattering. Decreasing this will brighten the clouds on the opposite side of the sky as the sun.
-
-> The rationale for this parameter comes from the fact that higher orders of multiple scattering lose their directionality. The phase function grows closer to isotropic with each successive order of scattering. This parameter allows you to art-direct this physical phenomenon.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.5.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-1.jpg"/></div>
-    </div>
-    <p>Comparison of the effect of different phase persistences on the clouds at the back of the sky. Left: phase persistence of 0. The phase function is effectively bypassed when computing multiple scattering, so the clouds are bright. Middle: phase persistence of 0.5. The clouds are darker. Right: phase persistence of 1. The anisotropic phase function effects the multiple scattering in full force, and the clouds are very grey.</p>
-</div>
-
-#### Allow Non-Physical
-**C# member variable:** `bool m_allowNonPhysicalMultipleScattering` \
-Whether to show UI controls that allow you to tweak multiple scattering to be "non-physical". In actuality the entire multiple scattering algorithm is one big art-directable approximation, but some parameters are more in the spirit of being PBR than others.
-
 #### Multiple Scattering Multiplier
 **C# member variable:** `float m_multipleScatteringMultiplier` \
 Non-physically inspired way to increase the multiple scattering. Simply post-multiplies the result. First try adjusting the [receptive field](editor/blocks/procedural_cloud_volume_block.md?id=multiple-scattering-receptive-field), and only resort to this if you can't get that to work.

@@ -299,21 +299,6 @@ As a way of approximating multiple scattering, Expanse adjusts the self-shadowin
     <p>Different amounts of multiple scattering. Multiple scattering bias is set to 0.25 for all three examples. Left: none. Middle: 0.25. Right: 1.</p>
 </div>
 
-#### Phase Persistence
-**C# member variable:** `float m_phasePersistence` \
-How much the phase function affects the multiple scattering. Decreasing this will brighten the clouds on the opposite side of the sky as the sun.
-
-> The rationale for this parameter comes from the fact that higher orders of multiple scattering lose their directionality. The phase function grows closer to isotropic with each successive order of scattering. This parameter allows you to art-direct this physical phenomenon.
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-0.5.jpg"/></div>
-        <div class="img-col"><img src="img/procedural_cloud_volume/phase-persistence-1.jpg"/></div>
-    </div>
-    <p>Comparison of the effect of different phase persistences on the clouds at the back of the sky. Left: phase persistence of 0. The phase function is effectively bypassed when computing multiple scattering, so the clouds are bright. Middle: phase persistence of 0.5. The clouds are darker. Right: phase persistence of 1. The anisotropic phase function effects the multiple scattering in full force, and the clouds are very grey.</p>
-</div>
-
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------- INTERACTION -------------------------------------->
 <!---------------------------------------------------------------------------------------->
