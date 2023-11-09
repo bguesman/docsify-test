@@ -21,6 +21,7 @@
     - [Cloud Layer Interpolator](editor/blocks/cloud_layer_interpolator.md)
     - [Date Time Controller](editor/blocks/date_time_block.md)
     - [Fog Particle System](editor/blocks/fog_particle_system_block.md)
+    - [Lens Flare Attenuator](editor/blocks/lens_flare_attenuator.md)
     - [Night Sky](editor/blocks/night_sky_block.md)
     - [Planet](editor/blocks/planet_block.md)
     - [Procedural Cloud Plane](editor/blocks/procedural_cloud_plane_block.md)
