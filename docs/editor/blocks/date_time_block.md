@@ -16,8 +16,8 @@ Celestial body that will have the position of the sun. It's fine for this to be 
 Celestial body that will have the position of the soon. It's fine for this to be `None`, if you don't want this component to control the moon direction.
 
 #### Night Sky
-**C# member variable:** `Expanse.NightSky m_nightSky` \
-Night sky that will rotate as time passes. It's fine for this to be `None`, if you don't want the night sky to rotate.
+**C# member variable:** `GameObject m_nightSky` \
+Night sky game object that will rotate as time passes---typically whatever the parent ame object is for all of your [Skybox Layers](editor/blocks/skybox_layer.md). It's fine for this to be `None`, if you don't want the night sky to rotate.
 
 #### Night Sky Rotation Speed
 **C# member variable:** `Vector3 m_nightSkyRotationSpeed` \
