@@ -19,7 +19,7 @@ Color of light pollution coming from the planet.
         <div class="img-col"><img src="img/night_sky/lp_blue_30.jpg"/></div>
         <p></p>
     </div>
-    <p>Various light pollution settings. Left: no light pollution. Middle: orange light pollution at an intensity of 30 Lux, similar to what you might find in a dense suburb. Right: blue light pollution at an intensity of 30 Lux. Maybe what it could look like on a planet whose oceans are swimming with bioluminescent algae!</p>
+    <p>Various light pollution settings. Left: no light pollution. Middle: orange light pollution at an intensity of 30 Lux, similar to what you might find in a dense suburb. Right: blue light pollution at an intensity of 30 Lux. Maybe what it could look like on a planet whose oceans are swimming with bioluminescent algae.</p>
 </div>
 
 #### Scatter Intensity
