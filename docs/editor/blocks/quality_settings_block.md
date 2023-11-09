@@ -285,3 +285,35 @@ How many history frames to use when denoising fog. The higher this value is, the
 For something like an FPS, where the player moves relatively slow compared to volumetric shadow casters, you can probably set this pretty high. For a flight sim, you might have to set this lower to avoid ghosting.
 
 Note: when this is set to zero, temporal denoising is disabled.
+
+#### Fog Diffusion
+
+**C# member variable:** `bool m_fogDiffusion` \
+When enabled, turns on a pseudo-blur effect that attempts to model the diffusion of light from objects visible on-screen. You can think about is as a sort of screenspace global illumination approximation.
+
+The effect is fairly subtle, but it's easiest to see in the background of the following example.
+
+Enabling diffusion will result in a slight performance hit (around 0.2ms on a 2080Ti).
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/diffusion_off.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/diffusion_on.jpg"/></div>
+    </div>
+    <p>Left: diffusion disabled. Right: diffusion enabled.</p>
+</div>
+
+#### Fog Diffusion Amount
+
+**C# member variable:** `bool m_fogDiffusionAmount` \
+Radius of the diffusion effect. Higher values will result in a wider blur.
+
+#### Fog Diffusion Blend
+
+**C# member variable:** `bool m_fogDiffusionBlend` \
+Amount to blend diffused result with regular color buffer. 1 = fully diffuse, 0 = no diffusion. 0.5 is a reasonable default.
+
+#### Fog Diffusion Samples
+
+**C# member variable:** `bool m_fogDiffusionSamples` \
+How many samples to use when computing the blur effect. This will affect performance if you crank it too high.
