@@ -4,7 +4,7 @@
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/alone.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/clouds_1.jpg"/></div>
     </div>
 </div>
 

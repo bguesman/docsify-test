@@ -15,7 +15,7 @@ What about dynamic 3D clouds? Drag in a [Procedural Cloud Volume Component](edit
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/clouds_1.jpg"/></div>
     </div>
     <p>Procedural volumetric clouds, created by dragging a Procedural Cloud Volume Component onto an empty Game Object.</p>
 </div>

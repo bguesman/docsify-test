@@ -6,8 +6,8 @@ And then your character exclaims, "hmmm, looks like rain", and suddenly you real
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/beauclair.jpg"/></div>
-        <div class="img-col"><img src="img/1-4-0/valley-of-mist.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/clouds_1.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/highlands.jpg"/></div>
     </div>
     <p>How can we build a system that will allow us to transform the left image into the right image over the course of our game?</p>
 </div>

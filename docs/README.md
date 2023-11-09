@@ -54,35 +54,35 @@ And yes, **these are all rendered in realtime**!
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-5-0/alone-night.jpg"/></div>
-        <div class="img-col"><img src="img/1-4-0/up-close.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/alien.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/overhead.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-5-0/penumbra.jpg"/></div>
-        <div class="img-col"><img src="img/1-5-0/valley-of-mist.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/moon.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/nebula.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-5-0/mallow.jpg"/></div>
-        <div class="img-col"><img src="img/1-5-0/ocean.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/clouds_1.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/cp2077.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/celestial_bodies/moon.jpg"/></div>
-        <div class="img-col"><img src="img/atmosphere/with_isotropic_fog.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/flare.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/forest_day.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/purple-moon.jpg"/></div>
-        <div class="img-col"><img src="img/1-5-0/jupiter.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/highlands.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/mars.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/magick.jpg"/></div>
-        <div class="img-col"><img src="img/1-4-0/city-volumetric.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/behind.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/big_cloud.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/stars/banner_2.jpg"/></div>
-        <div class="img-col"><img src="img/stars/texture_stars.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/windmill.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/stars_diffusion.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-5-0/multiple.jpg"/></div>
-        <div class="img-col"><img src="img/planet/earth_night.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/storm.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/beeg_pink.jpg"/></div>
     </div>
 </div>

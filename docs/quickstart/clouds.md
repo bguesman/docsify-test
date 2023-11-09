@@ -796,11 +796,11 @@ Below are some of the other results you can get with Expanse's clouds---for insp
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/alone.jpg"/></div>
-        <div class="img-col"><img src="img/1-4-0/up-close.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/clouds_1.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/overhead.jpg"/></div>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/1-4-0/mallow-2.jpg"/></div>
-        <div class="img-col"><img src="img/1-4-0/the-ocean.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/big_cloud.jpg"/></div>
+        <div class="img-col"><img src="img/1-7-0/moon.jpg"/></div>
     </div>
 </div>
