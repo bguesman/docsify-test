@@ -343,7 +343,7 @@ Now, we've got a sky with an ozone layer! You can play around with the density p
 
 ### Aerosol Layer
 
-Let's now move on to creating our aerosol layer. Once again, this is mostly just a matter of transferring our table values to another layer block we'll create.
+Let's now move on to creating our aerosol layer. Once again, this is mostly just a matter of transferring our table values to another layer we'll create.
 
 |Layer |Extinction Coeff. |Scattering Coeff. | Density Dist. | Density | Thickness | Height | Phase Func. | Anisotropy |
 |----- |----------------- |----------------- |-------------- |-------- |---------- |------- |------------ |----------- |

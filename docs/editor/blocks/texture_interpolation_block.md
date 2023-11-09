@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.TextureInterpolator` in `blocks/TextureInterpolator.cs`
 
-Simple block that will interpolate between 2 generated textures (`BaseTextureGenerator`'s). Exposes a function `GetTexture()` that returns an `RTHandle` to the interpolated texture.
+Simple component that will interpolate between 2 generated textures (`BaseTextureGenerator`'s). Exposes a function `GetTexture()` that returns an `RTHandle` to the interpolated texture.
 
 #### Texture A
 **C# member variable:** `BaseTextureGenerator m_textureA` \

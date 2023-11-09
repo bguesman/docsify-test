@@ -8,7 +8,7 @@
     </div>
 </div>
 
-This block is what you'll use to render any planet, star, or other spherical object in the sky.
+This component is what you'll use to render any planet, star, or other spherical object in the sky.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->

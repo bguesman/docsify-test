@@ -3,17 +3,17 @@
 
 > Implemented as class `Expanse.DateTimeController` in `blocks/DateTimeController.cs`
 
-This block implements a physical model of the sun/moon position, based on a specified time UTC. It'll also rotate the star texture if you want, using a non-physical strategy. It's best to think of this block more like a high-level controller for other blocks---you give it a time, and it sets the direction on specified sun/moon Celestial Bodies.
+This component implements a physical model of the sun/moon position, based on a specified time UTC. It'll also rotate the star texture if you want, using a non-physical strategy. It's best to think of this component more like a high-level controller for other components---you give it a time, and it sets the direction on specified sun/moon Celestial Bodies.
 
-**Important to note:** this block exposes two functions `SetDateTimeUTC()`, and `SetDateTimeLocal()`, that both accept a C# `DateTime` object. The first one will set the time in UTC, disregarding the block's UTC offset. The second will apply the offset before setting the time. If you are maintaining your game's time as a DateTime object, these are useful.
+**Important to note:** this component exposes two functions `SetDateTimeUTC()`, and `SetDateTimeLocal()`, that both accept a C# `DateTime` object. The first one will set the time in UTC, disregarding the component's UTC offset. The second will apply the offset before setting the time. If you are maintaining your game's time as a DateTime object, these are useful.
 
 #### Sun
 **C# member variable:** `Expanse.CelestialBody m_sun` \
-Celestial body that will have the position of the sun. It's fine for this to be `None`, if you don't want this block to control the sun direction.
+Celestial body that will have the position of the sun. It's fine for this to be `None`, if you don't want this component to control the sun direction.
 
 #### Moon
 **C# member variable:** `Expanse.CelestialBody m_moon` \
-Celestial body that will have the position of the soon. It's fine for this to be `None`, if you don't want this block to control the moon direction.
+Celestial body that will have the position of the soon. It's fine for this to be `None`, if you don't want this component to control the moon direction.
 
 #### Night Sky
 **C# member variable:** `Expanse.NightSky m_nightSky` \
@@ -39,7 +39,7 @@ It's crucial that this corresponds approximately to your latitude/longitude coor
 
 #### Time Local
 **C# member variable:** `SunTime m_timeLocal` \
-Local time, according to the UTC offset. The `SunTime` struct is a custom serializable class that's a standin for C#'s (non-serializable) `DateTime`. If you want to control this block via a `DateTime`, you can use this block's public `SetDateTimeLocal()` or `SetDateTimeUTC()` function, which both accept a `DateTime` object.
+Local time, according to the UTC offset. The `SunTime` struct is a custom serializable class that's a standin for C#'s (non-serializable) `DateTime`. If you want to control this component via a `DateTime`, you can use this component's public `SetDateTimeLocal()` or `SetDateTimeUTC()` function, which both accept a `DateTime` object.
 
 If you choose to use the `SunTime` class directly, here is the specification.
 ```

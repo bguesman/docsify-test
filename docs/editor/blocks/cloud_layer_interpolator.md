@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.CloudLayerInterpolator` in `blocks/CloudLayerInterpolator.cs`
 
-This block allows you to smoothly and efficiently interpolate between different pre-authored cloud presets. For a lighter, more intuitive overview of cloud preset interpolation, see the tutorial [Interpolating Cloudscapes For Weather and Beyond](/quickstart/interpolation).
+This component allows you to smoothly and efficiently interpolate between different pre-authored cloud presets. For a lighter, more intuitive overview of cloud preset interpolation, see the tutorial [Interpolating Cloudscapes For Weather and Beyond](/quickstart/interpolation).
 
 ### Load Function
 
@@ -94,7 +94,7 @@ This is the cloud layer that the interpolator will use to actually render the cl
 
 #### Interpolated Noise
 **C# member variable:** `Expanse.TextureInterpolator m_<noise layer>Interpolated` \
-Each layer of noise that the clouds use (Coverage, Base, Detail, etc.) requires a `TextureInterpolator`. This block is responsible for blending between the current and target noise preset.
+Each layer of noise that the clouds use (Coverage, Base, Detail, etc.) requires a `TextureInterpolator`. This component is responsible for blending between the current and target noise preset.
 
 #### Current and Target Noise
 **C# member variable:** `Expanse.ProceduralNoiseGenerator m_<noise layer>Current` and `Expanse.ProceduralNoiseGenerator m_<noise layer>Target` \

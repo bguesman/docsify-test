@@ -60,7 +60,7 @@ This should get rid of the warnings.
 
 **Q: The sky/clouds are bleeding through my geometry!**
 
-**A:** Chances are you need to increase the [clip fade](/editor/blocks/planet_block?id=clip-fade) in the planet block.
+**A:** Chances are you need to increase the [clip fade](/editor/blocks/planet_block?id=clip-fade) in the planet component.
 
 **Q: I'm getting hitching when I move the sun around, and it says there's some jobs about GI preprocessing/light baking happening.**
 

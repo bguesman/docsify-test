@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.Planet` in `blocks/Planet.cs`
 
-This block exposes the settings for the ground planet that Expanse's atmosphere and clouds are anchored around.
+This component exposes the settings for the ground planet that Expanse's atmosphere and clouds are anchored around.
 
 <!---------------------------------------------------------------------------------------->
 <!--------------------------------------- MODELING --------------------------------------->
@@ -81,4 +81,4 @@ The rotation of the planet textures as euler angles. This won't do anything to l
 <!--------------------------------------- METADATA --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 ### Metadata
-These parameters are metadata or references to components/objects that the block uses.
+These parameters are metadata or references to components/objects that the component uses.

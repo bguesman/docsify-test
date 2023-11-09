@@ -8,7 +8,7 @@
     </div>
 </div>
 
-Adding this block to your scene will create a cloud plane whose density field is controlled by a combination of procedural noises and, optionally, static textures.
+Adding this component to your scene will create a cloud plane whose density field is controlled by a combination of procedural noises and, optionally, static textures.
 
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- PRESETS --------------------------------------->

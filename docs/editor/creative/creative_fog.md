@@ -8,10 +8,10 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with [Atmosphere Layers](editor/blocks/atmosphere_layer_block.md).
+This component is a more intuitive alternative to directly working with [Atmosphere Layers](editor/blocks/atmosphere_layer_block.md).
 
-#### Fog Block
-**C# member variable:** `Expanse.AtmosphereLayer m_fogBlock` \
+#### Fog Layer
+**C# member variable:** `Expanse.AtmosphereLayer m_fogLayer` \
 [Atmosphere Layer](editor/blocks/atmosphere_layer_block.md) that this creative fog controls. To set this up, you can create an Atmosphere Layer and set it to the preset "Screenspace Aerosols".
 
 #### Color

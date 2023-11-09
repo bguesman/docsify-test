@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.NightSky` in `blocks/NightSky.cs`
 
-This block exposes settings that allow you to tweak the look of effects specific to the night sky---specifically light pollution and artistic scattering overrides.
+This component exposes settings that allow you to tweak the look of effects specific to the night sky---specifically light pollution and artistic scattering overrides.
 
 #### Light Pollution Intensity
 **C# member variable:** `float m_lightPollutionIntensity` \

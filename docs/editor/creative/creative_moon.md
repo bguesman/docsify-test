@@ -8,9 +8,9 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with [Celestial Bodies](editor/blocks/celestial_body_block.md).
+This component is a more intuitive alternative to directly working with [Celestial Bodies](editor/blocks/celestial_body_block.md).
 
-#### Moon Block
+#### Moon
 
 **C# member variable:** `Expanse.CelestialBodyBlock m_moonBlock` \
 [Celestial Body](editor/blocks/celestial_body_block.md) that this creative moon controls. To set this up, you can create a Celestial Body and set it to the preset "Earth Moon".
@@ -20,10 +20,10 @@ This block is a more intuitive alternative to directly working with [Celestial B
 **C# member variable:** `bool m_useTimeOfDay` \
 Whether or not to use time of day to control the moon's direction.
 
-#### Date Time Block
+#### Date Time
 
 **C# member variable:** `Expanse.DateTimeBlock m_dateTimeBlock` \
-[Date Time Block](editor/blocks/date_time_block.md) that will control this moon, if this moon is set to use time of day for its direction.
+[Date Time Controller](editor/blocks/date_time_block.md) that will control this moon, if this moon is set to use time of day for its direction.
 
 #### Direction
 

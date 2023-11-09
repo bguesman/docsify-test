@@ -2,7 +2,7 @@
 
 > Implemented as class `Expanse.QualitySettings` in `blocks/QualitySettings.cs`
 
-This block exposes general global quality settings for the atmosphere, clouds, and overall rendering algorithm. Other non-global quality settings, in particular for volumetric clouds, can be found on block instances.
+This component exposes general global quality settings for the atmosphere, clouds, and overall rendering algorithm. Other non-global quality settings, in particular for volumetric clouds, can be found on component instances.
 
 <!---------------------------------------------------------------------------------------->
 <!---------------------------------------- GENERAL --------------------------------------->
@@ -55,14 +55,14 @@ Whether or not to render the planet into the ambient reflection cubemap. Can be 
 
 ### Clouds
 
-These parameters pertain to global cloud quality. Other quality settings can be set locally on each cloud block you use.
+These parameters pertain to global cloud quality. Other quality settings can be set locally on each cloud component you use.
 
 #### Cloud Subresolution
 
 **C# member variable:** `float m_cloudSubresolution` \
 Specifies resolution to render clouds at, as a function of the camera resolution. `1` means full resolution. `0.5` means half the screen width and height, so, technically, quarter resolution.
 
-Depending on your needs, you may choose to use this or reprojection (specified in each cloud block), to meet your performance requirements. However, be aware that rendering clouds at a lower resolution will result in a visual downgrade.
+Depending on your needs, you may choose to use this or reprojection (specified in each cloud component), to meet your performance requirements. However, be aware that rendering clouds at a lower resolution will result in a visual downgrade.
 
 This parameter can be particularly useful for 4K support, where you may want to render your geometry in 4K, but render the clouds in HD to keep performance reasonable.
 

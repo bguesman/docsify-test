@@ -6,7 +6,7 @@ In 1.3.0, the **Universal Cloud Layer** specification was introduced. This is a 
 * GPU-mirrorable with minimal effort (all `.hlsl` classes are auto-generated)
 * Natively interpolable
 
-All Expanse cloud layers---at the time of writing this, the [procedural cloud volume block](/editor/blocks/procedural_cloud_volume_block), [procedural cloud plane block](/editor/blocks/procedural_cloud_plane_block), and [texture cloud plane block](/editor/blocks/texture_cloud_plane_block)---conform to this specification by nature of extending the `BaseCloudLayerBlock.cs` class. This class has the following two functions:
+All Expanse cloud layers---at the time of writing this, the [procedural cloud volume component](/editor/blocks/procedural_cloud_volume_block), [procedural cloud plane component](/editor/blocks/procedural_cloud_plane_block), and [texture cloud plane component](/editor/blocks/texture_cloud_plane_block)---conform to this specification by nature of extending the `BaseCloudLayer.cs` class. This class has the following two functions:
 
 ```
 /**

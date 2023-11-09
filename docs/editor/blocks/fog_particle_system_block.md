@@ -8,7 +8,7 @@
     </div>
 </div>
 
-This block attaches to a Unity particle system, to allow particles from the system to drive the density of an [Expanse fog layer](/editor/blocks/atmosphere_layer_block?id=fog-distributions).
+This component attaches to a Unity particle system, to allow particles from the system to drive the density of an [Expanse fog layer](/editor/blocks/atmosphere_layer_block?id=fog-distributions).
 
 > Fog particles are currently designated as experimental, because their performance is not quite production-ready.
 

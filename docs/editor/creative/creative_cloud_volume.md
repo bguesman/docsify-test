@@ -8,13 +8,13 @@
     </div>
 </div>
 
-This block is a more intuitive alternative to directly working with the [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md).
+This component is a more intuitive alternative to directly working with the [Procedural Cloud Volume](editor/blocks/procedural_cloud_volume_block.md).
 
 ## Backing Components
 
 #### Cloud Volume
 **C# member variable:** `Expanse.ProceduralCloudVolumeBlock m_cloudVolume` \
-[Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md) that this creative cloud volume controls.
+[Procedural Cloud Volume](editor/blocks/procedural_cloud_volume_block.md) that this creative cloud volume controls.
 
 ## Preset Management
 

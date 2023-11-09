@@ -102,7 +102,7 @@ I'll keep updating the list as more interesting use cases crop up.
 
 So you can see that the basic design is pretty simple---it took maybe two paragraphs to describe---but I think it could be useful to go through a little of the motivation behind why it has to be the way it is. Some of you may find it interesting. Some of you might find it dull. Some of you might say "this is super obvious, why write all of this?". Whatever, we're doing it.
 
-Expanse's volumetric cloud layers are stateful objects that are parameterized entirely by the settings you specify in a [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md). However, because the primary reason Expanse exists is to render the sky efficiently, **all of the actual volumetric data for the clouds lives on the GPU**.
+Expanse's volumetric cloud layers are stateful objects that are parameterized entirely by the settings you specify in a [Procedural Cloud Volume](editor/blocks/procedural_cloud_volume_block.md). However, because the primary reason Expanse exists is to render the sky efficiently, **all of the actual volumetric data for the clouds lives on the GPU**.
 
 This is all well and good when we're rendering them. After all, we render things on the GPU. The trouble comes when we want to make that data accessible to things that run on the CPU, like C# scripts. We can't just copy it all over from the GPU to the CPU, because that would be extremely slow, and we'd have to write an entire library for mirroring all of the sampling operations we have on the GPU on the CPU. So what can we do?
 

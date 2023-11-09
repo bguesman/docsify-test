@@ -1,6 +1,6 @@
 # Overview
 
-Expanse's code structure can be broken up into 3 layers: the **Control Blocks**, **Render Settings**, and **Renderer**. In the following diagram, data flows from left to right along the arrows from the user and the user's scripts all the way to the renderer, which spits out Expanse's image.
+Expanse's code structure can be broken up into 3 layers: the **Control Components**, **Render Settings**, and **Renderer**. In the following diagram, data flows from left to right along the arrows from the user and the user's scripts all the way to the renderer, which spits out Expanse's image.
 
 
 <div class="img-block">
@@ -9,9 +9,9 @@ Expanse's code structure can be broken up into 3 layers: the **Control Blocks**,
     </div>
 </div>
 
-**Control Blocks** are C# scripts that are essentially modular containers for Expanse's settings. These are the things that you interact with when you're working with Expanse in the Unity Editor. If you want to write scripts to control Expanse programmatically, in all likelihood you want to interface with control blocks.
+**Control Components** are C# scripts that are essentially modular containers for Expanse's settings. These are the things that you interact with when you're working with Expanse in the Unity Editor. If you want to write scripts to control Expanse programmatically, in all likelihood you want to interface with control components.
 
-**Render Settings** refers to the portion of Expanse that's responsible for pulling data from Control Blocks and mirroring it on the GPU, for the various renderers to access when creating the final images. For instance, every `AtmosphereLayerBlock` registers itself with the `AtmosphereRenderSettings.cs` class, which translates all layers that are registered into GPU-mirrorable structs that are bound globally for shaders to access.
+**Render Settings** refers to the portion of Expanse that's responsible for pulling data from Control Components and mirroring it on the GPU, for the various renderers to access when creating the final images. For instance, every `AtmosphereLayer` registers itself with the `AtmosphereRenderSettings.cs` class, which translates all layers that are registered into GPU-mirrorable structs that are bound globally for shaders to access.
 
 These classes typically take the form `<some name>RenderSettings.cs`---i.e. `LightingRenderSettings.cs`---and they have auto-generated `.hlsl` counterparts (the GPU-mirrored representations of the structs they define). Chances are you will not ever have to work with these classes, unless perhaps you're doing something extremely custom.
 
@@ -43,20 +43,20 @@ void Update() {
 ```
 
 In fact, the general pattern for automating Expanse's parameters programmatically is:
-* Create a MonoBehaviour with a member variable to hold the Control Block you want to automate.
+* Create a MonoBehaviour with a member variable to hold the Control Component you want to automate.
 * Adjust whatever parameters you want to automate in the update loop.
-* All public parameters are documented in each Control Block documentation page. For instance, here's the documentation for [Procedural Cloud Volume Block](editor/blocks/procedural_cloud_volume_block.md).
+* All public parameters are documented in each Control Component documentation page. For instance, here's the documentation for [Procedural Cloud Volume](editor/blocks/procedural_cloud_volume_block.md).
 
 ## Clobbering
 
-Sometimes, you may create a script to automate a block and notice that it doesn't change anything. In this case, it's possible that your script's updates are being clobbered by another script editing the same parameters.
+Sometimes, you may create a script to animate a component and notice that it doesn't change anything. In this case, it's possible that your script's updates are being clobbered by another script editing the same parameters.
 
 As an example, say you're working with the Creative UI. You write a script to adjust the Procedural Cloud Volume Parameter `m_multipleScatteringAmount`. You notice that this doesn't do anything. This is because the Creative Cloud Volume **also tries to adjust that parameter**. It and your script are competing for access to `m_multipleScatteringAmount` and only one of you will win.
 
-The solution in this case is to either switch to adjusting one of the meta-parameters on the Creative Cloud Volume, like `m_shadow`, or ditch the Creative Cloud Volume altogether and work directly with the Procedural Cloud Volume Block.
+The solution in this case is to either switch to adjusting one of the meta-parameters on the Creative Cloud Volume, like `m_shadow`, or ditch the Creative Cloud Volume altogether and work directly with the Procedural Cloud Volume.
 
 ## Further Examples
 
-For more examples, check out the source for the Creative UI---it's more or less a collection of scripts that interface with the control blocks. You can also take a look at `DateTimeBlock.cs`, which similarly interfaces with control blocks.
+For more examples, check out the source for the Creative UI---it's more or less a collection of scripts that interface with the control components. You can also take a look at `DateTimeController.cs`, which similarly interfaces with control components.
 
-**Do not** reference the Control Blocks directly. They are special objects that are ultimately mirrored on the GPU in one form or another and thus are not good references for writing your own scripts.
+**Do not** reference the Control Components directly. They are special objects that are ultimately mirrored on the GPU in one form or another and thus are not good references for writing your own scripts.
