@@ -698,7 +698,7 @@ If we place a piece of geometry under the clouds and enable the `Cast Shadows` c
     <p>Left: cloud shadows with max shadow intensity at 0.3. Right: cloud shadows with max shadow intensity at 1.</p>
 </div>
 
-You might also notice that if you crank the light pollution on the [Night Sky](editor/blocks/night_sky_block.md), the clouds can end up receiving too much light. You can fix this by adjusting the `Light Pollution Dimmer` parameter.
+You might also notice that if you crank the light pollution on the [Night Sky](editor/blocks/global_settings.md?id=light-pollution-intensity), the clouds can end up receiving too much light. You can fix this by adjusting the `Light Pollution Dimmer` parameter.
 
 <div class="img-block">
     <div class="img-row">
@@ -775,7 +775,7 @@ One thing you may notice is some nasty flickering pixel-looking artifacts. You c
 Reprojection isn't perfect---when used with TAA, it can make your clouds look a bit blurry. It's also possible to see artifacts if your clouds are moving very fast. The best thing to do is only use as many reprojection frames as you need. If you can get away with 2 and still hit your performance requirements, do it.
 
 ### Step 6 (Optional): Resolution
-If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Quality Settings`](/editor/blocks/quality_settings_block?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result. The exception to this is if you decide to render in 4K, at which point rendering clouds at 1080p (half resolution) is recommended.
+If you've tried all of these things and still cannot get your framerate to where you want it to be, you can tweak the [global cloud subresolution parameter in your `Global Settings`](/editor/blocks/global_settings?id=cloud-subresolution). However, **this should be your last resort**, as it will really detract from your visual result. The exception to this is if you decide to render in 4K, at which point rendering clouds at 1080p (half resolution) is recommended.
 
 Here's a comparison between our optimized clouds and our non-optimized clouds. The left image takes 3.5 ms to render. The right image takes only 0.75 ms!
 <div class="img-block">

@@ -325,7 +325,7 @@ Which method you want to use can be set with the [Shadowmap Volumetric Shadows](
 
 Only true volumetric shadows are supported for point and spot lights.
 
-A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/quality_settings_block?id=screenspace-depth-downscale) in your [quality settings](/editor/blocks/quality_settings_block). This is a global setting, so it cannot be set per layer.
+A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/global_settings?id=screenspace-depth-downscale) in your [global settings](/editor/blocks/global_settings). This is a global setting, so it cannot be set per layer.
 
 For [regular atmosphere layers](/editor/blocks/atmosphere_layer_block?id=regular-distributions), two settings ([occlusion bias](/editor/blocks/atmosphere_layer_block?id=occlusion-bias) and [occlusion spread](/editor/blocks/atmosphere_layer_block?id=occlusion-spread)) are exposed to help with scattering bleeding through geometry in an unwanted way.
 

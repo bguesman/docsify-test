@@ -1,39 +1,78 @@
-# Quality Settings
+# Global Settings
 
-> Implemented as class `Expanse.QualitySettings` in `blocks/QualitySettings.cs`
+> Implemented as class `Expanse.GlobalSettings` in `blocks/GlobalSettings.cs`
 
-This component exposes general global quality settings for the atmosphere, clouds, and overall rendering algorithm. Other non-global quality settings, in particular for volumetric clouds, can be found on component instances.
+This component exposes general global settings for the atmosphere, clouds, and overall rendering algorithm, including quality/performance tradeoff settings. Other non-global quality settings, in particular for volumetric clouds, can be found on component instances.
+
+> NOTE: You must have a `GlobalSettings` component in your scene for Expanse to function.
 
 <!---------------------------------------------------------------------------------------->
-<!---------------------------------------- GENERAL --------------------------------------->
+<!----------------------------------------- PLANET --------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### General
+### Planet
 
-These are general quality parameters, relating to post-process effects like anti-aliasing.
+These are parameters that pertain to the rendering and dimensions of the planet that Expanse's atmosphere/clouds are centered around.
 
-#### Anti Aliasing
+#### Planet Radius
+**C# member variable:** `float m_planetRadius` \
+The radius of the planet, in world units.
 
-**C# member variable:** `bool m_antiAlias` \
-Whether or not to use MSAA 8x anti-aliasing. MSAA is conditional, only multisampling on the edges of celestial bodies and the ground, so enabling this does not cause much of a performance hit.
+#### Atmosphere Thickness
+**C# member variable:** `float m_atmosphereThickness` \
+The total thickness of the planet's atmosphere, in world units. This places an upper limit on the thickness of the atmosphere layers.
 
-#### Dithering
+#### Planet Origin Offset
+**C# member variable:** `Vector3 m_planetOriginOffset` \
+The planet origin, in world units, but specified as an offset from the position (0, -radius, 0), since that origin is much more convenient. Useful for implementing a floating origin.
 
-**C# member variable:** `bool m_dither` \
-Whether or not to use dithering to reduce color banding. Since expanse computes everything in floating point HDR values, this is more of a de-band operation than a true dither, and you may be better off using a dither post-processing step on your camera.
+#### Aerial Perspective Scale
+**C# member variable:** `float m_aerialPerspectiveScale` \
+Multiplier on depth used to sample aerial perspective LUT. Increasing this above 1 is non-physical, but it can help imbue small scenes with a better sense of scale.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quality_settings/no_dither.jpg"/></div>
-        <div class="img-col"><img src="img/quality_settings/dither.jpg"/></div>
+        <div class="img-col"><img src="img/planet/ap-scale-1.jpg"/></div>
+        <div class="img-col"><img src="img/planet/ap-scale-30.jpg"/></div>
     </div>
-    <p>Left: without dithering. Right: with dithering. The effect is challenging to see in these images, but fairly obvious in-engine.</p>
+    <p>Left: aerial perspective scale of 1 (physically accurate). Right: aerial perspective scale of 30. This is very exaggerated, but nice looking.</p>
 </div>
 
-#### Night Sky Reflections
+#### Clip Fade
+**C# member variable:** `float m_clipFade` \
+How quickly to fade from geometry to sky as geometry approaches the far clip plane. Useful to tweak for flight sims, but otherwise, the default value of 0.35 is pretty good.
 
-**C# member variable:** `bool m_nightSkyReflections` \
-Whether or not to render the night sky (stars and nebulae) into the ambient reflection cubemap.
+#### Ground Albedo Texture
+**C# member variable:** `Cubemap m_groundAlbedoTexture` \
+The ground albedo, specied as a cubemap. The ground is modeled as a Lambertian (completely diffuse) reflector. If no texture is specified, the color of the ground will just be the ground tint.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/planet/earth_day.jpg"/></div>
+    </div>
+    <p>An example of a ground albedo texture, in this case, Earth's.</p>
+</div>
+
+#### Ground Tint
+**C# member variable:** `Color m_groundTint` \
+A color tint to the ground texture. Perfect grey, `(127, 127, 127)`, specifies no tint. If there is no ground texture specified, this is just the color of the ground.
+
+#### Ground Emission Texture
+**C# member variable:** `Cubemap m_groundEmissionTexture` \
+The ground emission as a cubemap texture. Useful for modeling things like city lights. Has no effect on the sky. See \"Light Pollution\" for a way of modeling an emissive ground's effect on the atmosphere.
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/planet/earth_night.jpg"/></div>
+    </div>
+    <p>Using a combination of a ground albedo texture and a ground emission texture can create some pretty cool effects!</p>
+</div>
+
+#### Ground Emission Multiplier
+**C# member variable:** `float m_groundEmissionMultiplier` \
+An intensity multiplier on the ground emission texture.
+
+#### Rotation
+**C# member variable:** `Vector3 m_planetRotation` \
+The rotation of the planet textures as euler angles. This won't do anything to light directions, star rotations, etc. It is purely for rotating the planet's albedo and emissive textures.
 
 #### Planet Reflections
 
@@ -50,10 +89,98 @@ Whether or not to render the planet into the ambient reflection cubemap. Can be 
 </div>
 
 <!---------------------------------------------------------------------------------------->
+<!--------------------------------------- NIGHT SKY -------------------------------------->
+<!---------------------------------------------------------------------------------------->
+
+### Night Sky
+
+These parameters allow you to tweak the look of the night sky, via an artistic scattering override and light pollution.
+
+#### Light Pollution Intensity
+**C# member variable:** `float m_lightPollutionIntensity` \
+Intensity of light pollution coming from the planet, in Lux.
+
+#### Light Pollution Tint
+**C# member variable:** `Color m_lightPollutionTint` \
+Color of light pollution coming from the planet.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/night_sky/no_lp.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/lp_orange_30.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/lp_blue_30.jpg"/></div>
+        <p></p>
+    </div>
+    <p>Various light pollution settings. Left: no light pollution. Middle: orange light pollution at an intensity of 30 Lux, similar to what you might find in a dense suburb. Right: blue light pollution at an intensity of 30 Lux. Maybe what it could look like on a planet whose oceans are swimming with bioluminescent algae.</p>
+</div>
+
+#### Scatter Intensity
+**C# member variable:** `float m_scatterIntensity` \
+Expanse computes sky scattering using the average color of the sky texture. There are so many light sources in the night sky (stars) that this is really the only computationally tractable option. However, this can sometimes result in scattering that's too intense, or not intense enough, depending on your use case. This parameter is an artistic override to help mitigate that issue.
+
+To emulate reality, it's probably best to keep this value very low. Stars are very dim and don't contribute much to the sky color at all, compared to the moon.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/night_sky/no_night_scatter.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/scatter_0.3.jpg"/></div>
+        <div class="img-col"><img src="img/night_sky/scatter_1.jpg"/></div>
+        <p></p>
+    </div>
+    <p>Various scatter intensities. Left: scatter intensity 0. Middle: scatter intensity 0.3. Right: scatter intensity 1.</p>
+</div>
+
+#### Scatter Tint
+**C# member variable:** `Color m_scatterTint` \
+An additional tint applied on top of the night sky tint, but only to the scattering. This is useful as an artistsic override for if the average color of your sky texture doesn't quite get you the scattering behavior you want. For instance, you may want the scattering to be bluer.
+
+#### Night Sky Reflections
+
+**C# member variable:** `bool m_nightSkyReflections` \
+Whether or not to render the night sky (stars and nebulae) into the ambient reflection cubemap.
+
+<!---------------------------------------------------------------------------------------->
+<!----------------------------------------- CAMERA --------------------------------------->
+<!---------------------------------------------------------------------------------------->
+
+### Camera
+
+This section is concerned with tracking some basic scene info about the camera in use. Chances are you won't have to touch this.
+
+#### Ambient Probe Camera
+**C# member variable:** `Camera m_ambientProbeCamera` \
+Camera that Expanse's ambient probe is rendered for. Defaults to the scene's main camera.
+
+#### Prefer Editor Camera
+**C# member variable:** `bool m_preferEditorCamera` \
+Prefer to render the ambient probe relative to the editor camera if both the editor and main camera are rendering. Chances are you want this enabled.
+
+<!---------------------------------------------------------------------------------------->
+<!---------------------------------------- GENERAL --------------------------------------->
+<!---------------------------------------------------------------------------------------->
+
+### General Quality
+
+These are general quality parameters, relating to post-process effects like anti-aliasing.
+
+#### Dithering
+
+**C# member variable:** `bool m_dither` \
+Whether or not to use dithering to reduce color banding. Since expanse computes everything in floating point HDR values, this is more of a de-band operation than a true dither, and you may be better off using a dither post-processing step on your camera.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quality_settings/no_dither.jpg"/></div>
+        <div class="img-col"><img src="img/quality_settings/dither.jpg"/></div>
+    </div>
+    <p>Left: without dithering. Right: with dithering. The effect is challenging to see in these images, but fairly obvious in-engine.</p>
+</div>
+
+<!---------------------------------------------------------------------------------------->
 <!---------------------------------------- CLOUDS ---------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Clouds
+### Clouds Quality
 
 These parameters pertain to global cloud quality. Other quality settings can be set locally on each cloud component you use.
 
@@ -113,7 +240,7 @@ Given that cloud reflections are enabled, this parameter amortizes their computa
 <!-------------------------------------- ATMOSPHERE -------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Atmosphere
+### Atmosphere Quality
 
 These parameters pertain to global atmosphere quality.
 
@@ -228,7 +355,7 @@ How far out from the camera to render aerial perspective to. Generally a value o
 <!------------------------------------------ FOG ----------------------------------------->
 <!---------------------------------------------------------------------------------------->
 
-### Fog
+### Fog Quality
 
 These parameters pertain to global fog quality---so, screenspace atmosphere layers.
 

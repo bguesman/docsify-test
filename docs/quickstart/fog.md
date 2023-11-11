@@ -172,7 +172,7 @@ However, once inside the cloud layer, the reprojection strategy that Expanse use
     <p>Artifacts introduced by reprojection, visible at the edges of objects.</p>
 </div>
 
-This is an active area of improvement that we are working on. At the moment performance can be improved by rendering clouds at [half or quarter resolution](/editor/blocks/quality_settings_block?id=cloud-subresolution), and also by [disabling cloud self-shadowing](/editor/blocks/procedural_cloud_volume_block?id=self-shadowing). All of this is to say that, while this is possible with Expanse, it can take some effort to get it to work right and be performant. So instead, we'll explore a simpler strategy for modeling rain fog. We'll use this image of London on a really foggy day to base our solution on.
+This is an active area of improvement that we are working on. At the moment performance can be improved by rendering clouds at [half or quarter resolution](/editor/blocks/global_settings?id=cloud-subresolution), and also by [disabling cloud self-shadowing](/editor/blocks/procedural_cloud_volume_block?id=self-shadowing). All of this is to say that, while this is possible with Expanse, it can take some effort to get it to work right and be performant. So instead, we'll explore a simpler strategy for modeling rain fog. We'll use this image of London on a really foggy day to base our solution on.
 <div class="img-block">
     <div class="img-row">
         <div class="img-col"><img src="https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2"/></div>

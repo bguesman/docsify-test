@@ -43,14 +43,12 @@ Here's a list of all the big features that Expanse supports. There are many thin
 * Procedural physically-based, interpolable 2D clouds (a more performant alternative to the volumetric clouds).
 * Procedural nebulae.
 * Procedural star fields.
-* Support for up to eight celestial bodies that illuminate the clouds and atmosphere, and cast cloud shadows. This can be suns, planets, rocky moons, gas giants, etc.
+* Support for up to eight celestial bodies that illuminate the clouds and atmosphere, and cast cloud shadows. These can be suns, planets, rocky moons, gas giants, etc.
 * Option to use preauthored textures wherever procedurally-generated textures are used.
 
 ## Eye Candy
 
-If you want to get an idea of what's possible with Expanse, here's a few examples to get your imagination running. Stylized, realistic---it's all possible with Expanse!
-
-And yes, **these are all rendered in realtime**!
+If you want to get an idea of what's possible with Expanse, here's a few examples to get your imagination running.
 
 <div class="img-block">
     <div class="img-row">

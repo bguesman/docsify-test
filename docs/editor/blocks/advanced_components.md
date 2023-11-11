@@ -24,11 +24,4 @@ Of course, it's not quite this simple---for more details on how to build your fi
 
 Under this heading, you'll find detailed descriptions of each component's parameters, with visual examples of what these parameters do. These pages are best used as a reference, when you find yourself asking something like *"What the f\**** *is Media Zero Threshold?"*
 
-As a note: components are designed to be modular, but **there are some components which are required for Expanse to function**. These are:
-* The [Planet Component](editor/blocks/planet_block.md)
-* The [Quality Settings Component](editor/blocks/quality_settings_block.md)
-* The [Aerial Perspective Settings Component](editor/blocks/aerial_perspective_settings_block.md)
-* The [Night Sky Component](editor/blocks/night_sky_block.md)
-* The [Camera Settings Component](editor/blocks/camera_settings_block.md)
-
-They are included in all sky prefabs, and the editor will print an error telling you to add one if its missing from your scene.
+As a note: components are designed to be modular, but **there is one component that is required for Expanse to function**: the [Global Settings Component](editor/blocks/global_settings.md). This component exposes some basic quality and rendering settings that apply to everything Expanse does. It's included by default in all sky prefabs, and the editor will print an error telling you to add one if its missing from your scene.
