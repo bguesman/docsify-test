@@ -206,6 +206,11 @@ This parameter can be particularly useful for 4K support, where you may want to 
 **C# member variable:** `bool m_interactiveClouds` \
 When enabled, clouds can be rendered between the camera and scene geometry. When disabled, clouds are always rendered behind scene geometry. It is more performant to have this disabled.
 
+#### Interactive Clouds Fade In
+
+**C# member variable:** `Vector2 m_interactiveCloudsFadeIn` \
+Range over which interactive cloud compositing should fade in. Useful as a sort of soft near clipping plane for the clouds, and helpful for avoiding artifacts that come from subresolution and temporal reuse.
+
 #### Cull Clouds Behind Geometry
 
 **C# member variable:** `bool m_cullCloudBehindGeometry` \

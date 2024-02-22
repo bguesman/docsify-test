@@ -8,16 +8,16 @@ This component implements a physical model of the sun/moon position, based on a 
 **Important to note:** this component exposes two functions `SetDateTimeUTC()`, and `SetDateTimeLocal()`, that both accept a C# `DateTime` object. The first one will set the time in UTC, disregarding the component's UTC offset. The second will apply the offset before setting the time. If you are maintaining your game's time as a DateTime object, these are useful.
 
 #### Sun
-**C# member variable:** `Expanse.CelestialBody m_sun` \
+**C# member variable:** `GameObject m_sun` \
 Celestial body that will have the position of the sun. It's fine for this to be `None`, if you don't want this component to control the sun direction.
 
 #### Moon
-**C# member variable:** `Expanse.CelestialBody m_moon` \
+**C# member variable:** `GameObject m_moon` \
 Celestial body that will have the position of the soon. It's fine for this to be `None`, if you don't want this component to control the moon direction.
 
 #### Night Sky
 **C# member variable:** `GameObject m_nightSky` \
-Night sky game object that will rotate as time passes---typically whatever the parent ame object is for all of your [Skybox Layers](editor/blocks/skybox_layer.md). It's fine for this to be `None`, if you don't want the night sky to rotate.
+Night sky game object that will rotate as time passes---typically whatever the parent game object is for all of your [Skybox Layers](editor/blocks/skybox_layer.md). It's fine for this to be `None`, if you don't want the night sky to rotate.
 
 #### Night Sky Rotation Speed
 **C# member variable:** `Vector3 m_nightSkyRotationSpeed` \

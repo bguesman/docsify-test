@@ -73,6 +73,21 @@ These parameters determine the way the celestial body illuminates the scene.
 **C# member variable:** `UnityEngine.Light m_directionalLight` \
 The Unity directional light that backs this celestial body.
 
+#### Light Intensity Based On Sun
+
+**C# member variable:** `bool m_lightIntensityBasedOnSun` \
+Whether to base the moon's brightness on how much it is lit by the sun.
+
+#### Sun
+
+**C# member variable:** `CelestialBody m_sun` \
+Sun to use when computing moon brightness. Only used when `m_brightnessBasedOnSun` is enabled.
+
+#### Sun Intensity Multiplier
+
+**C# member variable:** `CelestialBody m_sunIntensityMultiplier` \
+Amount to modulate brightness based on sun. Only used when `m_brightnessBasedOnSun` is enabled.
+
 #### Light Intensity
 
 **C# member variable:** `float m_lightIntensity` \

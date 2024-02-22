@@ -15,16 +15,6 @@ This component is a more intuitive alternative to directly working with [Celesti
 **C# member variable:** `Expanse.CelestialBodyBlock m_moonBlock` \
 [Celestial Body](editor/blocks/celestial_body_block.md) that this creative moon controls. To set this up, you can create a Celestial Body and set it to the preset "Earth Moon".
 
-#### Use Time Of Day
-
-**C# member variable:** `bool m_useTimeOfDay` \
-Whether or not to use time of day to control the moon's direction.
-
-#### Date Time
-
-**C# member variable:** `Expanse.DateTimeBlock m_dateTimeBlock` \
-[Date Time Controller](editor/blocks/date_time_block.md) that will control this moon, if this moon is set to use time of day for its direction.
-
 #### Direction
 
 **C# member variable:** \
@@ -34,6 +24,21 @@ The direction of the moon in the sky is controlled by the respective `GameObject
 
 **C# member variable:** `float m_size` \
 Size of the moon in the sky. 1 is physical.
+
+#### Brightness Based On Sun
+
+**C# member variable:** `bool m_brightnessBasedOnSun` \
+Whether to base the moon's brightness on how much it is lit by the sun.
+
+#### Sun
+
+**C# member variable:** `CelestialBody m_sun` \
+Sun to use when computing moon brightness. Only used when `m_brightnessBasedOnSun` is enabled.
+
+#### Sun Intensity Multiplier
+
+**C# member variable:** `CelestialBody m_sunIntensityMultiplier` \
+Amount to modulate brightness based on sun. Only used when `m_brightnessBasedOnSun` is enabled.
 
 #### Light Brightness
 
