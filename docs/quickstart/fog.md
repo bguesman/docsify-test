@@ -1,263 +1,327 @@
 # Tutorial: Using Volumetric Fog
 
+> Note: this is an advanced tutorial. It'll be a lot of fun, but for most use cases the [Creative Fog Game Object](/editor/creative/creative_fog.md) will be easier to use. If you're new to using Expanse, check out [this video](https://youtu.be/PXs3De2lFqU).
+
 Fog has been a computer graphics staple since nearly the beginning of the artform. What originated as a clever way of hiding the camera's far clipping plane has since evolved into a compelling way to add instant atmosphere and mood to a 3D scene.
 
-In this tutorial, we'll walk through how to create all sorts of different types of fog with Expanse.
-
-**As a note**: I recommended reading through the [Modeling The Earth's Atmosphere](/quickstart/earth-atmo) page before doing this tutorial. That will give you important foundational knowledge about Expanse and volumetric rendering as a whole, and will help you decipher some of the terminology that follows.
+In this tutorial, we'll walk through how to create different types of fog with Expanse.
 
 ## Problems With Fog
 
-In Expanse, fog is treated like any other layer of the atmosphere---you can add fog to your scene by creating an `Atmosphere Layer` component. However, there are some things about fog that make it less amenable to Expanse's usual technique of rendering atmosphere layers. Namely:
+In Expanse, fog is essentially treated like any other layer of the atmosphere. However, there are some things about fog that make it less amenable to Expanse's accelerated atmosphere rendering technique. Namely:
 * **Fog is dense.** Because of this, artifacts in Expanse's usual strategy are more likely to be visible.
-* **Volumetric shadows are important.** To have sharp volumetric shadows---"light shafts", "god/crepuscular rays"---fog needs to be computed per-pixel.
+* **Volumetric shadows are important.** To have sharp volumetric shadows---"light shafts", "god/crepuscular rays"---fog can't be rendered into Expanse's optimized atmosphere lookup tables.
 
-As such, Expanse exposes two different density distributions that are optimized for fog and rendered per-pixel: `Screenspace Uniform` and `Screenspace Height Fog`. These distributions also support volumetric shadowing---either using the light's shadowmap, or using the depth buffer. The implementation of these layers is inspired by [this classic strategy](https://developer.nvidia.com/gpugems/gpugems3/part-ii-light-and-shadows/chapter-13-volumetric-light-scattering-post-process), used in games like Mirror's Edge: Catalyst and the modern iterations of the Star Wars: Battlefront franchise. It is, however, more physically-based than the implementation described in the linked GPU Gems article.
+As such, Expanse exposes a special [Creative Fog Game Object](/editor/creative/creative_fog.md) that is rendered differently than general atmosphere layers. It supports dense participating media and volumetric shadowing (either using the light's shadowmap, or via screenspace traces against the depth buffer).
+
+> Technically, fog layers are just wrappers around Atmosphere Layers that use either of two [layer density distributions](/editor/blocks/atmosphere_layer_block.md?id=density-distribution): `Uniform Fog` and `Height Fog`. Selecting one of these density distributions indicates to Expanse that the atmosphere layer in question should be rendered at high resolution, not to optimized lookup tables.
 
 ## Setup
 
-To make things easier, we're gonna start with one of Expanse's **default full skies**. These already have a sun, moon, stars, and some other things set up---this will reduce the irrelevant boilerplate setup we have to do.
+To make things easier, we'll start with one of Expanse's **default full skies**. These already have a sun, moon, stars, and some other things set up---this will reduce the irrelevant boilerplate setup we have to do.
 
-Open up your Unity project, right click on the GameObject hierarchy, and select `Expanse => Full Skies => Advanced Sky`. This will create a prefab `GameObject` called `Expanse Volumetric Cloud Sky` in our hierarchy. We'll also unpack this prefab by right-clicking it in the hierarchy and selecting `Prefab->Unpack Completely`. For details on importing Expanse into your project, and rendering your first prefab sky, refer to the [quickstart guide](/quickstart/quickstart).
+Open up your Unity project, right click on the GameObject hierarchy, and select `Expanse => Full Skies => Standard Sky`. This will create a prefab `GameObject` called `Expanse Sky` in our hierarchy. For details on importing Expanse into your project, and rendering your first prefab sky, refer to the [quickstart guide](/quickstart/quickstart).
 
 With that taken care of, we're going to delete the `Fog` GameObject. This is, after all, what we'll be modeling by hand in this tutorial.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/delete-fog.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/delete-fog.jpg"/></div>
     </div>
     <p>Delete the fog GameObject, since we'll be recreating it ourselves.</p>
 </div>
 
 Alright, let's roll in some fog!
 
-## A Simple, Uniform, Isotropic Fog
+## Afternoon Glare
 
-We're going to start off by modeling the simplest possible fog. It will be **uniformly distributed** within a volume, and it will be **isotropic**, meaning that it scatters light evenly in all directions. This sort of fog works well as a basic uniform haze.
-
-We'll start by adding a new `Atmosphere Layer` to our scene. To do this, we'll right click the hierarchy view and select `Expanse => Advanced => Atmosphere Layer`. We'll also rename it to `Fog`.
+I live in San Francisco, and frequently I'll look down 18th street, towards Twin Peaks, and see this amazing hazy glare around 3-4pm, so-called "Golden Hour". I couldn't find a picture of exactly that, but here's another San Francisco pic that gets the idea across:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:60%" src="img/quickstart/fog/1-5-0/add-layer.jpg"/></div>
+        <div class="img-col"><img src="https://i.imgur.com/3I8pg6N.jpeg"/></div>
     </div>
-    <p>Add a new Atmosphere Layer to our scene.</p>
+    <p>Our look goal for our simple height fog.</p>
 </div>
 
-Now, for the task of actually choosing the appropriate parameter values.
+We'll start off with a simple goal: to model atmospheric fog that looks something like this.
 
-We want our fog to appear kind of smoky, or hazy, so we will use scattering coefficients that are slightly lower than the extinction coefficients. This will make the fog absorb slightly more light than it reflects, making it dimmer and smokier. In particular, we'll set the extinction coefficients to `(4.4e-6, 4.4e-6, 4.4e-6)`, and the scattering coefficients to `(4e-6, 4e-6, 4e-6)`. We'll also use the isotropic phase function, so no scattering direction is preferred over any other.
+To get rolling, let's create a fog layer. We can do this by selecting "Expanse => Fog => Fog Layer" in the hierarchy.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:75%" src="img/quickstart/fog/1-5-0/isotropic.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/add-fog-layer.jpg"/></div>
     </div>
-    <p>Set the scattering and extinction coefficients to (4e-6, 4e-6, 4e-6) and (4.4e-6, 4.4e-6, 4.4e-6), respectively. Also, use the isotropic phase function.</p>
+    <p>Create a fog layer.</p>
 </div>
 
-Now for the interesting stuff. Select the density distribution `Screenspace Uniform`. You'll notice that you have two parameters to control it: **density** and **radius**. **Density** is exactly what it sounds like---the density of the fog within the uniform volume. **Radius** defines how far the fog volume extends out away from the player. Within the sphere this radius defines, the fog is constant density. Outside this sphere, it is zero. Hence the name "uniform".
-
-If you play around with these parameters, you'll notice that you can get quite a wide variety of different fog conditions. Since visible fog and haze is usually a fairly local phenomenon, let's set the radius to something like 10000 meters. You can now play with the density and see how thicker and thinner fog settings look.
+Immediately this presents us with a pretty decent looking height fog.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-0.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-5.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-75.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/default-hf.jpg"/></div>
     </div>
-    <p>Some different density values for the fog we've just authored, with radius set at 10000 for all examples. Left: density zero, so no fog. Middle: density 5. Right: density 75. With this simple setup, we can model everything from light haze to thick smog!</p>
+    <p>Create a fog layer.</p>
 </div>
 
-You may have also noticed two other checkboxes pop up when you changed the density distribution: `Geometry Shadows` and `Cloud Shadows`. These allow, respectively, the scene geometry and the clouds to cast approximate volumetric shadows on the fog.
+But we can definitely match our reference better. You might first reach for the fog color setting, but I'd caution against it. Fog and smog, in the real world, are grey, and receive all of their color from the color of sun and sky light.
 
-Let's set the density to something somewhat high, like 20, and turn on `Geometry Shadows`. Adjusting the `Max Geometry Occlusion` parameter that pops up will change the shadowing power that the geometry has on the fog. We'll set it to `0.9`, so most light is blocked.
+Instead, let's try first adjusting the sun angle to better match our reference's color. Ignoring my atrocious kit-bashing skills, this looks closer to our reference already, and we've managed to avoid using any artistic overrides.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:70%" src="img/quickstart/fog/1-5-0/geo-shadows.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/sun-angle-adjustment.png"/></div>
     </div>
-    <p>Turn on geometry shadows and set the max occlusion parameter to 0.9.</p>
+    <p>Create a fog layer.</p>
 </div>
 
-Now, when we look toward the sun, we see nice light shafts peeking through our scene geometry!
+Now, to match our reference better, we have to adjust the settings on the fog layer Game Object, pictured below.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-no-shadow.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-shadow.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/fog-settings.png"/></div>
     </div>
-    <p>Left: without volumetric shadows. Right: with volumetric shadows.</p>
+    <p>Creative fog layer settings.</p>
 </div>
 
-You can play around more with the `Max Occlusion` value to control how intense the light shafts are. Also, the effect becomes even more noticeable if you switch to the `Mie` phase function.
+I think the fog in our reference image is denser, lower to the ground, and also more localized than what the default settings reflect. To try to match that, let's
+- Lower the `Thickness` of our fog to `200`, so it hugs the ground more.
+- Set our fog's `Visibility Distance` very low, to something like `15`.
+- Localize our fog by setting its `Radius` to `1500`. This will avoid smogging out the horizon line too much.
+
+With those adjustments, it's already looking better.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/iso-shadow.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/mie-shadow.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-1.png"/></div>
     </div>
-    <p>Left: shadows with the isotropic phase function. Right: shadows with the Mie phase function, with an anisotropy value of 0.25.</p>
+    <p>After our first round of adjustments.</p>
 </div>
 
-Well, there you have it: a simple volumetric fog layer!
-
-## Height Fog
-
-Next, let's take a look at tackling a very common fog effect: height fog.
-
-Height fog is fog that is very dense close to the ground, but decays off to nothingness as it reaches toward the sky. It's a popular fog to use when creating cities, as it can accentuate the height of towering skyscrapers.
-
-Let's change the phase function of our simple uniform layer to the `Mie` phase function, but with a lower anisotropy value, like `0.25`. This will look a little bit better than the straight isotropic phase function.
+I think our reference is still more extreme. In an effort to continue to match it, I'm going to increase the `Glare` to `1.0`. This controls something called the *anisotropy* of the fog---raising it will blow out the halo around the sun disc more.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:70%" src="img/quickstart/fog/1-5-0/height-fog-mie.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-2.png"/></div>
     </div>
-    <p>Select the mie phase function and adjust the anisotropy to 0.25.</p>
+    <p>After adjusting the glare to 1. Subtle, but effective.</p>
 </div>
 
-Now let's select the `Screenspace Height Fog` density distribution. There's a few parameters we have exposed here:
-1. **Thickness**: how high up the height fog extends from the ground. For my scene, around 125 meters looks good.
-2. **Radius**: how far out the height fog extends around the player. You can play around with this, I'm going to set it to a pretty big number, 25000, so that the height fog extends out more or less as far as we can see.
-
-Let's also adjust the density to something pretty high, that way the fog is really visible. So, something like 200.
+At this point, with a little color grading, we can more closely match the reference---though I prefer the ungraded look.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-geometry.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-graded.png"/></div>
     </div>
-    <p>Select the Screenspace Height Fog density distribution, set the height to 125 meters, the radius to 25000 meters, and the density to 200.</p>
+    <p>Grading with some saturation and a slight orange filter.</p>
 </div>
 
-Feel free to play around with the parameters to get the effect you want. Here's a few examples.
+Notice that we haven't touched the `Color` parameter. This means that our fog layer will look good under many lighting conditions. I encourage you, if you're designing a game or digital experience with dynamic time of day, to validate your atmospheric setups at various sun positions.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-taller.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-medium.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-graded.png"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-relight-2.png"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-relight-3.png"/></div>
     </div>
-    <p>A few different thickness and density tweaks to the height fog we just created.</p>
+    <p>The fog we created, under various lighting conditions.</p>
 </div>
 
-Also, make sure to see what your fog looks like under different illumination conditions.
+And, finally, moving the sun around, you should observe sharp crepuscular rays, caused by volumetric shadowing from geometry---so long as your sun's [celestial body Game Object has them enabled](/editor/blocks/celestial_body_block.md?id=volumetric-shadows) under the `Interaction` tab (they are enabled by default).
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-medium.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-evening.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/height-fog-night.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/afternoon-shadows.png"/></div>
     </div>
-    <p>The same height fog layer, at different times of day.</p>
+    <p>Volumetric shadows cast by the city buildings on our fog.</p>
 </div>
 
-## Rain Fog
+## Dense Rain Fog
 
-By "rain fog", what we mean here is basically clouds that are so low to the ground that they appear as visible mist in front of objects. This sort of fog is a little more complex to model convincingly because, often, it has noticeable shape and form---like tendrils and swirls---as opposed to being a sort of uniform haze.
-
-The ideal solution here would be to use an actual volumetric cloud layer, very low to the ground. For far away clouds, this actually works pretty well.
+Let's try something completely different---in London on a rainy day, you might be liable to step outside into something like this:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/cloud_fog.jpg"/></div>
+        <div class="img-col"><img src="https://cdn.abcotvs.com/dip/images/1283358_040816-kabc-4pm-ie-rain-vid.jpg?w=1600"/></div>
     </div>
-    <p>Some far away fog, rendered using a volumetric cloud layer. This looks pretty nice.</p>
+    <p>Dense rain fog</p>
 </div>
 
-However, once inside the cloud layer, the reprojection strategy that Expanse uses starts to break down, and artifacts at the edges of the scene geometry are visible. You can solve this problem by turning off reprojection, but this can cause a performance hit.
+...or, according to this image, apparently Los Angeles.
+
+Rain fog like this completely obscures the sun. It is not localized---it extends very far out in all directions, and is very dense. To model this, let's set our parameters as so:
+- `Thickness` to 5000.
+- `Visibility` to 75.
+- `Radius` to 100000.
+
+And let's also make sure the sun is somewhere decently above the horizon, so it's daytime.
+
+The result is a decent first stab.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/reprojection_artifacts.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/rain-1.png"/></div>
     </div>
-    <p>Artifacts introduced by reprojection, visible at the edges of objects.</p>
+    <p>First pass at dense rain fog</p>
 </div>
 
-This is an active area of improvement that we are working on. At the moment performance can be improved by rendering clouds at [half or quarter resolution](/editor/blocks/global_settings?id=cloud-subresolution), and also by [disabling cloud self-shadowing](/editor/blocks/procedural_cloud_volume_block?id=self-shadowing). All of this is to say that, while this is possible with Expanse, it can take some effort to get it to work right and be performant. So instead, we'll explore a simpler strategy for modeling rain fog. We'll use this image of London on a really foggy day to base our solution on.
+Something that's apparent is that, once again, the color of our fog is off. Our reference image is much bluer than what we have. Again, we'll resist the urge to tweak the color directly, and instead do something sneaky: we'll adjust the multiple scattering amount in the fog's atmosphere layer down from `1.0` to `0.33`.
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/rain-adjust-ms.png"/></div>
     </div>
-    <p>London on a foggy day. Source <a href="https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2">https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2</a>.</p>
+    <p>Adjusting the multiple scattering multiplier. Notice how it's much bluer.</p>
 </div>
 
-To create this effect, we'll make some tweaks to the height fog layer we just set up in the last section. 
+This has the effect of reducing the amount of multi-scattered sunlight that makes it through the dense fog. What remains is blue ambient light from the sky-dome, so the result is overall bluer.
 
-For one, because clouds are a more local phenomenon, we'll decrease the radius to something like `10000` meters. We'll also up the thickness to something similar to that of cumulus clouds---we'll go with `3000` meters. The density is largely up to how rainy you want it to look; our reference image is pretty intensely foggy, so we'll pick a value of `1500`. Finally, we'll pull back the anisotropy to something like `0.05`, so that our fog's illumination is pretty even.
+Finally, I want to showcase an interesting feature that can really help breathe life into these sorts of situations. In the real world, in very dense fog banks, light from surrounding geometry is stochastically scattered by the fog. This results in an interesting effect: objects that are further away from the viewer appear smeared out and blurrier.
 
-Here's the result we get with those values.
+Expanse attempts to simulate this via a screenspace approximation we refer to as [Fog Diffusion](/editor/blocks/global_settings.md?id=fog-diffusion). To enable it, navigate to the `Global Settings` object and check `Fog Diffusion` under the `Fog` tab.
+
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/rain-fog-1.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/rain-adjust-diffusion.png"/></div>
     </div>
-    <p>First attempt at rain fog.</p>
+    <p>Here's how you enable diffusion.</p>
 </div>
 
-Not too bad, but our reference is noticeably bluer. This is because most of the light the fog is receiving is ambient light from the sky, which is not self-shadowed. The physically-correct thing would be to simulate many bounces of "multiple scattered" light, but we can't afford to do this in realtime. In the future, Expanse's fog may use the same multiple scattering approximation model that the clouds do, but at this time that is not the case.
+You can mess with the parameters here to get the look you want. Or maybe you'll decide you're not a fan---either way, here's what I ended up with as my final result, after a bit more tweaking. 
 
-Instead, to "de-blue" the result, we can adjust the scattering coefficients to be ever so slightly orange and brighter. The gives the following result:
+> As a side note, I've also added a very, very slight red tint to better match the reference, using the atmosphere layer's tint control (not the fog color control, which will also adjust the fog's absorption color). Additionally, I increased the ambient light multiplier a bit to help push more light into the fog (also on the atmosphere layer settings).
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/de-blued.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/rain-final-2.png"/></div>
     </div>
-    <p>Second attempt at rain fog, with scattering coefficients tweaked to make the ambient light less blue.</p>
+    <p>My final result.</p>
 </div>
 
-That's more like it!
+## Beijing Smog
 
-Things are looking pretty good, but, looking back at our reference, we're still missing one really noticeable visible phenomenon: objects in the distance (the clock tower, for instance), appear blurred. This is because light is scattered around diffusely through the fog before it reaches our eyes. The further away the object, the more opportunities the light has to be scattered away.
+Another interesting use case to consider is modeling something like the Beijing skyline---brutally smoky and smoggy.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="https://media.pri.org/s3fs-public/styles/story_main/public/story/images/Reuters%20London%20fog.jpg?itok=0MLALeR2"/></div>
+        <div class="img-col"><img src="https://www.globaltimes.cn/Portals/0/attachment/2021/2021-01-01/08381b3c-d6b9-4070-af0f-ccd4e9706c3c.jpeg"/></div>
     </div>
-    <p>Notice how blurry the clock tower looks in the background.</p>
+    <p>Beijing sunset.</p>
 </div>
 
-Out of the box, Expanse does not model this, but I've developed an **Expanse Extension** to blur the framebuffer based on the fog transmittance as a post-processing operation. To use it, you can download it from this [github link](https://github.com/bguesman/expanse-fog-blur) and drag and drop it into your project's `Asset` folder.
+Let's start out by setting our basic parameters like so:
+-`Thickness` to 300.
+-`Radius` to 100000.
+-`Visibility Distance` to 300.
+
+Here's how that looks.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:80%" src="img/quickstart/fog/1-5-0/add-custom-pass-volume.jpg"/></div>
-        <div class="img-col"><img style="width:80%" src="img/quickstart/fog/1-5-0/select-blur-pass.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/beijing-start.png"/></div>
     </div>
-    <p>Setting up the fog blur extension.</p>
+    <p>Starting point for Beijing smog</p>
+</div>
+ 
+This isn't quite right---but what exactly about it looks wrong?
+
+Well, for one, in our reference image, the smog is aggressively red and orange. To me, this indicates that we might be dealing with participating media that is blue in color---because such media will be reddish-orange at sunset (see the atmosphere tutorial for why this is).
+
+To mimick this, we're finally going to touch our `Color` parameter. Setting the color to a saturated blue gets us that sky-on-fire red we're looking for. The HSV color I used for the following image was `(225, 70, 50)`.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/beijing-2.png"/></div>
+    </div>
+    <p>Adjusting the color of the Beijing smog to be blue, so that it appears red due to absorption.</p>
 </div>
 
-You can then add a custom pass volume component to the Fog GameObject we created, and select the `Expanse Fog Blur Custom Pass`. This will then expose 2 parameters:
-* Blur Amount: How much to blur the framebuffer based on the fog transmittance.
-* Optimization Amount: How much to optimize the blur operation, sacrificing quality for performance. `1` is most performant, `0` theoretically looks the best.
-
-> There are currently some issues with the fog blur extension rendering in the scene view. You may want to disable your custom pass volume when navigating around the scene to avoid visual artifacts.
+Still, it's not quite right---our fog is pale and washed out, where the reference is stark and intense. This is because smog is much more absorptive than fog; it scatters much less light than it absorbs, and this darkens very dense areas. Luckily, the fog layer has a `Smog` parameter to easily control this. I'm going to set this fairly high, to `0.87`.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img style="width:50%" src="img/quickstart/fog/1-5-0/blur-options.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/beijing-3.png"/></div>
     </div>
-    <p>The options for customizing the fog blur.</p>
+    <p>Upping the smog parameter.</p>
 </div>
 
-The result is pretty nice! Far away objects are blurred by the fog in front of them. The result looks much more like our reference!
+After tweaking a bit more, here's what I came up with:
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/de-blued.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/blurred.jpg"/></div>
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/beijing-final.png"/></div>
     </div>
-    <p>Left: no fog blur. Right: with fog blur.</p>
+    <p>Upping the smog parameter.</p>
+</div>
+
+## Local Lights
+
+Expanse's fog can receive light from point, spot, and area lights. Setting this up is pretty easy---just add the `Light Control` component to any lights you'd like Expanse to use.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/light-control.png"/></div>
+    </div>
+    <p>Light control component parameters. Add this to your lights to get them to work with Expanse.</p>
+</div>
+
+The results are pretty cool. Local lights can cast volumetric shadows on fog, which you can see in this image near the lamps. It's also easy to fake some basic illumination from neon signs and other emissive elements like fire using a few point lights.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/fog-local-lights.png"/></div>
+    </div>
+    <p>Local lights affecting Expanse's fog.</p>
+</div>
+
+For more information on lighting in Expanse, check out the [Lighting](/editor/lighting.md) docs page.
+
+## Fog Particle Systems
+
+Expanse 1 was not designed to support spatially varying fog---i.e. detailed clouds that interact appropriately with opaque and transparent scene geometry. However, at some point it became clear that a limited, coarse version of this was possible within the scope of the fog renderer's design.
+
+Toward this end, Expanse 1.6 and up have supported [Fog Particle Systems](/editor/blocks/fog_particle_system_block.md)---particle systems that drive the density of the a fog layer.
+
+Let's wrap up our tutorial by creating one of these. In the hierarchy, right click and select "Expanse => Fog => Fog Particle System".
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/fog-particle-system-create.png"/></div>
+    </div>
+    <p>Create a fog particle system.</p>
+</div>
+
+By default this will be created at the origin---you'll need to move it to where you want it (we'd like to fix this soon).
+
+Next, on your fog layer, check the `Receive Density Particles` checkbox.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/receive-particles.png"/></div>
+    </div>
+    <p>Enable receive particles on the fog layer.</p>
+</div>
+
+And now you can fool around with the settings on the particle system to get the behavior you want---it's just a standard Unity particle system. The one caveat is that, to adjust the optical density of the particles, you'll need to adjust the `Density` parameter on the actual `Fog Particle System` component.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/adjust-density.png"/></div>
+    </div>
+    <p>To adjust the optical density of the particles, use this parameter.</p>
+</div>
+
+Here's what I was able to create with a basic box emitter. Again, this is extremely coarse, so don't expect any really impressive effects to come from this---just think of it as a way to distribute fog somewhat non-uniformly.
+
+<div class="img-block">
+    <div class="img-row">
+        <div class="img-col"><img src="img/quickstart/fog/1-7-3/fog-particles.png"/></div>
+    </div>
+    <p>Example of a fog particle system.</p>
 </div>
 
 ## Wrapup
 
-We've seen three examples of fog that you can model with Expanse, but this is only scratching the surface of what's possible. You could imagine using the techniques we learned here to model something like Blade Runner's dark impenetrable smog, or the yellow sulfuric gases blanketing the surface of Venus. Ultimately, the sky's the limit (no pun intended)!
-
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/point-lights.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/venus-2.jpg"/></div>
-        <div class="img-col"><img src="img/quickstart/fog/1-5-0/crepuscular.jpg"/></div>
-    </div>
-    <p>A few more examples of what's possible with Expanse's volumetric fog.</p>
-</div>
+We've seen three examples of fog that you can model with Expanse, and learned how to use local lights and fog particle systems, but this is only scratching the surface of what's possible. You could imagine using the techniques we learned here to model something like Blade Runner's dark impenetrable smog, or the yellow sulfuric gases blanketing the surface of Venus.
 
 Now that you've learned all about Expanse's volumetric fog, [continue on to learn how to model beautiful, evocative cloudscapes.](/quickstart/clouds)
