@@ -1,6 +1,6 @@
 # Tutorial: Using Volumetric Fog
 
-> Note: this is an advanced tutorial. It'll be a lot of fun, but for most use cases the [Creative Fog Game Object](/editor/creative/creative_fog.md) will be easier to use. If you're new to using Expanse, check out [this video](https://youtu.be/PXs3De2lFqU).
+> Note: If you're new to using Expanse, check out [this video](https://youtu.be/PXs3De2lFqU).
 
 Fog has been a computer graphics staple since nearly the beginning of the artform. What originated as a clever way of hiding the camera's far clipping plane has since evolved into a compelling way to add instant atmosphere and mood to a 3D scene.
 
