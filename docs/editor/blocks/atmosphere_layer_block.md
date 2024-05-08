@@ -327,43 +327,35 @@ Only true volumetric shadows are supported for point and spot lights.
 
 A note: to adjust the streakiness of the screenspace shadows, you can tweak the [depth buffer downsample factor](/editor/blocks/global_settings?id=screenspace-depth-downscale) in your [global settings](/editor/blocks/global_settings). This is a global setting, so it cannot be set per layer.
 
-For [regular atmosphere layers](/editor/blocks/atmosphere_layer_block?id=regular-distributions), two settings ([occlusion bias](/editor/blocks/atmosphere_layer_block?id=occlusion-bias) and [occlusion spread](/editor/blocks/atmosphere_layer_block?id=occlusion-spread)) are exposed to help with scattering bleeding through geometry in an unwanted way.
+For [regular atmosphere layers](/editor/blocks/atmosphere_layer_block?id=regular-distributions), an occlusion heuristic is exposed via the [occlusion amount](/editor/blocks/atmosphere_layer_block?id=occlusion-amount) parameter to help with scattering bleeding through geometry in an unwanted way.
 
-#### Occlusion Bias
+#### Occlusion Amount
 
-**C# member variable:** `float m_occlusionBias` \
+**C# member variable:** `float m_occlusionAmount` \
 Provides a way of offsetting the attenuation of aerial perspective as a consequence of approximate volumetric shadowing (for non-fog layers). To see the effect, put the sun behind a big piece of geometry (like a mountain) and play around with this parameter. Expanse does not accurately model atmospheric volumetric shadows due to the performance cost, and instead uses this approximation to avoid visual artifacts.
 
 <div class="img-block">
     <div class="img-row">
-        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_1.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/occlusion_amount_ground_truth.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/occlusion_amount_0.jpg"/></div>
         <p></p>
     </div>
     <div class="img-row">
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.25.jpg"/></div>
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_bias_0.jpg"/></div>
-        <p>Comparison of different occlusion biases. In all cases, occlusion spread is set to 1. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion bias of 1, so aerial perspective is not attenuated at all around the sun disc. Bottom Left: occlusion bias of 0.25, so aerial perspective is attenuated by some amount around the sun disc. This approximates the ground truth reasonably, though not perfectly. Bottom Right: occlusion bias of 0, so aerial perspective is fully attenuated around the sun disc.</p>
+        <div class="img-col"><img src="img/aerial_perspective/occlusion_amount_0-2.jpg"/></div>
+        <div class="img-col"><img src="img/aerial_perspective/occlusion_amount_1.jpg"/></div>
+        <p>Comparison of different occlusion amounts. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion amount of 0, so aerial perspective is not attenuated at all around the sun disc. Bottom Left: occlusion amount of 0.2, so aerial perspective is attenuated by some amount around the sun disc. Bottom Right: occlusion amount of 1, so aerial perspective is fully attenuated around the sun disc.</p>
     </div>
 </div>
 
-#### Occlusion Spread
+#### Occlusion Distance
 
-**C# member variable:** `float m_occlusionSpread` \
-How aggressively aerial perspective due to non-fog layers is attenuated as a consequence of approximate volumetric shadowing. To see the effect, put the sun behind a big piece of geometry (like a mountain) and play around with this parameter. Expanse does not accurately model atmospheric volumetric shadows due to the performance cost, and instead uses this approximation to avoid visual artifacts.
+**C# member variable:** `float m_occlusionDistance` \
+At what point aerial perspective stops being attenuated by the occlusion heuristic, relative to the maximum aerial perspective render distance.
 
-<div class="img-block">
-    <div class="img-row">
-        <div class="img-col"><img src="img/aerial_perspective/directional_ground_truth.jpg"/></div>
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.jpg"/></div>
-        <p></p>
-    </div>
-    <div class="img-row">
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_0.25.jpg"/></div>
-        <div class="img-col"><img src="img/aerial_perspective/directional_occlusion_spread_1.jpg"/></div>
-        <p>Comparison of different occlusion spreads. In all cases, occlusion bias is set to 0.5 to make the effect as noticeable as possible. Top left: "ground truth" result using a screenspace height fog layer with pseudo-volumetric shadows. Top Right: occlusion spread of 0, so maximum spread. Bottom Left: occlusion spread of 0.25, so some the spread is tighter. Bottom Right: occlusion spread of 1, so aerial perspective is minimally spread.</p>
-    </div>
-</div>
+#### Occlusion Distance Softness
+
+**C# member variable:** `float m_occlusionDistanceSoftness` \
+How softly the aerial perspective occlusion approximation ramps down over distance.
 
 <!---------------------------------------------------------------------------------------->
 <!------------------------------------- INTERACTION -------------------------------------->
